@@ -1,5 +1,5 @@
 name: good_app
-description: plumb test fixture — every requirement satisfied.
+description: "plumb test fixture — every requirement satisfied."
 publish_to: none
 environment:
   sdk: ^3.8.0

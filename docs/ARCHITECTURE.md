@@ -455,7 +455,7 @@ are reviewed like code. Coverage target ≥ 90% of `lib/src` (measured ad hoc wi
 | 9 | Snapshot loader | fixture tests green |
 | 10 | Checks (iOS, Android, app-level, placeholder) | one test per §5.4 row |
 | 11 | Report model, text + JSON renderers, exit codes | unit tests green |
-| 12 | Wire `doctor`; fixtures + goldens | goldens green |
-| 13–17 | Recipes, two per step, each cited | recipe tests + goldens green |
-| 18 | README, CHANGELOG, example/, pubspec metadata | `dart pub publish --dry-run` clean |
-| 19 | Validate on a real `flutter create` app with all 10 plugins | findings reviewed by hand |
+| 12 | The 10 recipes, each from the plugin's own docs, cited (a few per commit) | recipe tests green |
+| 13 | Wire `doctor`; fixtures + goldens (on the real recipes, so goldens show real output) | goldens green |
+| 14 | README, CHANGELOG, example/, pubspec metadata | `dart pub publish --dry-run` clean |
+| 15 | Validate on a real `flutter create` app with all 10 plugins | findings reviewed by hand |

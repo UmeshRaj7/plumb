@@ -1,0 +1,8 @@
+// !$*UTF8*$!
+{
+	objects = {
+		GENERATE_INFOPLIST_FILE = YES;
+		INFOPLIST_FILE = Runner/Info.plist;
+		INFOPLIST_KEY_NSCameraUsageDescription = "Scan receipts";
+	};
+}

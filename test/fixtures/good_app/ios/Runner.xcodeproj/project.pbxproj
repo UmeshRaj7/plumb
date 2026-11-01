@@ -1,0 +1,7 @@
+// !$*UTF8*$!
+{
+	/* Trimmed fixture: plumb only searches this file for INFOPLIST_KEY_ build settings. */
+	objects = {
+		INFOPLIST_FILE = Runner/Info.plist;
+	};
+}

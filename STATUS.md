@@ -3,9 +3,9 @@
 _Last updated: 2026-11-01_
 
 ## Current milestone
-v0.0.1 — `plumb doctor` (read-only). Step 9 of 19: snapshot loader.
+v0.0.1 — `plumb doctor` (read-only). Step 10 of 15: checks.
 
-## Checklist (ARCHITECTURE.md §12)
+## Checklist (ARCHITECTURE.md §12; recipes moved before goldens on 2026-11-01)
 - [x] 1. Docs: ARCHITECTURE, STRATEGY, STATUS, CONTRIBUTING, CLAUDE.md
 - [x] 2. Scaffold: pubspec, analysis_options, bin/, CLI stub, CI workflow
 - [x] 3. Plist parser (+ binary detection)
@@ -14,13 +14,13 @@ v0.0.1 — `plumb doctor` (read-only). Step 9 of 19: snapshot loader.
 - [x] 6. JSON Schema + agreement test
 - [x] 7. Recipe index + bundled generator + freshness test
 - [x] 8. Project detection + dependency resolution
-- [ ] 9. Snapshot loader
+- [x] 9. Snapshot loader
 - [ ] 10. Checks (iOS, Android, app-level, placeholder)
 - [ ] 11. Report model, text + JSON renderers, exit codes
-- [ ] 12. Wire `doctor`; fixtures + goldens
-- [ ] 13–17. Recipes (10, cited)
-- [ ] 18. README, CHANGELOG, example/, pubspec metadata, publish dry-run
-- [ ] 19. Validate on a real Flutter app
+- [ ] 12. Recipes (10, cited)
+- [ ] 13. Wire `doctor`; fixtures + goldens (on real recipes)
+- [ ] 14. README, CHANGELOG, example/, pubspec metadata, publish dry-run
+- [ ] 15. Validate on a real Flutter app
 
 ## Open decisions (need owner input)
 _None blocking._ Flagged for review when recipes land:

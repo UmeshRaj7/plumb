@@ -1,0 +1,13 @@
+name: edge_app
+description: "plumb test fixture — edge cases: flavors, partial entitlements, build settings."
+publish_to: none
+environment:
+  sdk: ^3.8.0
+dependencies:
+  flutter:
+    sdk: flutter
+  camera: ^0.11.0
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
