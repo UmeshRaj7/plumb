@@ -31,6 +31,10 @@ If an output change is intended, refresh goldens and review the diff:
 UPDATE_GOLDENS=1 dart test test/doctor_golden_test.dart
 ```
 
+Test fixtures (`test/fixtures/`) are tiny fake Flutter projects with handwritten
+`pubspec.lock` files. Never run `pub get` inside them; the repo's `.vscode/settings.json`
+stops the Dart extension from doing so, and `test/fixtures_integrity_test.dart` fails if it happens.
+
 Commits follow [Conventional Commits](https://www.conventionalcommits.org/):
 `feat:`, `fix:`, `test:`, `docs:`, `chore:`, `refactor:`. One logical change per commit.
 

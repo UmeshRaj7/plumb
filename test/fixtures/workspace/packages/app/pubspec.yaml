@@ -1,0 +1,8 @@
+name: workspace_app
+environment:
+  sdk: ^3.8.0
+resolution: workspace
+dependencies:
+  flutter:
+    sdk: flutter
+  camera: ^0.11.0

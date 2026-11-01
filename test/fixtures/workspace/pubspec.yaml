@@ -1,0 +1,5 @@
+name: workspace_root
+environment:
+  sdk: ^3.8.0
+workspace:
+  - packages/app

@@ -246,7 +246,8 @@ enum Severity { error, missing, warning, ok, info }
   (`…/hosted/pub.dev/<name>-<version>/`); otherwise version is unknown. Dev
   dependencies can't be excluded here — the report says which source was used.
 - Workspaces: if the app's pubspec has `resolution: workspace`, both files are looked
-  up at the workspace root.
+  up at the workspace root. There, pub records the members' dependencies as
+  `transitive`, so a member's dev dependencies can't be excluded (same limitation as above).
 - Neither file → setup error (exit 2): "run `flutter pub get`".
 - Lookup: recipes for the package whose `versions` constraint allows the installed
   version. Unknown version or no matching range → one ℹ finding, recipe not applied.

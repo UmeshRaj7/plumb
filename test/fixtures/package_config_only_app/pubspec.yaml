@@ -1,0 +1,7 @@
+name: package_config_only_app
+environment:
+  sdk: ^3.8.0
+dependencies:
+  flutter:
+    sdk: flutter
+  camera: ^0.11.0

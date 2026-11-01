@@ -1,0 +1,11 @@
+name: plugin_package
+environment:
+  sdk: ^3.8.0
+dependencies:
+  flutter:
+    sdk: flutter
+flutter:
+  plugin:
+    platforms:
+      ios:
+        pluginClass: PluginPackagePlugin

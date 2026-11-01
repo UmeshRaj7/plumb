@@ -30,5 +30,5 @@ doc/api/
 
 # plumb: test fixtures are tiny Flutter projects and need their lock/config files.
 !test/fixtures/**/pubspec.lock
-!test/fixtures/**/.dart_tool/
+!test/fixtures/package_config_only_app/.dart_tool/
 coverage/

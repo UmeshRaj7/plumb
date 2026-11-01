@@ -3,7 +3,7 @@
 _Last updated: 2026-11-01_
 
 ## Current milestone
-v0.0.1 — `plumb doctor` (read-only). Step 8 of 19: project detection + dependency resolution.
+v0.0.1 — `plumb doctor` (read-only). Step 9 of 19: snapshot loader.
 
 ## Checklist (ARCHITECTURE.md §12)
 - [x] 1. Docs: ARCHITECTURE, STRATEGY, STATUS, CONTRIBUTING, CLAUDE.md
@@ -13,7 +13,7 @@ v0.0.1 — `plumb doctor` (read-only). Step 8 of 19: project detection + depende
 - [x] 5. Recipe model + strict parser
 - [x] 6. JSON Schema + agreement test
 - [x] 7. Recipe index + bundled generator + freshness test
-- [ ] 8. Project detection + dependency resolution
+- [x] 8. Project detection + dependency resolution
 - [ ] 9. Snapshot loader
 - [ ] 10. Checks (iOS, Android, app-level, placeholder)
 - [ ] 11. Report model, text + JSON renderers, exit codes

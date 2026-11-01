@@ -1,0 +1,7 @@
+{
+  // test/fixtures holds tiny fake Flutter projects used as test inputs.
+  // Keep the Dart extension from analyzing them or running `pub get` there,
+  // which would overwrite their handwritten pubspec.lock files.
+  "dart.analysisExcludedFolders": ["test/fixtures"],
+  "dart.runPubGetOnPubspecChanges": "never"
+}
