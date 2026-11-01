@@ -85,3 +85,18 @@ Commits follow [Conventional Commits](https://www.conventionalcommits.org/):
 5. Things plumb can't check (Gradle, Podfile, AppDelegate) go under `manual:`.
 6. `versions:` covers only versions whose docs you actually compared.
 7. Regenerate bundled recipes, run tests, and say in the PR which docs and versions you read.
+
+## Releasing (maintainers)
+
+Releases are published to pub.dev by GitHub Actions when a version tag is pushed.
+
+1. Bump the version in `pubspec.yaml` **and** `lib/src/version.dart` (a test checks
+   they match), and add a section to `CHANGELOG.md`.
+2. Commit, push, and wait for CI to be green.
+3. Tag and push the tag:
+   ```sh
+   git tag v0.0.2
+   git push origin v0.0.2
+   ```
+   `.github/workflows/publish.yml` runs the tests again and publishes. pub.dev
+   rejects the upload if the tag doesn't match the `pubspec.yaml` version.
