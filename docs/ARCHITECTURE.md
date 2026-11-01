@@ -255,8 +255,9 @@ enum Severity { error, missing, warning, ok, info }
 ### 6.2 Placeholder and build-variable rules (`checks/placeholder.dart`)
 A string value is a **placeholder** if, after trimming, it is empty, or (case-insensitive):
 contains a word `TODO`, `FIXME`, `TBD`; contains `lorem ipsum` or `placeholder`;
-matches `your … here` (e.g. *"your usage description here"*, *"YOUR KEY HERE"* — both
-copied from plugin READMEs); or contains `YOUR_[A-Z_]+` (e.g. `YOUR_API_KEY`).
+is entirely `your … here` (anchored at both ends, e.g. *"your usage description here"*,
+*"YOUR KEY HERE"* — both copied from plugin READMEs — but not *"…stores near here"*);
+or contains `YOUR_[A-Z_]+` (e.g. `YOUR_API_KEY`).
 A value containing `$(…)` or `${…}` is a **build variable**: reported ✓ with
 "resolved at build time; not verified". The list is intentionally small to avoid false ⚠.
 
@@ -267,7 +268,8 @@ A value containing `$(…)` or `${…}` is a **build variable**: reported ✓ wi
 - Platform directory missing, flavor files not checked, dependency source used.
 
 ### 6.4 iOS rules
-- `info_plist`: key present at top level of Info.plist dict. `expect_type` checked when set.
+- `info_plist`: key present at top level of Info.plist dict. `expect_type` checked when set;
+  keys ending in `UsageDescription` implicitly expect `string`.
   Not present but `INFOPLIST_KEY_<key> =` appears in project.pbxproj → ℹ.
 - `entitlements`: evaluated across all `ios/Runner/*.entitlements`. None exist and the
   item is required → ✗ ("no .entitlements file"). Present in all → ✓; some → ⚠.

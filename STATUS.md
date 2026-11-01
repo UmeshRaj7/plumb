@@ -3,7 +3,7 @@
 _Last updated: 2026-11-01_
 
 ## Current milestone
-v0.0.1 — `plumb doctor` (read-only). Step 10 of 15: checks.
+v0.0.1 — `plumb doctor` (read-only). Step 11 of 15: text + JSON renderers.
 
 ## Checklist (ARCHITECTURE.md §12; recipes moved before goldens on 2026-11-01)
 - [x] 1. Docs: ARCHITECTURE, STRATEGY, STATUS, CONTRIBUTING, CLAUDE.md
@@ -15,7 +15,7 @@ v0.0.1 — `plumb doctor` (read-only). Step 10 of 15: checks.
 - [x] 7. Recipe index + bundled generator + freshness test
 - [x] 8. Project detection + dependency resolution
 - [x] 9. Snapshot loader
-- [ ] 10. Checks (iOS, Android, app-level, placeholder)
+- [x] 10. Checks (iOS, Android, app-level, placeholder)
 - [ ] 11. Report model, text + JSON renderers, exit codes
 - [ ] 12. Recipes (10, cited)
 - [ ] 13. Wire `doctor`; fixtures + goldens (on real recipes)
