@@ -1,0 +1,49 @@
+{
+  "format": 1,
+  "plumb_version": "0.0.1",
+  "project": {
+    "name": "ios_only_app",
+    "dependency_source": "pubspec.lock"
+  },
+  "packages": [
+    {
+      "name": "local_auth",
+      "version": "2.3.0",
+      "status": "checked",
+      "recipe": "recipes/local_auth.yaml"
+    }
+  ],
+  "findings": [
+    {
+      "id": "app/android/directory",
+      "severity": "info",
+      "package": null,
+      "platform": "android",
+      "file": "android/",
+      "key": null,
+      "message": "android/ not found; android requirements of local_auth were not checked",
+      "fix": null,
+      "source": null,
+      "also_needed_by": []
+    },
+    {
+      "id": "local_auth/ios/info_plist/NSFaceIDUsageDescription",
+      "severity": "ok",
+      "package": "local_auth",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSFaceIDUsageDescription",
+      "message": "NSFaceIDUsageDescription is set",
+      "fix": null,
+      "source": "https://pub.dev/packages/local_auth_darwin#setup",
+      "also_needed_by": []
+    }
+  ],
+  "summary": {
+    "error": 0,
+    "missing": 0,
+    "warning": 0,
+    "ok": 1,
+    "info": 1
+  }
+}

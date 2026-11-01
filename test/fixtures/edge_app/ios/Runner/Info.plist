@@ -66,5 +66,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>$(MIC_USAGE_TEXT)</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Unlock with Face ID.</string>
 </dict>
 </plist>

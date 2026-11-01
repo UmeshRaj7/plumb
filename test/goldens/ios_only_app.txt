@@ -1,0 +1,10 @@
+plumb doctor · ios_only_app
+Found 1 plugin with a recipe (read from pubspec.lock).
+
+Your app
+  ℹ android  android/  android/ not found; android requirements of local_auth were not checked
+
+local_auth 2.3.0
+  ✓ ios      Info.plist  NSFaceIDUsageDescription is set
+
+Summary: 1 ok · 0 missing · 0 warning · 1 info

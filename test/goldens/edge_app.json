@@ -1,0 +1,193 @@
+{
+  "format": 1,
+  "plumb_version": "0.0.1",
+  "project": {
+    "name": "edge_app",
+    "dependency_source": "pubspec.lock"
+  },
+  "packages": [
+    {
+      "name": "camera",
+      "version": "0.11.2",
+      "status": "checked",
+      "recipe": "recipes/camera.yaml"
+    },
+    {
+      "name": "firebase_messaging",
+      "version": "16.1.2",
+      "status": "checked",
+      "recipe": "recipes/firebase_messaging@14.yaml"
+    },
+    {
+      "name": "local_auth",
+      "version": "2.3.0",
+      "status": "checked",
+      "recipe": "recipes/local_auth.yaml"
+    }
+  ],
+  "findings": [
+    {
+      "id": "app/ios/flavors",
+      "severity": "info",
+      "package": null,
+      "platform": "ios",
+      "file": null,
+      "key": null,
+      "message": "Not checked: ios/Runner/Info-Staging.plist (plumb checks ios/Runner/Info.plist only)",
+      "fix": null,
+      "source": null,
+      "also_needed_by": []
+    },
+    {
+      "id": "app/android/flavors",
+      "severity": "info",
+      "package": null,
+      "platform": "android",
+      "file": null,
+      "key": null,
+      "message": "Not checked: android/app/src/staging/AndroidManifest.xml (plumb checks the main AndroidManifest.xml only)",
+      "fix": null,
+      "source": null,
+      "also_needed_by": []
+    },
+    {
+      "id": "camera/ios/info_plist/NSCameraUsageDescription",
+      "severity": "info",
+      "package": "camera",
+      "platform": "ios",
+      "file": "ios/Runner.xcodeproj/project.pbxproj",
+      "key": "NSCameraUsageDescription",
+      "message": "NSCameraUsageDescription is not in Info.plist but is set as build setting INFOPLIST_KEY_NSCameraUsageDescription; plumb can't verify build settings",
+      "fix": "Nothing to do if Xcode generates Info.plist keys for this target (GENERATE_INFOPLIST_FILE = YES); otherwise add NSCameraUsageDescription to Info.plist.",
+      "source": "https://pub.dev/packages/camera#ios",
+      "also_needed_by": []
+    },
+    {
+      "id": "camera/ios/info_plist/NSMicrophoneUsageDescription",
+      "severity": "ok",
+      "package": "camera",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSMicrophoneUsageDescription",
+      "message": "NSMicrophoneUsageDescription is set via a build variable ($(MIC_USAGE_TEXT)); its final value isn't checked",
+      "fix": null,
+      "source": "https://pub.dev/packages/camera#ios",
+      "also_needed_by": []
+    },
+    {
+      "id": "firebase_messaging/ios/entitlements/aps-environment",
+      "severity": "warning",
+      "package": "firebase_messaging",
+      "platform": "ios",
+      "file": "ios/Runner/*.entitlements",
+      "key": "aps-environment",
+      "message": "aps-environment is in RunnerDebug.entitlements but not in RunnerRelease.entitlements",
+      "fix": "Enable the Push Notifications capability in Xcode (Signing & Capabilities); it adds aps-environment to your .entitlements file.",
+      "source": "https://developer.apple.com/documentation/bundleresources/entitlements/aps-environment",
+      "also_needed_by": []
+    },
+    {
+      "id": "firebase_messaging/ios/background_modes/remote-notification",
+      "severity": "missing",
+      "package": "firebase_messaging",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "remote-notification",
+      "message": "UIBackgroundModes does not include remote-notification",
+      "fix": "Enable Background Modes → Remote notifications in Xcode.",
+      "source": "https://firebase.google.com/docs/cloud-messaging/flutter/client",
+      "also_needed_by": []
+    },
+    {
+      "id": "firebase_messaging/ios/background_modes/fetch",
+      "severity": "info",
+      "package": "firebase_messaging",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "fetch",
+      "message": "UIBackgroundModes does not include fetch",
+      "fix": "Firebase's guide asks you to enable Background fetch too; the official firebase_messaging example app doesn't, so plumb doesn't require it.",
+      "source": "https://firebase.google.com/docs/cloud-messaging/flutter/client",
+      "also_needed_by": []
+    },
+    {
+      "id": "firebase_messaging/ios/manual/apns-auth-key",
+      "severity": "info",
+      "package": "firebase_messaging",
+      "platform": "ios",
+      "file": null,
+      "key": "apns-auth-key",
+      "message": "Manual step plumb can't check (required)",
+      "fix": "Upload your APNs authentication key in the Firebase console (Project settings → Cloud Messaging → Apple app configuration).",
+      "source": "https://firebase.google.com/docs/cloud-messaging/flutter/client",
+      "also_needed_by": []
+    },
+    {
+      "id": "firebase_messaging/ios/manual/keep-method-swizzling",
+      "severity": "info",
+      "package": "firebase_messaging",
+      "platform": "ios",
+      "file": null,
+      "key": "keep-method-swizzling",
+      "message": "Manual step plumb can't check (required)",
+      "fix": "FCM on Apple platforms needs method swizzling: don't set FirebaseAppDelegateProxyEnabled to NO in Info.plist.",
+      "source": "https://firebase.google.com/docs/cloud-messaging/flutter/client",
+      "also_needed_by": []
+    },
+    {
+      "id": "local_auth/ios/info_plist/NSFaceIDUsageDescription",
+      "severity": "ok",
+      "package": "local_auth",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSFaceIDUsageDescription",
+      "message": "NSFaceIDUsageDescription is set",
+      "fix": null,
+      "source": "https://pub.dev/packages/local_auth_darwin#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "local_auth/android/activity_class/io.flutter.embedding.android.FlutterFragmentActivity",
+      "severity": "ok",
+      "package": "local_auth",
+      "platform": "android",
+      "file": "android/app/src/main/java/dev/example/edge_app/MainActivity.java",
+      "key": "io.flutter.embedding.android.FlutterFragmentActivity",
+      "message": "MainActivity extends FlutterFragmentActivity",
+      "fix": null,
+      "source": "https://pub.dev/packages/local_auth_android#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "local_auth/android/permissions/android.permission.USE_BIOMETRIC",
+      "severity": "info",
+      "package": "local_auth",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "android.permission.USE_BIOMETRIC",
+      "message": "android.permission.USE_BIOMETRIC is not declared",
+      "fix": "The README asks you to add USE_BIOMETRIC; local_auth_android's own manifest already declares it, so the manifest merger adds it for you.",
+      "source": "https://pub.dev/packages/local_auth_android#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "local_auth/android/manual/launch-theme-appcompat",
+      "severity": "info",
+      "package": "local_auth",
+      "platform": "android",
+      "file": null,
+      "key": "launch-theme-appcompat",
+      "message": "Manual step plumb can't check (only if you use this feature)",
+      "fix": "On Android 8 and below, LaunchTheme's parent must be a Theme.AppCompat theme (android/app/src/main/res/values/styles.xml) to prevent crashes.",
+      "source": "https://pub.dev/packages/local_auth_android#setup",
+      "also_needed_by": []
+    }
+  ],
+  "summary": {
+    "error": 0,
+    "missing": 1,
+    "warning": 1,
+    "ok": 3,
+    "info": 8
+  }
+}

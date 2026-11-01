@@ -4,6 +4,7 @@ import 'package:plumb/src/checks/finding.dart';
 import 'package:plumb/src/exit_codes.dart';
 import 'package:plumb/src/project/dependencies.dart';
 import 'package:plumb/src/project/snapshot.dart';
+import 'package:plumb/src/recipes/recipe.dart';
 import 'package:plumb/src/recipes/recipe_index.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
@@ -134,6 +135,41 @@ void main() {
         isNot(contains('app/ios/info_plist/NSCameraUsageDescription')),
       );
     });
+  });
+
+  test('the same observation from two recipes is one finding', () {
+    final other = demoRecipe('''
+ios:
+  info_plist:
+    NSCameraUsageDescription: { required: true, hint: "Other hint" }
+''');
+    final both = runChecks(
+      ProjectSnapshot(
+        name: 'app',
+        root: '/tmp/app',
+        dependencySource: DependencySource.pubspecLock,
+        packages: [
+          ResolvedPackage('demo', Version(1, 0, 0), DependencyKind.direct),
+          ResolvedPackage('other', Version(1, 0, 0), DependencyKind.direct),
+        ],
+        ios: iosFiles({'NSCameraUsageDescription': 'TODO'}),
+      ),
+      RecipeIndex([
+        _recipe,
+        Recipe(
+          package: 'other',
+          versions: other.versions,
+          source: other.source,
+          origin: 'other.yaml',
+          requirements: other.requirements,
+        ),
+      ]),
+    );
+    final warnings = both.findings.where((f) => f.severity == Severity.warning);
+    expect(warnings, hasLength(1));
+    expect(warnings.single.package, 'demo');
+    expect(warnings.single.alsoNeededBy, ['other']);
+    expect(both.summary[Severity.warning], 1);
   });
 
   test('flavor files are listed as info', () {

@@ -99,6 +99,7 @@ ios:
         )!;
         expect(f.severity, Severity.info);
         expect(f.file, 'ios/Runner.xcodeproj/project.pbxproj');
+        expect(f.fix, contains('GENERATE_INFOPLIST_FILE'));
       },
     );
 

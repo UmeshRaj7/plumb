@@ -1,0 +1,49 @@
+{
+  "format": 1,
+  "plumb_version": "0.0.1",
+  "project": {
+    "name": "unreadable_app",
+    "dependency_source": "pubspec.lock"
+  },
+  "packages": [
+    {
+      "name": "camera",
+      "version": "0.11.2",
+      "status": "checked",
+      "recipe": "recipes/camera.yaml"
+    }
+  ],
+  "findings": [
+    {
+      "id": "app/ios/file/ios/Runner/Info.plist",
+      "severity": "error",
+      "package": null,
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": null,
+      "message": "ios/Runner/Info.plist is a binary plist; plumb reads XML plists only",
+      "fix": "Convert it to XML, e.g. `plutil -convert xml1 ios/Runner/Info.plist` on macOS.",
+      "source": null,
+      "also_needed_by": []
+    },
+    {
+      "id": "app/android/file/android/app/src/main/AndroidManifest.xml",
+      "severity": "error",
+      "package": null,
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": null,
+      "message": "android/app/src/main/AndroidManifest.xml could not be parsed: Invalid XML: \">\" expected",
+      "fix": "Fix the XML so Xcode/Gradle and plumb can read it.",
+      "source": null,
+      "also_needed_by": []
+    }
+  ],
+  "summary": {
+    "error": 2,
+    "missing": 0,
+    "warning": 0,
+    "ok": 0,
+    "info": 0
+  }
+}

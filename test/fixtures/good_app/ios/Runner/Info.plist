@@ -66,5 +66,17 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Scan receipts with the camera.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Record voice notes with your receipts.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Show stores near you.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Unlock your receipts with Face ID.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>

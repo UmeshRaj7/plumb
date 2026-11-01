@@ -1,0 +1,20 @@
+name: broken_app
+description: "plumb test fixture — placeholders, missing keys and wrong activity class."
+publish_to: none
+environment:
+  sdk: ^3.8.0
+dependencies:
+  flutter:
+    sdk: flutter
+  camera: any
+  image_picker: any
+  local_auth: any
+  google_maps_flutter: any
+  sign_in_with_apple: any
+  geolocator: any
+  flutter_local_notifications: any
+  permission_handler: any
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0

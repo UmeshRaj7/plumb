@@ -1,0 +1,62 @@
+plumb doctor · broken_app
+Found 8 plugins with recipes (read from pubspec.lock).
+
+Your app
+  ⚠ ios      Info.plist  NSHealthShareUsageDescription looks like a placeholder: "your description here"
+                         fix:  Replace it with a sentence telling users why the app needs this access. App Review rejects vague or placeholder purpose strings.
+                         docs: https://developer.apple.com/documentation/uikit/requesting-access-to-protected-resources
+
+camera 0.11.2
+  ⚠ ios      Info.plist  NSCameraUsageDescription looks like a placeholder: "TODO"
+                         also: image_picker, permission_handler
+                         fix:  Replace it with a real value. Add NSCameraUsageDescription to Info.plist with a usage description.
+                         docs: https://pub.dev/packages/camera#ios
+  ✗ ios      Info.plist  NSMicrophoneUsageDescription is missing
+                         fix:  Add NSMicrophoneUsageDescription to Info.plist with a usage description.
+                         docs: https://pub.dev/packages/camera#ios
+
+flutter_local_notifications 99.0.0
+  ℹ No recipe for flutter_local_notifications 99.0.0 (recipes cover >=19.0.0 <23.0.0), so it was not checked
+    docs: https://pub.dev/packages/flutter_local_notifications#-android-setup
+
+geolocator 13.0.4
+  ✗ ios      Info.plist  NSLocationWhenInUseUsageDescription is missing
+                         fix:  Add NSLocationWhenInUseUsageDescription to Info.plist with a description that is meaningful for your app.
+                         docs: https://pub.dev/packages/geolocator#usage
+  ℹ 5 conditional items (run with --verbose to list)
+
+google_maps_flutter 2.19.0
+  ⚠ android  AndroidManifest.xml  <meta-data> com.google.android.geo.API_KEY looks like a placeholder: "YOUR KEY HERE"
+                                  fix:  Replace it with a real value. Add <meta-data android:name="com.google.android.geo.API_KEY" android:value="<your key>"/> inside <application>.
+                                  docs: https://pub.dev/packages/google_maps_flutter_android#setup
+  ℹ 2 manual steps (run with --verbose to list)
+
+image_picker 1.2.4
+  ⚠ ios      Info.plist  NSPhotoLibraryUsageDescription is empty
+                         also: permission_handler
+                         fix:  Replace it with a real value. Add NSPhotoLibraryUsageDescription to Info.plist describing why your app needs the photo library. App Store policy requires it even if you always pass requestFullMetadata: false.
+                         docs: https://pub.dev/packages/image_picker#ios
+  ℹ 1 conditional item (run with --verbose to list)
+
+local_auth 3.0.2
+  ✗ ios      Info.plist       NSFaceIDUsageDescription is missing
+                              fix:  Add NSFaceIDUsageDescription to Info.plist explaining why your app uses Face ID.
+                              docs: https://pub.dev/packages/local_auth_darwin#setup
+  ✗ android  MainActivity.kt  MainActivity extends FlutterActivity, not FlutterFragmentActivity
+                              fix:  local_auth needs a FragmentActivity: make MainActivity extend FlutterFragmentActivity (or use FlutterFragmentActivity directly in AndroidManifest.xml).
+                              docs: https://pub.dev/packages/local_auth_android#setup
+  ℹ 1 conditional item and 1 manual step (run with --verbose to list)
+
+permission_handler 12.0.3
+  ⚠ ios      Info.plist  NSContactsUsageDescription looks like a placeholder: "Lorem ipsum dolor sit amet"
+                         fix:  Replace it with a real value. Needed for Permission.contacts.
+                         docs: https://pub.dev/packages/permission_handler#setup
+  ℹ 14 conditional items and 2 manual steps (run with --verbose to list)
+
+sign_in_with_apple 8.2.0
+  ✗ ios      ios/Runner/  No .entitlements file in ios/Runner, so com.apple.developer.applesignin is not set
+                          fix:  Add the Sign in with Apple capability in Xcode (Signing & Capabilities); without it sign-in fails without any visible indication.
+                          docs: https://pub.dev/packages/sign_in_with_apple#ios
+  ℹ 1 conditional item and 1 manual step (run with --verbose to list)
+
+Summary: 0 ok · 5 missing · 5 warning · 29 info

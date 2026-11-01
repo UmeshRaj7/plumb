@@ -1,0 +1,10 @@
+plumb doctor · package_config_only_app
+Found 1 plugin with a recipe (read from .dart_tool/package_config.json).
+
+Your app
+  ℹ ios      ios/  ios/ not found; ios requirements of camera were not checked
+
+camera 0.11.2
+  No results (see "Your app" above).
+
+Summary: 0 ok · 0 missing · 0 warning · 1 info

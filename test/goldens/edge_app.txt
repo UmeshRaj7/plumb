@@ -1,0 +1,26 @@
+plumb doctor · edge_app
+Found 3 plugins with recipes (read from pubspec.lock).
+
+Your app
+  ℹ ios        Not checked: ios/Runner/Info-Staging.plist (plumb checks ios/Runner/Info.plist only)
+  ℹ android    Not checked: android/app/src/staging/AndroidManifest.xml (plumb checks the main AndroidManifest.xml only)
+
+camera 0.11.2
+  ✓ ios      Info.plist  NSMicrophoneUsageDescription is set via a build variable ($(MIC_USAGE_TEXT)); its final value isn't checked
+  ℹ 1 conditional item (run with --verbose to list)
+
+firebase_messaging 16.1.2
+  ⚠ ios      ios/Runner/*.entitlements  aps-environment is in RunnerDebug.entitlements but not in RunnerRelease.entitlements
+                                        fix:  Enable the Push Notifications capability in Xcode (Signing & Capabilities); it adds aps-environment to your .entitlements file.
+                                        docs: https://developer.apple.com/documentation/bundleresources/entitlements/aps-environment
+  ✗ ios      Info.plist                 UIBackgroundModes does not include remote-notification
+                                        fix:  Enable Background Modes → Remote notifications in Xcode.
+                                        docs: https://firebase.google.com/docs/cloud-messaging/flutter/client
+  ℹ 1 conditional item and 2 manual steps (run with --verbose to list)
+
+local_auth 2.3.0
+  ✓ ios      Info.plist         NSFaceIDUsageDescription is set
+  ✓ android  MainActivity.java  MainActivity extends FlutterFragmentActivity
+  ℹ 1 conditional item and 1 manual step (run with --verbose to list)
+
+Summary: 3 ok · 1 missing · 1 warning · 8 info

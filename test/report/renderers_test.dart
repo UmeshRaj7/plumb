@@ -97,7 +97,7 @@ geolocator 14.1.2
   ✗ ios      Info.plist           NSLocationWhenInUseUsageDescription is missing
                                   fix:  Explain why you need location.
                                   docs: https://pub.dev/packages/geolocator
-  ℹ 1 conditional or manual item (run with --verbose to list)
+  ℹ 1 conditional item (run with --verbose to list)
 
 old_plugin 1.0.0
   ℹ No recipe for old_plugin 1.0.0 (recipes cover >=2.0.0), so it was not checked
@@ -188,6 +188,7 @@ Summary: 1 ok · 1 missing · 1 warning · 2 info
             'message',
             'fix',
             'source',
+            'also_needed_by',
           ]);
         }
         expect((findings[2] as Map)['severity'], 'missing');

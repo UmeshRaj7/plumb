@@ -1,0 +1,540 @@
+{
+  "format": 1,
+  "plumb_version": "0.0.1",
+  "project": {
+    "name": "broken_app",
+    "dependency_source": "pubspec.lock"
+  },
+  "packages": [
+    {
+      "name": "camera",
+      "version": "0.11.2",
+      "status": "checked",
+      "recipe": "recipes/camera.yaml"
+    },
+    {
+      "name": "flutter_local_notifications",
+      "version": "99.0.0",
+      "status": "version_not_covered",
+      "recipe": null
+    },
+    {
+      "name": "geolocator",
+      "version": "13.0.4",
+      "status": "checked",
+      "recipe": "recipes/geolocator@11.yaml"
+    },
+    {
+      "name": "google_maps_flutter",
+      "version": "2.19.0",
+      "status": "checked",
+      "recipe": "recipes/google_maps_flutter.yaml"
+    },
+    {
+      "name": "image_picker",
+      "version": "1.2.4",
+      "status": "checked",
+      "recipe": "recipes/image_picker.yaml"
+    },
+    {
+      "name": "local_auth",
+      "version": "3.0.2",
+      "status": "checked",
+      "recipe": "recipes/local_auth.yaml"
+    },
+    {
+      "name": "permission_handler",
+      "version": "12.0.3",
+      "status": "checked",
+      "recipe": "recipes/permission_handler.yaml"
+    },
+    {
+      "name": "sign_in_with_apple",
+      "version": "8.2.0",
+      "status": "checked",
+      "recipe": "recipes/sign_in_with_apple.yaml"
+    }
+  ],
+  "findings": [
+    {
+      "id": "app/ios/info_plist/NSHealthShareUsageDescription",
+      "severity": "warning",
+      "package": null,
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSHealthShareUsageDescription",
+      "message": "NSHealthShareUsageDescription looks like a placeholder: \"your description here\"",
+      "fix": "Replace it with a sentence telling users why the app needs this access. App Review rejects vague or placeholder purpose strings.",
+      "source": "https://developer.apple.com/documentation/uikit/requesting-access-to-protected-resources",
+      "also_needed_by": []
+    },
+    {
+      "id": "camera/ios/info_plist/NSCameraUsageDescription",
+      "severity": "warning",
+      "package": "camera",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSCameraUsageDescription",
+      "message": "NSCameraUsageDescription looks like a placeholder: \"TODO\"",
+      "fix": "Replace it with a real value. Add NSCameraUsageDescription to Info.plist with a usage description.",
+      "source": "https://pub.dev/packages/camera#ios",
+      "also_needed_by": [
+        "image_picker",
+        "permission_handler"
+      ]
+    },
+    {
+      "id": "camera/ios/info_plist/NSMicrophoneUsageDescription",
+      "severity": "missing",
+      "package": "camera",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSMicrophoneUsageDescription",
+      "message": "NSMicrophoneUsageDescription is missing",
+      "fix": "Add NSMicrophoneUsageDescription to Info.plist with a usage description.",
+      "source": "https://pub.dev/packages/camera#ios",
+      "also_needed_by": []
+    },
+    {
+      "id": "flutter_local_notifications/recipe",
+      "severity": "info",
+      "package": "flutter_local_notifications",
+      "platform": null,
+      "file": null,
+      "key": null,
+      "message": "No recipe for flutter_local_notifications 99.0.0 (recipes cover >=19.0.0 <23.0.0), so it was not checked",
+      "fix": null,
+      "source": "https://pub.dev/packages/flutter_local_notifications#-android-setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "geolocator/ios/info_plist/NSLocationWhenInUseUsageDescription",
+      "severity": "missing",
+      "package": "geolocator",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSLocationWhenInUseUsageDescription",
+      "message": "NSLocationWhenInUseUsageDescription is missing",
+      "fix": "Add NSLocationWhenInUseUsageDescription to Info.plist with a description that is meaningful for your app.",
+      "source": "https://pub.dev/packages/geolocator#usage",
+      "also_needed_by": []
+    },
+    {
+      "id": "geolocator/ios/info_plist/NSLocationAlwaysAndWhenInUseUsageDescription",
+      "severity": "info",
+      "package": "geolocator",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSLocationAlwaysAndWhenInUseUsageDescription",
+      "message": "NSLocationAlwaysAndWhenInUseUsageDescription is not set",
+      "fix": "Needed for background location updates, and whenever you don't set the BYPASS_PERMISSION_LOCATION_ALWAYS=1 macro in your Podfile.",
+      "source": "https://pub.dev/packages/geolocator#usage",
+      "also_needed_by": []
+    },
+    {
+      "id": "geolocator/ios/info_plist/NSLocationTemporaryUsageDescriptionDictionary",
+      "severity": "info",
+      "package": "geolocator",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSLocationTemporaryUsageDescriptionDictionary",
+      "message": "NSLocationTemporaryUsageDescriptionDictionary is not set",
+      "fix": "Needed if you call requestTemporaryFullAccuracy(purposeKey: ...): add one entry per purpose key.",
+      "source": "https://pub.dev/packages/geolocator#usage",
+      "also_needed_by": []
+    },
+    {
+      "id": "geolocator/android/permissions/android.permission.ACCESS_COARSE_LOCATION",
+      "severity": "info",
+      "package": "geolocator",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "android.permission.ACCESS_COARSE_LOCATION",
+      "message": "android.permission.ACCESS_COARSE_LOCATION is not declared",
+      "fix": "Add ACCESS_COARSE_LOCATION or ACCESS_FINE_LOCATION (at least one) as a child of <manifest>.",
+      "source": "https://pub.dev/packages/geolocator#usage",
+      "also_needed_by": []
+    },
+    {
+      "id": "geolocator/android/permissions/android.permission.ACCESS_FINE_LOCATION",
+      "severity": "info",
+      "package": "geolocator",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "android.permission.ACCESS_FINE_LOCATION",
+      "message": "android.permission.ACCESS_FINE_LOCATION is removed with tools:node=\"remove\"",
+      "fix": "Add ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION (at least one); FINE is used when both are present.",
+      "source": "https://pub.dev/packages/geolocator#usage",
+      "also_needed_by": []
+    },
+    {
+      "id": "geolocator/android/permissions/android.permission.ACCESS_BACKGROUND_LOCATION",
+      "severity": "info",
+      "package": "geolocator",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "android.permission.ACCESS_BACKGROUND_LOCATION",
+      "message": "android.permission.ACCESS_BACKGROUND_LOCATION is not declared",
+      "fix": "Android 10+ needs it to keep receiving updates while the app is in the background.",
+      "source": "https://pub.dev/packages/geolocator#usage",
+      "also_needed_by": []
+    },
+    {
+      "id": "google_maps_flutter/ios/manual/ios-api-key",
+      "severity": "info",
+      "package": "google_maps_flutter",
+      "platform": "ios",
+      "file": null,
+      "key": "ios-api-key",
+      "message": "Manual step plumb can't check (required)",
+      "fix": "Call GMSServices.provideAPIKey(\"<your key>\") in ios/Runner/AppDelegate.swift before registering plugins.",
+      "source": "https://pub.dev/packages/google_maps_flutter_ios_sdk10#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "google_maps_flutter/ios/manual/ios-deployment-target",
+      "severity": "info",
+      "package": "google_maps_flutter",
+      "platform": "ios",
+      "file": null,
+      "key": "ios-deployment-target",
+      "message": "Manual step plumb can't check (only if you use this feature)",
+      "fix": "Google Maps SDK 10.x requires iOS 16 (SDK 9.x: iOS 15); raise your minimum iOS deployment target if needed.",
+      "source": "https://pub.dev/packages/google_maps_flutter_ios_sdk10#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "google_maps_flutter/android/manifest_meta_data/com.google.android.geo.API_KEY",
+      "severity": "warning",
+      "package": "google_maps_flutter",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "com.google.android.geo.API_KEY",
+      "message": "<meta-data> com.google.android.geo.API_KEY looks like a placeholder: \"YOUR KEY HERE\"",
+      "fix": "Replace it with a real value. Add <meta-data android:name=\"com.google.android.geo.API_KEY\" android:value=\"<your key>\"/> inside <application>.",
+      "source": "https://pub.dev/packages/google_maps_flutter_android#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "image_picker/ios/info_plist/NSPhotoLibraryUsageDescription",
+      "severity": "warning",
+      "package": "image_picker",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSPhotoLibraryUsageDescription",
+      "message": "NSPhotoLibraryUsageDescription is empty",
+      "fix": "Replace it with a real value. Add NSPhotoLibraryUsageDescription to Info.plist describing why your app needs the photo library. App Store policy requires it even if you always pass requestFullMetadata: false.",
+      "source": "https://pub.dev/packages/image_picker#ios",
+      "also_needed_by": [
+        "permission_handler"
+      ]
+    },
+    {
+      "id": "image_picker/ios/info_plist/NSMicrophoneUsageDescription",
+      "severity": "info",
+      "package": "image_picker",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSMicrophoneUsageDescription",
+      "message": "NSMicrophoneUsageDescription is not set",
+      "fix": "Needed if you record videos. Add NSMicrophoneUsageDescription to Info.plist describing why your app needs the microphone.",
+      "source": "https://pub.dev/packages/image_picker#ios",
+      "also_needed_by": []
+    },
+    {
+      "id": "local_auth/ios/info_plist/NSFaceIDUsageDescription",
+      "severity": "missing",
+      "package": "local_auth",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSFaceIDUsageDescription",
+      "message": "NSFaceIDUsageDescription is missing",
+      "fix": "Add NSFaceIDUsageDescription to Info.plist explaining why your app uses Face ID.",
+      "source": "https://pub.dev/packages/local_auth_darwin#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "local_auth/android/activity_class/io.flutter.embedding.android.FlutterFragmentActivity",
+      "severity": "missing",
+      "package": "local_auth",
+      "platform": "android",
+      "file": "android/app/src/main/kotlin/dev/example/broken_app/MainActivity.kt",
+      "key": "io.flutter.embedding.android.FlutterFragmentActivity",
+      "message": "MainActivity extends FlutterActivity, not FlutterFragmentActivity",
+      "fix": "local_auth needs a FragmentActivity: make MainActivity extend FlutterFragmentActivity (or use FlutterFragmentActivity directly in AndroidManifest.xml).",
+      "source": "https://pub.dev/packages/local_auth_android#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "local_auth/android/permissions/android.permission.USE_BIOMETRIC",
+      "severity": "info",
+      "package": "local_auth",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "android.permission.USE_BIOMETRIC",
+      "message": "android.permission.USE_BIOMETRIC is not declared",
+      "fix": "The README asks you to add USE_BIOMETRIC; local_auth_android's own manifest already declares it, so the manifest merger adds it for you.",
+      "source": "https://pub.dev/packages/local_auth_android#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "local_auth/android/manual/launch-theme-appcompat",
+      "severity": "info",
+      "package": "local_auth",
+      "platform": "android",
+      "file": null,
+      "key": "launch-theme-appcompat",
+      "message": "Manual step plumb can't check (only if you use this feature)",
+      "fix": "On Android 8 and below, LaunchTheme's parent must be a Theme.AppCompat theme (android/app/src/main/res/values/styles.xml) to prevent crashes.",
+      "source": "https://pub.dev/packages/local_auth_android#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSCalendarsUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSCalendarsUsageDescription",
+      "message": "NSCalendarsUsageDescription is not set",
+      "fix": "Needed for Permission.calendar (before iOS 17).",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSCalendarsFullAccessUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSCalendarsFullAccessUsageDescription",
+      "message": "NSCalendarsFullAccessUsageDescription is not set",
+      "fix": "Needed for Permission.calendarFullAccess (iOS 17+).",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSCalendarsWriteOnlyAccessUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSCalendarsWriteOnlyAccessUsageDescription",
+      "message": "NSCalendarsWriteOnlyAccessUsageDescription is not set",
+      "fix": "Needed for Permission.calendarWriteOnly (iOS 17+).",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSRemindersUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSRemindersUsageDescription",
+      "message": "NSRemindersUsageDescription is not set",
+      "fix": "Needed for Permission.reminders.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSContactsUsageDescription",
+      "severity": "warning",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSContactsUsageDescription",
+      "message": "NSContactsUsageDescription looks like a placeholder: \"Lorem ipsum dolor sit amet\"",
+      "fix": "Replace it with a real value. Needed for Permission.contacts.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSMicrophoneUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSMicrophoneUsageDescription",
+      "message": "NSMicrophoneUsageDescription is not set",
+      "fix": "Needed for Permission.microphone.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSSpeechRecognitionUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSSpeechRecognitionUsageDescription",
+      "message": "NSSpeechRecognitionUsageDescription is not set",
+      "fix": "Needed for Permission.speech.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSPhotoLibraryAddUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSPhotoLibraryAddUsageDescription",
+      "message": "NSPhotoLibraryAddUsageDescription is not set",
+      "fix": "Needed for Permission.photosAddOnly.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSLocationWhenInUseUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSLocationWhenInUseUsageDescription",
+      "message": "NSLocationWhenInUseUsageDescription is not set",
+      "fix": "Needed for Permission.location / locationWhenInUse.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSLocationAlwaysAndWhenInUseUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSLocationAlwaysAndWhenInUseUsageDescription",
+      "message": "NSLocationAlwaysAndWhenInUseUsageDescription is not set",
+      "fix": "Needed for Permission.locationAlways.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSAppleMusicUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSAppleMusicUsageDescription",
+      "message": "NSAppleMusicUsageDescription is not set",
+      "fix": "Needed for Permission.mediaLibrary.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSMotionUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSMotionUsageDescription",
+      "message": "NSMotionUsageDescription is not set",
+      "fix": "Needed for Permission.sensors.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSBluetoothAlwaysUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSBluetoothAlwaysUsageDescription",
+      "message": "NSBluetoothAlwaysUsageDescription is not set",
+      "fix": "Needed for Permission.bluetooth.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSUserTrackingUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSUserTrackingUsageDescription",
+      "message": "NSUserTrackingUsageDescription is not set",
+      "fix": "Needed for Permission.appTrackingTransparency.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSSiriUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSSiriUsageDescription",
+      "message": "NSSiriUsageDescription is not set",
+      "fix": "Needed for Permission.assistant.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/manual/podfile-permission-macros",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": null,
+      "key": "podfile-permission-macros",
+      "message": "Manual step plumb can't check (only if you use this feature)",
+      "fix": "With CocoaPods, enable each permission you use with a PERMISSION_<GROUP>=1 macro in your Podfile's post_install block (GCC_PREPROCESSOR_DEFINITIONS); disabled permissions always report denied.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/android/manual/android-manifest-permissions",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "android",
+      "file": null,
+      "key": "android-manifest-permissions",
+      "message": "Manual step plumb can't check (only if you use this feature)",
+      "fix": "Add a <uses-permission> to android/app/src/main/AndroidManifest.xml for each permission you request (the README links an example manifest with all of them).",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "sign_in_with_apple/ios/entitlements/com.apple.developer.applesignin",
+      "severity": "missing",
+      "package": "sign_in_with_apple",
+      "platform": "ios",
+      "file": "ios/Runner/",
+      "key": "com.apple.developer.applesignin",
+      "message": "No .entitlements file in ios/Runner, so com.apple.developer.applesignin is not set",
+      "fix": "Add the Sign in with Apple capability in Xcode (Signing & Capabilities); without it sign-in fails without any visible indication.",
+      "source": "https://pub.dev/packages/sign_in_with_apple#ios",
+      "also_needed_by": []
+    },
+    {
+      "id": "sign_in_with_apple/android/components/com.aboutyou.dart_packages.sign_in_with_apple.SignInWithAppleCallback",
+      "severity": "info",
+      "package": "sign_in_with_apple",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "com.aboutyou.dart_packages.sign_in_with_apple.SignInWithAppleCallback",
+      "message": "<activity> com.aboutyou.dart_packages.sign_in_with_apple.SignInWithAppleCallback is not declared",
+      "fix": "Needed for Sign in with Apple on Android: declare this activity inside <application> with android:exported=\"true\" and an intent-filter for scheme \"signinwithapple\", path \"callback\".",
+      "source": "https://pub.dev/packages/sign_in_with_apple#android",
+      "also_needed_by": []
+    },
+    {
+      "id": "sign_in_with_apple/android/manual/launch-mode",
+      "severity": "info",
+      "package": "sign_in_with_apple",
+      "platform": "android",
+      "file": null,
+      "key": "launch-mode",
+      "message": "Manual step plumb can't check (only if you use this feature)",
+      "fix": "For Sign in with Apple on Android, your activity's launchMode must be singleTask or singleTop so the login page can return to the app.",
+      "source": "https://pub.dev/packages/sign_in_with_apple#android",
+      "also_needed_by": []
+    }
+  ],
+  "summary": {
+    "error": 0,
+    "missing": 5,
+    "warning": 5,
+    "ok": 0,
+    "info": 29
+  }
+}

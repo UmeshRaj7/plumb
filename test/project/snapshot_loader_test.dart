@@ -37,7 +37,10 @@ void main() {
         android.mainActivitySource!.path,
         'android/app/src/main/kotlin/dev/example/good_app/MainActivity.kt',
       );
-      expect(android.mainActivitySource!.value, contains('FlutterActivity'));
+      expect(
+        android.mainActivitySource!.value,
+        contains('FlutterFragmentActivity'),
+      );
     });
 
     test('does not report Flutter\'s standard debug manifest as a flavor', () {

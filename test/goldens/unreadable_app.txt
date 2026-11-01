@@ -1,0 +1,13 @@
+plumb doctor · unreadable_app
+Found 1 plugin with a recipe (read from pubspec.lock).
+
+Your app
+  ✗ ios      Info.plist           ios/Runner/Info.plist is a binary plist; plumb reads XML plists only
+                                  fix:  Convert it to XML, e.g. `plutil -convert xml1 ios/Runner/Info.plist` on macOS.
+  ✗ android  AndroidManifest.xml  android/app/src/main/AndroidManifest.xml could not be parsed: Invalid XML: ">" expected
+                                  fix:  Fix the XML so Xcode/Gradle and plumb can read it.
+
+camera 0.11.2
+  No results (see "Your app" above).
+
+Summary: 2 error · 0 ok · 0 missing · 0 warning · 0 info
