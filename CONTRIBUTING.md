@@ -1,7 +1,7 @@
 # Contributing to plumb
 
 Thanks for helping! plumb is small on purpose. Please read
-[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) before changing code.
+[doc/ARCHITECTURE.md](doc/ARCHITECTURE.md) before changing code.
 
 ## Ground rules
 

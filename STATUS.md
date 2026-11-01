@@ -3,7 +3,7 @@
 _Last updated: 2026-11-01_
 
 ## Current milestone
-v0.0.1 — `plumb doctor` (read-only). Step 14 of 15: README, CHANGELOG, example/, publish dry-run.
+v0.0.1 — `plumb doctor` (read-only). All 15 steps done; awaiting owner review before publishing.
 
 ## Checklist (ARCHITECTURE.md §12; recipes moved before goldens on 2026-11-01)
 - [x] 1. Docs: ARCHITECTURE, STRATEGY, STATUS, CONTRIBUTING, CLAUDE.md
@@ -19,8 +19,10 @@ v0.0.1 — `plumb doctor` (read-only). Step 14 of 15: README, CHANGELOG, example
 - [x] 11. Report model, text + JSON renderers, exit codes
 - [x] 12. Recipes (10 plugins, 12 files, every URL + anchor verified live)
 - [x] 13. Wire `doctor`; fixtures + goldens (on real recipes)
-- [ ] 14. README, CHANGELOG, example/, pubspec metadata, publish dry-run
-- [ ] 15. Validate on a real Flutter app
+- [x] 14. README, CHANGELOG, example/, pubspec metadata, publish dry-run
+- [x] 15. Validate on a real Flutter app — `flutter create` + all 10 plugins (latest versions):
+      11 ✗ found, each checked by hand against the plugin docs; after applying the fix hints,
+      `--strict` passes (11 ✓, 0 ✗). AOT-compiled binary works from a subdirectory (~0.5 s).
 
 ## Open decisions (owner review — none blocking)
 Recipe calls made from the docs; please confirm or overrule:
@@ -35,6 +37,12 @@ Recipe calls made from the docs; please confirm or overrule:
 5. **geolocator** — split at 14.1.1: README changed from "COARSE *or* FINE" to "COARSE required".
    Older range reports both as ℹ (schema 1 can't say "one of").
 6. **firebase_messaging** — split at 17.0.0 (UIScene `configureNotificationCenterDelegate` step is new).
+
+## Before publishing (owner)
+- [ ] Review the open decisions above.
+- [ ] Record the 20-second README GIF (CLAUDE.md asks for it; I can't record screen video here).
+- [ ] Push to GitHub so CI runs on Linux/macOS/Windows + SDK 3.8 with downgraded deps.
+- [ ] `dart pub publish` (only when you say so).
 
 ## Known issues / limitations (by design for v0.0.1)
 - Only main AndroidManifest and `ios/Runner/Info.plist` are checked; flavor files are listed as ℹ.

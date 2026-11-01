@@ -6,8 +6,8 @@
 > Flutter and the related logo are trademarks of Google LLC. plumb is not affiliated with or endorsed by Google.
 
 Related docs (keep in sync — update in the same commit as any decision change):
-- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — design source of truth for v0.0.1
-- [docs/STRATEGY.md](docs/STRATEGY.md) — positioning, honest claims, decisions log, launch, risks
+- [doc/ARCHITECTURE.md](doc/ARCHITECTURE.md) — design source of truth for v0.0.1
+- [doc/STRATEGY.md](doc/STRATEGY.md) — positioning, honest claims, decisions log, launch, risks
 - [STATUS.md](STATUS.md) — current milestone, checklist, open decisions, known issues
 - [CONTRIBUTING.md](CONTRIBUTING.md) — code style and how to write a recipe
 
@@ -117,7 +117,7 @@ plumb/
   tool/                    # generate_bundled_recipes.dart
   test/fixtures/           # tiny sample Flutter projects (good, broken, edge cases)
   test/goldens/            # expected text + json output
-  docs/                    # ARCHITECTURE.md, STRATEGY.md
+  doc/                     # ARCHITECTURE.md, STRATEGY.md
 ```
 Dependencies: args, yaml, xml, path, pub_semver, package_config. Dev: test, lints, json_schema.
 SDK `^3.8.0`. Pure Dart; must run on Linux/macOS/Windows without Xcode.
@@ -149,7 +149,7 @@ SDK `^3.8.0`. Pure Dart; must run on Linux/macOS/Windows without Xcode.
 - AI-agent surface: MCP server (add_capability, explain_native_config, validate) + agent skill.
 - Later (only after traction): GitHub Action, auto-PR app, pro tier, ports (Capacitor, KMP, MAUI).
 
-## Launch plan for v0.0.1 (details: docs/STRATEGY.md)
+## Launch plan for v0.0.1 (details: doc/STRATEGY.md)
 Run `plumb doctor --json` on 20–30 popular open-source Flutter apps, **hand-verify every ✗/⚠**,
 then publish the data ("X of 25 popular OSS Flutter apps ship missing/placeholder permission
 strings"). Post on r/FlutterDev, X, LinkedIn, Flutter forum. Open friendly PRs/issues on affected repos.

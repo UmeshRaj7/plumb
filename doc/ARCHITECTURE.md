@@ -292,6 +292,13 @@ A value containing `$(…)` or `${…}` is a **build variable**: reported ✓ wi
   and read the superclass. Simple name equals required → ✓; `FlutterActivity` → ✗;
   anything else or file not found → ℹ (custom base classes can't be verified).
 
+### 6.6 Native file problems
+- Binary plist (`bplist00` magic) → `error`: "Info.plist is a binary plist; plumb reads
+  XML plists. Convert with `plutil -convert xml1 ios/Runner/Info.plist`" (the command is a
+  suggestion for the user; plumb never runs it).
+- Malformed XML → `error` with the parser message. Checks against that file are skipped.
+- UTF-8 BOM and CRLF are accepted.
+
 ### 6.7 One problem, one finding
 Several recipes can require the same key (camera, image_picker and permission_handler all
 check `NSCameraUsageDescription`). When they observe the same result (same severity, file,
@@ -300,13 +307,6 @@ key and message), the first package's finding is kept and the others are listed 
 count problems, not recipes. ℹ items are never merged (their hints differ per plugin).
 
 Placeholder warnings use the fix "Replace it with a real value." followed by the recipe hint.
-
-### 6.6 Native file problems
-- Binary plist (`bplist00` magic) → `error`: "Info.plist is a binary plist; plumb reads
-  XML plists. Convert with `plutil -convert xml1 ios/Runner/Info.plist`" (the command is a
-  suggestion for the user; plumb never runs it).
-- Malformed XML → `error` with the parser message. Checks against that file are skipped.
-- UTF-8 BOM and CRLF are accepted.
 
 ## 7. Recipe schema 1
 
