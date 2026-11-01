@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from the camera README (compared 0.9.8, 0.10.6, 0.11.4, 0.12.2: same setup).
+# Android needs no app changes: camera_android_camerax declares CAMERA and
+# RECORD_AUDIO in its own manifest, which Android merges into the app.
+schema: 1
+package: camera
+versions: ">=0.9.0 <0.13.0"
+source: https://pub.dev/packages/camera#ios
+ios:
+  info_plist:
+    NSCameraUsageDescription:
+      required: true
+      hint: Add NSCameraUsageDescription to Info.plist with a usage description.
+    NSMicrophoneUsageDescription:
+      required: true
+      hint: Add NSMicrophoneUsageDescription to Info.plist with a usage description.

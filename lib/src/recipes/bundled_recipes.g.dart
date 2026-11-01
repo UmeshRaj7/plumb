@@ -2,4 +2,90 @@
 // Do not edit by hand; edit the YAML and re-run the tool.
 
 /// Bundled recipe files: file name → YAML contents.
-const Map<String, String> bundledRecipeFiles = {};
+const Map<String, String> bundledRecipeFiles = {
+  'camera.yaml': r'''
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from the camera README (compared 0.9.8, 0.10.6, 0.11.4, 0.12.2: same setup).
+# Android needs no app changes: camera_android_camerax declares CAMERA and
+# RECORD_AUDIO in its own manifest, which Android merges into the app.
+schema: 1
+package: camera
+versions: ">=0.9.0 <0.13.0"
+source: https://pub.dev/packages/camera#ios
+ios:
+  info_plist:
+    NSCameraUsageDescription:
+      required: true
+      hint: Add NSCameraUsageDescription to Info.plist with a usage description.
+    NSMicrophoneUsageDescription:
+      required: true
+      hint: Add NSMicrophoneUsageDescription to Info.plist with a usage description.
+''',
+  'image_picker.yaml': r'''
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from the image_picker README (compared 0.8.9 and 1.2.4: same setup).
+schema: 1
+package: image_picker
+versions: ">=0.8.0 <2.0.0"
+source: https://pub.dev/packages/image_picker#ios
+ios:
+  info_plist:
+    NSPhotoLibraryUsageDescription:
+      required: true
+      hint: >-
+        Add NSPhotoLibraryUsageDescription to Info.plist describing why your app
+        needs the photo library. App Store policy requires it even if you always
+        pass requestFullMetadata: false.
+    NSCameraUsageDescription:
+      required: true
+      hint: Add NSCameraUsageDescription to Info.plist describing why your app needs the camera.
+    NSMicrophoneUsageDescription:
+      required: when_used
+      hint: >-
+        Needed if you record videos. Add NSMicrophoneUsageDescription to
+        Info.plist describing why your app needs the microphone.
+''',
+  'permission_handler.yaml': r'''
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from the permission_handler README (compared 11.0.0, 11.4.0, 12.0.3,
+# 13.0.2). Every key depends on which permissions your app requests, so all are
+# conditional; plumb still checks any that are present for placeholder text.
+schema: 1
+package: permission_handler
+versions: ">=11.0.0 <14.0.0"
+source: https://pub.dev/packages/permission_handler#setup
+ios:
+  info_plist:
+    NSCalendarsUsageDescription: { required: when_used, hint: "Needed for Permission.calendar (before iOS 17)." }
+    NSCalendarsFullAccessUsageDescription: { required: when_used, hint: "Needed for Permission.calendarFullAccess (iOS 17+)." }
+    NSCalendarsWriteOnlyAccessUsageDescription: { required: when_used, hint: "Needed for Permission.calendarWriteOnly (iOS 17+)." }
+    NSRemindersUsageDescription: { required: when_used, hint: "Needed for Permission.reminders." }
+    NSContactsUsageDescription: { required: when_used, hint: "Needed for Permission.contacts." }
+    NSCameraUsageDescription: { required: when_used, hint: "Needed for Permission.camera." }
+    NSMicrophoneUsageDescription: { required: when_used, hint: "Needed for Permission.microphone." }
+    NSSpeechRecognitionUsageDescription: { required: when_used, hint: "Needed for Permission.speech." }
+    NSPhotoLibraryUsageDescription: { required: when_used, hint: "Needed for Permission.photos." }
+    NSPhotoLibraryAddUsageDescription: { required: when_used, hint: "Needed for Permission.photosAddOnly." }
+    NSLocationWhenInUseUsageDescription: { required: when_used, hint: "Needed for Permission.location / locationWhenInUse." }
+    NSLocationAlwaysAndWhenInUseUsageDescription: { required: when_used, hint: "Needed for Permission.locationAlways." }
+    NSAppleMusicUsageDescription: { required: when_used, hint: "Needed for Permission.mediaLibrary." }
+    NSMotionUsageDescription: { required: when_used, hint: "Needed for Permission.sensors." }
+    NSBluetoothAlwaysUsageDescription: { required: when_used, hint: "Needed for Permission.bluetooth." }
+    NSUserTrackingUsageDescription: { required: when_used, hint: "Needed for Permission.appTrackingTransparency." }
+    NSSiriUsageDescription: { required: when_used, hint: "Needed for Permission.assistant." }
+  manual:
+    - id: podfile-permission-macros
+      required: when_used
+      hint: >-
+        With CocoaPods, enable each permission you use with a PERMISSION_<GROUP>=1
+        macro in your Podfile's post_install block (GCC_PREPROCESSOR_DEFINITIONS);
+        disabled permissions always report denied.
+android:
+  manual:
+    - id: android-manifest-permissions
+      required: when_used
+      hint: >-
+        Add a <uses-permission> to android/app/src/main/AndroidManifest.xml for each
+        permission you request (the README links an example manifest with all of them).
+''',
+};

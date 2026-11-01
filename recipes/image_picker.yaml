@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from the image_picker README (compared 0.8.9 and 1.2.4: same setup).
+schema: 1
+package: image_picker
+versions: ">=0.8.0 <2.0.0"
+source: https://pub.dev/packages/image_picker#ios
+ios:
+  info_plist:
+    NSPhotoLibraryUsageDescription:
+      required: true
+      hint: >-
+        Add NSPhotoLibraryUsageDescription to Info.plist describing why your app
+        needs the photo library. App Store policy requires it even if you always
+        pass requestFullMetadata: false.
+    NSCameraUsageDescription:
+      required: true
+      hint: Add NSCameraUsageDescription to Info.plist describing why your app needs the camera.
+    NSMicrophoneUsageDescription:
+      required: when_used
+      hint: >-
+        Needed if you record videos. Add NSMicrophoneUsageDescription to
+        Info.plist describing why your app needs the microphone.

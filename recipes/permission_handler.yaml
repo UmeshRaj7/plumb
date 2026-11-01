@@ -1,0 +1,41 @@
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from the permission_handler README (compared 11.0.0, 11.4.0, 12.0.3,
+# 13.0.2). Every key depends on which permissions your app requests, so all are
+# conditional; plumb still checks any that are present for placeholder text.
+schema: 1
+package: permission_handler
+versions: ">=11.0.0 <14.0.0"
+source: https://pub.dev/packages/permission_handler#setup
+ios:
+  info_plist:
+    NSCalendarsUsageDescription: { required: when_used, hint: "Needed for Permission.calendar (before iOS 17)." }
+    NSCalendarsFullAccessUsageDescription: { required: when_used, hint: "Needed for Permission.calendarFullAccess (iOS 17+)." }
+    NSCalendarsWriteOnlyAccessUsageDescription: { required: when_used, hint: "Needed for Permission.calendarWriteOnly (iOS 17+)." }
+    NSRemindersUsageDescription: { required: when_used, hint: "Needed for Permission.reminders." }
+    NSContactsUsageDescription: { required: when_used, hint: "Needed for Permission.contacts." }
+    NSCameraUsageDescription: { required: when_used, hint: "Needed for Permission.camera." }
+    NSMicrophoneUsageDescription: { required: when_used, hint: "Needed for Permission.microphone." }
+    NSSpeechRecognitionUsageDescription: { required: when_used, hint: "Needed for Permission.speech." }
+    NSPhotoLibraryUsageDescription: { required: when_used, hint: "Needed for Permission.photos." }
+    NSPhotoLibraryAddUsageDescription: { required: when_used, hint: "Needed for Permission.photosAddOnly." }
+    NSLocationWhenInUseUsageDescription: { required: when_used, hint: "Needed for Permission.location / locationWhenInUse." }
+    NSLocationAlwaysAndWhenInUseUsageDescription: { required: when_used, hint: "Needed for Permission.locationAlways." }
+    NSAppleMusicUsageDescription: { required: when_used, hint: "Needed for Permission.mediaLibrary." }
+    NSMotionUsageDescription: { required: when_used, hint: "Needed for Permission.sensors." }
+    NSBluetoothAlwaysUsageDescription: { required: when_used, hint: "Needed for Permission.bluetooth." }
+    NSUserTrackingUsageDescription: { required: when_used, hint: "Needed for Permission.appTrackingTransparency." }
+    NSSiriUsageDescription: { required: when_used, hint: "Needed for Permission.assistant." }
+  manual:
+    - id: podfile-permission-macros
+      required: when_used
+      hint: >-
+        With CocoaPods, enable each permission you use with a PERMISSION_<GROUP>=1
+        macro in your Podfile's post_install block (GCC_PREPROCESSOR_DEFINITIONS);
+        disabled permissions always report denied.
+android:
+  manual:
+    - id: android-manifest-permissions
+      required: when_used
+      hint: >-
+        Add a <uses-permission> to android/app/src/main/AndroidManifest.xml for each
+        permission you request (the README links an example manifest with all of them).
