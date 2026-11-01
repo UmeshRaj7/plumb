@@ -3,6 +3,8 @@
 **Find the missing iOS and Android setup that your Flutter plugins need, before
 it crashes your app or gets it rejected from the App Store.**
 
+![plumb doctor output: a placeholder camera purpose string, a missing microphone string and the wrong MainActivity base class, each with a fix and a docs link](https://raw.githubusercontent.com/UmeshRaj7/plumb/main/assets/plumb-doctor.png)
+
 ```sh
 dart pub global activate plumb
 cd my_flutter_app
@@ -48,37 +50,9 @@ Run it after adding a plugin, before a release, or in CI on every pull request.
 **In numbers (v0.0.1):** checks 10 popular plugins · reads 5 kinds of files ·
 takes about half a second · needs no Mac or Xcode · changes 0 files.
 
-## What you'll see
+## Reading the report
 
-```text
-$ plumb doctor
-plumb doctor · my_app
-Found 3 plugins with recipes (read from pubspec.lock).
-
-camera 0.12.2
-  ⚠ ios      Info.plist  NSCameraUsageDescription looks like a placeholder: "TODO"
-                         also: image_picker
-                         fix:  Replace it with a real value. Add NSCameraUsageDescription to Info.plist with a usage description.
-                         docs: https://pub.dev/packages/camera#ios
-  ✗ ios      Info.plist  NSMicrophoneUsageDescription is missing
-                         fix:  Add NSMicrophoneUsageDescription to Info.plist with a usage description.
-                         docs: https://pub.dev/packages/camera#ios
-
-image_picker 1.2.4
-  ✓ ios      Info.plist  NSPhotoLibraryUsageDescription is set
-  ℹ 1 conditional item (run with --verbose to list)
-
-local_auth 3.0.2
-  ✓ ios      Info.plist       NSFaceIDUsageDescription is set
-  ✗ android  MainActivity.kt  MainActivity extends FlutterActivity, not FlutterFragmentActivity
-                              fix:  local_auth needs a FragmentActivity: make MainActivity extend FlutterFragmentActivity (or use FlutterFragmentActivity directly in AndroidManifest.xml).
-                              docs: https://pub.dev/packages/local_auth_android#setup
-  ℹ 1 conditional item and 1 manual step (run with --verbose to list)
-
-Summary: 2 ok · 2 missing · 1 warning · 3 info
-```
-
-Reading it: **✗** must be fixed, **⚠** is there but still a placeholder,
+**✗** must be fixed, **⚠** is there but still a placeholder,
 **✓** is fine, and **ℹ** only matters if you use that feature (add `--verbose`
 to see those).
 

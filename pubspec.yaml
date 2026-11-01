@@ -13,6 +13,12 @@ topics:
   - android
   - lint
 
+screenshots:
+  - description: >-
+      plumb doctor reporting a placeholder purpose string, a missing one and
+      the wrong MainActivity base class, each with a fix and a docs link.
+    path: assets/plumb-doctor.png
+
 environment:
   sdk: ^3.8.0
 
