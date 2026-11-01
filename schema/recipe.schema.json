@@ -1,0 +1,303 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "plumb recipe (schema 1)",
+  "description": "Native setup a Flutter plugin documents. Spec: docs/ARCHITECTURE.md §7. The Dart parser (lib/src/recipes/recipe_parser.dart) enforces the same rules; test/recipes/recipe_schema_test.dart keeps them in agreement.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "package",
+    "versions",
+    "source"
+  ],
+  "properties": {
+    "schema": {
+      "const": 1
+    },
+    "package": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "versions": {
+      "type": "string",
+      "description": "A pub version constraint, e.g. \">=1.0.0 <2.0.0\", \"^1.2.0\" or \"any\".",
+      "pattern": "^\\s*(any|((\\^|[<>]=?|=)?\\s*\\d+\\.\\d+\\.\\d+(-[0-9A-Za-z.-]+)?(\\+[0-9A-Za-z.-]+)?\\s*)+)\\s*$"
+    },
+    "source": {
+      "$ref": "#/definitions/url"
+    },
+    "ios": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "info_plist": {
+          "$ref": "#/definitions/plistSection"
+        },
+        "entitlements": {
+          "$ref": "#/definitions/plistSection"
+        },
+        "background_modes": {
+          "$ref": "#/definitions/plainSection"
+        },
+        "manual": {
+          "$ref": "#/definitions/manualSection"
+        }
+      }
+    },
+    "android": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "permissions": {
+          "$ref": "#/definitions/plainSection"
+        },
+        "queries": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/query"
+          }
+        },
+        "manifest_meta_data": {
+          "$ref": "#/definitions/plainSection"
+        },
+        "components": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "propertyNames": {
+            "minLength": 1
+          },
+          "additionalProperties": {
+            "$ref": "#/definitions/componentSpec"
+          }
+        },
+        "activity_class": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/plainSection"
+            }
+          ],
+          "maxProperties": 1
+        },
+        "manual": {
+          "$ref": "#/definitions/manualSection"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "url": {
+      "type": "string",
+      "pattern": "^https://[^\\s/]+(/\\S*)?$"
+    },
+    "required": {
+      "description": "true = always needed with this plugin; when_used = only for some features (say which in hint). Omit an item instead of using false.",
+      "enum": [
+        true,
+        "when_used"
+      ]
+    },
+    "hint": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "plainSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "hint"
+      ],
+      "properties": {
+        "required": {
+          "$ref": "#/definitions/required"
+        },
+        "hint": {
+          "$ref": "#/definitions/hint"
+        },
+        "source": {
+          "$ref": "#/definitions/url"
+        }
+      }
+    },
+    "plistSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "hint"
+      ],
+      "properties": {
+        "required": {
+          "$ref": "#/definitions/required"
+        },
+        "hint": {
+          "$ref": "#/definitions/hint"
+        },
+        "source": {
+          "$ref": "#/definitions/url"
+        },
+        "expect_type": {
+          "enum": [
+            "string",
+            "boolean",
+            "integer",
+            "real",
+            "date",
+            "data",
+            "array",
+            "dict"
+          ]
+        }
+      }
+    },
+    "componentSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "required",
+        "hint"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "activity",
+            "receiver",
+            "service",
+            "provider"
+          ]
+        },
+        "required": {
+          "$ref": "#/definitions/required"
+        },
+        "hint": {
+          "$ref": "#/definitions/hint"
+        },
+        "source": {
+          "$ref": "#/definitions/url"
+        }
+      }
+    },
+    "plainSection": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "propertyNames": {
+        "minLength": 1
+      },
+      "additionalProperties": {
+        "$ref": "#/definitions/plainSpec"
+      }
+    },
+    "plistSection": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "propertyNames": {
+        "minLength": 1
+      },
+      "additionalProperties": {
+        "$ref": "#/definitions/plistSpec"
+      }
+    },
+    "manualSection": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "required",
+          "hint"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+          },
+          "required": {
+            "$ref": "#/definitions/required"
+          },
+          "hint": {
+            "$ref": "#/definitions/hint"
+          },
+          "source": {
+            "$ref": "#/definitions/url"
+          }
+        }
+      }
+    },
+    "query": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "hint"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "intent"
+          ]
+        },
+        {
+          "required": [
+            "package"
+          ]
+        }
+      ],
+      "properties": {
+        "intent": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action"
+          ],
+          "properties": {
+            "action": {
+              "type": "string",
+              "minLength": 1
+            },
+            "scheme": {
+              "type": "string",
+              "minLength": 1
+            },
+            "mime_type": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "package": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required": {
+          "$ref": "#/definitions/required"
+        },
+        "hint": {
+          "$ref": "#/definitions/hint"
+        },
+        "source": {
+          "$ref": "#/definitions/url"
+        }
+      }
+    }
+  }
+}

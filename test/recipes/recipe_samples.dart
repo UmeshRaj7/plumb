@@ -34,6 +34,20 @@ android:
     - { id: desugaring, required: true, hint: "Enable desugaring" }
 ''';
 
+/// A valid recipe with empty and null sections.
+const minimalRecipe = '''
+schema: 1
+package: tiny
+versions: any
+source: https://pub.dev/packages/tiny
+ios:
+  info_plist: {}
+  entitlements:
+android:
+  permissions: {}
+  queries: []
+''';
+
 const _header = '''
 schema: 1
 package: p

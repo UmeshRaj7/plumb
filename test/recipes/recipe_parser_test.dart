@@ -117,18 +117,7 @@ void main() {
     });
 
     test('a minimal recipe with empty or null sections', () {
-      final recipe = parseRecipe('''
-schema: 1
-package: tiny
-versions: any
-source: https://pub.dev/packages/tiny
-ios:
-  info_plist: {}
-  entitlements:
-android:
-  permissions: {}
-  queries: []
-''', origin: 'tiny.yaml');
+      final recipe = parseRecipe(minimalRecipe, origin: 'tiny.yaml');
       expect(recipe.requirements, isEmpty);
     });
   });
