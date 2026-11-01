@@ -1,11 +1,48 @@
 # plumb — native config for Flutter™
 
-`plumb doctor` checks your Flutter app's **Info.plist**, **entitlements** and
-**AndroidManifest.xml** against what your plugins' own documentation says they
-need: missing purpose strings, placeholder text like `"TODO"`, missing
-permissions, the wrong `MainActivity` base class, and more.
+**Find the missing iOS and Android setup that your Flutter plugins need, before
+it crashes your app or gets it rejected from the App Store.**
 
-**Read-only.** plumb never changes your project.
+```sh
+dart pub global activate plumb
+cd my_flutter_app
+plumb doctor
+```
+
+plumb only reads your project. It never changes a file.
+
+## The problem
+
+Adding a plugin like `camera` to `pubspec.yaml` is often only half the job.
+Many plugins also need you to edit files inside your app's `ios/` and
+`android/` folders, files most Flutter developers rarely open:
+
+- **iOS:** add a sentence to `Info.plist` explaining *why* your app wants the
+  camera, location or Face ID. Forget it and your app **crashes** the moment it
+  asks for access. Leave it as `"TODO"` and App Review can **reject** your app.
+- **Android:** add permissions to `AndroidManifest.xml`, or change which class
+  your `MainActivity` extends. Forget it and the feature **quietly fails**.
+
+These steps are spread across each plugin's README, they differ between
+plugins and versions, and nothing warns you when one is missing. You usually
+find out on a real device, or from an App Store email.
+
+## What plumb does
+
+plumb is a checklist that runs itself:
+
+1. It looks at which plugins your app uses, and which versions.
+2. For each one it knows, it checks your iOS and Android files against what
+   that plugin's **own documentation** says you must add.
+3. It tells you, in plain words, what's missing, what still says "TODO", and
+   exactly how to fix it, with a link to the docs it got that from.
+
+Run it after adding a plugin, before a release, or in CI on every pull request.
+
+**In numbers (v0.0.1):** checks 10 popular plugins · reads 5 kinds of files ·
+takes about half a second · needs no Mac or Xcode · changes 0 files.
+
+## What you'll see
 
 ```text
 $ plumb doctor
@@ -34,6 +71,25 @@ local_auth 3.0.2
 
 Summary: 2 ok · 2 missing · 1 warning · 3 info
 ```
+
+Reading it: **✗** must be fixed, **⚠** is there but still a placeholder,
+**✓** is fine, and **ℹ** only matters if you use that feature (add `--verbose`
+to see those).
+
+## Where plumb is going
+
+Today plumb **checks**. The long-term idea is that plugins could describe the
+native setup they need in one small file, and a tool could apply it for you
+safely, so nobody has to hand-edit Xcode or Android files again.
+
+None of that exists yet. v0.0.1 only reads and reports, so you can trust what
+it tells you before trusting it to change anything.
+
+---
+
+# Details
+
+The rest of this page is reference material.
 
 ## Install
 
@@ -175,11 +231,6 @@ ios:
 
 Missing a plugin? See [CONTRIBUTING.md](https://github.com/UmeshRaj7/plumb/blob/main/CONTRIBUTING.md#writing-a-recipe):
 recipes must come from the plugin's own docs and cite them.
-
-## Status
-
-v0.0.1 only **checks**. It does not create or edit native files; that may come
-in a later version, and this README will say so when it does.
 
 ---
 
