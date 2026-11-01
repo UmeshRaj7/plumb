@@ -1,0 +1,38 @@
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from the geolocator README for 11.0.0 – 14.1.0 (compared 11.1.0,
+# 12.0.0, 13.0.4, 14.1.0). These versions ask for ACCESS_COARSE_LOCATION *or*
+# ACCESS_FINE_LOCATION; schema 1 can't express "one of", so both are
+# conditional here and plumb won't report ✗ for this pair.
+schema: 1
+package: geolocator
+versions: ">=11.0.0 <14.1.1"
+source: https://pub.dev/packages/geolocator#usage
+ios:
+  info_plist:
+    NSLocationWhenInUseUsageDescription:
+      required: true
+      hint: >-
+        Add NSLocationWhenInUseUsageDescription to Info.plist with a description
+        that is meaningful for your app.
+    NSLocationAlwaysAndWhenInUseUsageDescription:
+      required: when_used
+      hint: >-
+        Needed for background location updates, and whenever you don't set the
+        BYPASS_PERMISSION_LOCATION_ALWAYS=1 macro in your Podfile.
+    NSLocationTemporaryUsageDescriptionDictionary:
+      required: when_used
+      expect_type: dict
+      hint: >-
+        Needed if you call requestTemporaryFullAccuracy(purposeKey: ...): add one
+        entry per purpose key.
+android:
+  permissions:
+    android.permission.ACCESS_COARSE_LOCATION:
+      required: when_used
+      hint: Add ACCESS_COARSE_LOCATION or ACCESS_FINE_LOCATION (at least one) as a child of <manifest>.
+    android.permission.ACCESS_FINE_LOCATION:
+      required: when_used
+      hint: Add ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION (at least one); FINE is used when both are present.
+    android.permission.ACCESS_BACKGROUND_LOCATION:
+      required: when_used
+      hint: Android 10+ needs it to keep receiving updates while the app is in the background.

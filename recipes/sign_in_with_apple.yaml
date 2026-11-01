@@ -1,0 +1,31 @@
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from the sign_in_with_apple README (compared 5.0.0, 6.1.4, 7.0.1, 8.2.0).
+schema: 1
+package: sign_in_with_apple
+versions: ">=5.0.0 <9.0.0"
+source: https://pub.dev/packages/sign_in_with_apple#ios
+ios:
+  entitlements:
+    com.apple.developer.applesignin:
+      required: true
+      expect_type: array
+      hint: >-
+        Add the Sign in with Apple capability in Xcode (Signing & Capabilities);
+        without it sign-in fails without any visible indication.
+android:
+  components:
+    com.aboutyou.dart_packages.sign_in_with_apple.SignInWithAppleCallback:
+      kind: activity
+      required: when_used
+      hint: >-
+        Needed for Sign in with Apple on Android: declare this activity inside
+        <application> with android:exported="true" and an intent-filter for
+        scheme "signinwithapple", path "callback".
+      source: https://pub.dev/packages/sign_in_with_apple#android
+  manual:
+    - id: launch-mode
+      required: when_used
+      hint: >-
+        For Sign in with Apple on Android, your activity's launchMode must be
+        singleTask or singleTop so the login page can return to the app.
+      source: https://pub.dev/packages/sign_in_with_apple#android

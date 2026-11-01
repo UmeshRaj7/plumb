@@ -1,0 +1,38 @@
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from the local_auth README (2.x) and the local_auth_android /
+# local_auth_darwin READMEs it points to (3.x). Compared 2.0.0, 2.3.0, 3.0.2.
+schema: 1
+package: local_auth
+versions: ">=2.0.0 <4.0.0"
+source: https://pub.dev/packages/local_auth#setup
+ios:
+  info_plist:
+    NSFaceIDUsageDescription:
+      required: true
+      hint: Add NSFaceIDUsageDescription to Info.plist explaining why your app uses Face ID.
+      source: https://pub.dev/packages/local_auth_darwin#setup
+android:
+  activity_class:
+    io.flutter.embedding.android.FlutterFragmentActivity:
+      required: true
+      hint: >-
+        local_auth needs a FragmentActivity: make MainActivity extend
+        FlutterFragmentActivity (or use FlutterFragmentActivity directly in
+        AndroidManifest.xml).
+      source: https://pub.dev/packages/local_auth_android#setup
+  permissions:
+    android.permission.USE_BIOMETRIC:
+      # The README asks for it, but local_auth_android's own manifest declares
+      # it and Android merges it into the app, so it isn't reported as missing.
+      required: when_used
+      hint: >-
+        The README asks you to add USE_BIOMETRIC; local_auth_android's own
+        manifest already declares it, so the manifest merger adds it for you.
+      source: https://pub.dev/packages/local_auth_android#setup
+  manual:
+    - id: launch-theme-appcompat
+      required: when_used
+      hint: >-
+        On Android 8 and below, LaunchTheme's parent must be a Theme.AppCompat
+        theme (android/app/src/main/res/values/styles.xml) to prevent crashes.
+      source: https://pub.dev/packages/local_auth_android#setup

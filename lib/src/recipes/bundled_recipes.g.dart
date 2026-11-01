@@ -21,6 +21,91 @@ ios:
       required: true
       hint: Add NSMicrophoneUsageDescription to Info.plist with a usage description.
 ''',
+  'geolocator.yaml': r'''
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from the geolocator README, 14.1.1 onwards (compared 14.1.1 and 14.1.2).
+# Older versions: geolocator@11.yaml.
+schema: 1
+package: geolocator
+versions: ">=14.1.1 <15.0.0"
+source: https://pub.dev/packages/geolocator#usage
+ios:
+  info_plist:
+    NSLocationWhenInUseUsageDescription:
+      required: true
+      hint: >-
+        Add NSLocationWhenInUseUsageDescription to Info.plist with a description
+        that is meaningful for your app.
+    NSLocationAlwaysAndWhenInUseUsageDescription:
+      required: when_used
+      hint: >-
+        Needed for background location updates, and whenever you don't set the
+        BYPASS_PERMISSION_LOCATION_ALWAYS=1 macro (Podfile) or environment
+        variable (Swift Package Manager). Apple asks you to justify it at review.
+    NSLocationTemporaryUsageDescriptionDictionary:
+      required: when_used
+      expect_type: dict
+      hint: >-
+        Needed if you call requestTemporaryFullAccuracy(purposeKey: ...): add one
+        entry per purpose key.
+  background_modes:
+    location:
+      required: when_used
+      hint: >-
+        Needed to receive location updates in the background on iOS 16+ (Background
+        Modes capability → Location updates). Apple asks you to justify it at review.
+android:
+  permissions:
+    android.permission.ACCESS_COARSE_LOCATION:
+      required: true
+      hint: Add <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> as a child of <manifest>.
+    android.permission.ACCESS_FINE_LOCATION:
+      required: when_used
+      hint: Add if your app benefits from precise location; request it together with ACCESS_COARSE_LOCATION.
+    android.permission.ACCESS_BACKGROUND_LOCATION:
+      required: when_used
+      hint: Android 10+ needs it to keep receiving updates while the app is in the background.
+''',
+  'geolocator@11.yaml': r'''
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from the geolocator README for 11.0.0 – 14.1.0 (compared 11.1.0,
+# 12.0.0, 13.0.4, 14.1.0). These versions ask for ACCESS_COARSE_LOCATION *or*
+# ACCESS_FINE_LOCATION; schema 1 can't express "one of", so both are
+# conditional here and plumb won't report ✗ for this pair.
+schema: 1
+package: geolocator
+versions: ">=11.0.0 <14.1.1"
+source: https://pub.dev/packages/geolocator#usage
+ios:
+  info_plist:
+    NSLocationWhenInUseUsageDescription:
+      required: true
+      hint: >-
+        Add NSLocationWhenInUseUsageDescription to Info.plist with a description
+        that is meaningful for your app.
+    NSLocationAlwaysAndWhenInUseUsageDescription:
+      required: when_used
+      hint: >-
+        Needed for background location updates, and whenever you don't set the
+        BYPASS_PERMISSION_LOCATION_ALWAYS=1 macro in your Podfile.
+    NSLocationTemporaryUsageDescriptionDictionary:
+      required: when_used
+      expect_type: dict
+      hint: >-
+        Needed if you call requestTemporaryFullAccuracy(purposeKey: ...): add one
+        entry per purpose key.
+android:
+  permissions:
+    android.permission.ACCESS_COARSE_LOCATION:
+      required: when_used
+      hint: Add ACCESS_COARSE_LOCATION or ACCESS_FINE_LOCATION (at least one) as a child of <manifest>.
+    android.permission.ACCESS_FINE_LOCATION:
+      required: when_used
+      hint: Add ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION (at least one); FINE is used when both are present.
+    android.permission.ACCESS_BACKGROUND_LOCATION:
+      required: when_used
+      hint: Android 10+ needs it to keep receiving updates while the app is in the background.
+''',
   'image_picker.yaml': r'''
 # yaml-language-server: $schema=../schema/recipe.schema.json
 # Written from the image_picker README (compared 0.8.9 and 1.2.4: same setup).
@@ -44,6 +129,46 @@ ios:
       hint: >-
         Needed if you record videos. Add NSMicrophoneUsageDescription to
         Info.plist describing why your app needs the microphone.
+''',
+  'local_auth.yaml': r'''
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from the local_auth README (2.x) and the local_auth_android /
+# local_auth_darwin READMEs it points to (3.x). Compared 2.0.0, 2.3.0, 3.0.2.
+schema: 1
+package: local_auth
+versions: ">=2.0.0 <4.0.0"
+source: https://pub.dev/packages/local_auth#setup
+ios:
+  info_plist:
+    NSFaceIDUsageDescription:
+      required: true
+      hint: Add NSFaceIDUsageDescription to Info.plist explaining why your app uses Face ID.
+      source: https://pub.dev/packages/local_auth_darwin#setup
+android:
+  activity_class:
+    io.flutter.embedding.android.FlutterFragmentActivity:
+      required: true
+      hint: >-
+        local_auth needs a FragmentActivity: make MainActivity extend
+        FlutterFragmentActivity (or use FlutterFragmentActivity directly in
+        AndroidManifest.xml).
+      source: https://pub.dev/packages/local_auth_android#setup
+  permissions:
+    android.permission.USE_BIOMETRIC:
+      # The README asks for it, but local_auth_android's own manifest declares
+      # it and Android merges it into the app, so it isn't reported as missing.
+      required: when_used
+      hint: >-
+        The README asks you to add USE_BIOMETRIC; local_auth_android's own
+        manifest already declares it, so the manifest merger adds it for you.
+      source: https://pub.dev/packages/local_auth_android#setup
+  manual:
+    - id: launch-theme-appcompat
+      required: when_used
+      hint: >-
+        On Android 8 and below, LaunchTheme's parent must be a Theme.AppCompat
+        theme (android/app/src/main/res/values/styles.xml) to prevent crashes.
+      source: https://pub.dev/packages/local_auth_android#setup
 ''',
   'permission_handler.yaml': r'''
 # yaml-language-server: $schema=../schema/recipe.schema.json
@@ -87,5 +212,38 @@ android:
       hint: >-
         Add a <uses-permission> to android/app/src/main/AndroidManifest.xml for each
         permission you request (the README links an example manifest with all of them).
+''',
+  'sign_in_with_apple.yaml': r'''
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from the sign_in_with_apple README (compared 5.0.0, 6.1.4, 7.0.1, 8.2.0).
+schema: 1
+package: sign_in_with_apple
+versions: ">=5.0.0 <9.0.0"
+source: https://pub.dev/packages/sign_in_with_apple#ios
+ios:
+  entitlements:
+    com.apple.developer.applesignin:
+      required: true
+      expect_type: array
+      hint: >-
+        Add the Sign in with Apple capability in Xcode (Signing & Capabilities);
+        without it sign-in fails without any visible indication.
+android:
+  components:
+    com.aboutyou.dart_packages.sign_in_with_apple.SignInWithAppleCallback:
+      kind: activity
+      required: when_used
+      hint: >-
+        Needed for Sign in with Apple on Android: declare this activity inside
+        <application> with android:exported="true" and an intent-filter for
+        scheme "signinwithapple", path "callback".
+      source: https://pub.dev/packages/sign_in_with_apple#android
+  manual:
+    - id: launch-mode
+      required: when_used
+      hint: >-
+        For Sign in with Apple on Android, your activity's launchMode must be
+        singleTask or singleTop so the login page can return to the app.
+      source: https://pub.dev/packages/sign_in_with_apple#android
 ''',
 };

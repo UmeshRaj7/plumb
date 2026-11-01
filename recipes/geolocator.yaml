@@ -1,0 +1,43 @@
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from the geolocator README, 14.1.1 onwards (compared 14.1.1 and 14.1.2).
+# Older versions: geolocator@11.yaml.
+schema: 1
+package: geolocator
+versions: ">=14.1.1 <15.0.0"
+source: https://pub.dev/packages/geolocator#usage
+ios:
+  info_plist:
+    NSLocationWhenInUseUsageDescription:
+      required: true
+      hint: >-
+        Add NSLocationWhenInUseUsageDescription to Info.plist with a description
+        that is meaningful for your app.
+    NSLocationAlwaysAndWhenInUseUsageDescription:
+      required: when_used
+      hint: >-
+        Needed for background location updates, and whenever you don't set the
+        BYPASS_PERMISSION_LOCATION_ALWAYS=1 macro (Podfile) or environment
+        variable (Swift Package Manager). Apple asks you to justify it at review.
+    NSLocationTemporaryUsageDescriptionDictionary:
+      required: when_used
+      expect_type: dict
+      hint: >-
+        Needed if you call requestTemporaryFullAccuracy(purposeKey: ...): add one
+        entry per purpose key.
+  background_modes:
+    location:
+      required: when_used
+      hint: >-
+        Needed to receive location updates in the background on iOS 16+ (Background
+        Modes capability → Location updates). Apple asks you to justify it at review.
+android:
+  permissions:
+    android.permission.ACCESS_COARSE_LOCATION:
+      required: true
+      hint: Add <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> as a child of <manifest>.
+    android.permission.ACCESS_FINE_LOCATION:
+      required: when_used
+      hint: Add if your app benefits from precise location; request it together with ACCESS_COARSE_LOCATION.
+    android.permission.ACCESS_BACKGROUND_LOCATION:
+      required: when_used
+      hint: Android 10+ needs it to keep receiving updates while the app is in the background.
