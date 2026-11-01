@@ -27,3 +27,8 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+
+# plumb: test fixtures are tiny Flutter projects and need their lock/config files.
+!test/fixtures/**/pubspec.lock
+!test/fixtures/**/.dart_tool/
+coverage/

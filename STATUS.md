@@ -3,11 +3,11 @@
 _Last updated: 2026-11-01_
 
 ## Current milestone
-v0.0.1 — `plumb doctor` (read-only). Step 1 of 19: design docs.
+v0.0.1 — `plumb doctor` (read-only). Step 3 of 19: plist parser.
 
 ## Checklist (ARCHITECTURE.md §12)
 - [x] 1. Docs: ARCHITECTURE, STRATEGY, STATUS, CONTRIBUTING, CLAUDE.md
-- [ ] 2. Scaffold: pubspec, analysis_options, bin/, CLI stub, CI workflow
+- [x] 2. Scaffold: pubspec, analysis_options, bin/, CLI stub, CI workflow
 - [ ] 3. Plist parser (+ binary detection)
 - [ ] 4. AndroidManifest + activity source parsers
 - [ ] 5. Recipe model + strict parser
