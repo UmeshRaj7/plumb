@@ -27,6 +27,12 @@ These steps are spread across each plugin's README, they differ between
 plugins and versions, and nothing warns you when one is missing. You usually
 find out on a real device, or from an App Store email.
 
+The native side of Flutter is a well-known pain point. In Flutter's
+[Q2 2026 developer survey](https://flutter.dev/blog/flutter-q2-2026-survey)
+(3,500+ responses), the largest theme among dissatisfied developers was
+"Platform and ecosystem maturity" (44%), centered on upgrade pain. plumb starts
+with one concrete piece of that: the native setup your plugins require.
+
 ## What plumb does
 
 plumb is a checklist that runs itself:
@@ -81,6 +87,11 @@ to see those).
 Today plumb **checks**. The long-term idea is that plugins could describe the
 native setup they need in one small file, and a tool could apply it for you
 safely, so nobody has to hand-edit Xcode or Android files again.
+
+React Native developers already have this through
+[Expo config plugins](https://docs.expo.dev/config-plugins/introduction/).
+plumb aims to bring that idea to Flutter, starting with a read-only `doctor`
+that tells you exactly what's missing, with a source link for every check.
 
 None of that exists yet. v0.0.1 only reads and reports, so you can trust what
 it tells you before trusting it to change anything.
