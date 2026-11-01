@@ -32,3 +32,6 @@ doc/api/
 !test/fixtures/**/pubspec.lock
 !test/fixtures/package_config_only_app/.dart_tool/
 coverage/
+
+# Internal design/strategy notes (kept locally, not published).
+doc/
