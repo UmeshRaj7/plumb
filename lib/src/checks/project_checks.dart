@@ -59,7 +59,7 @@ List<Finding> purposeStringFindings(
             'Replace it with a sentence telling users why the app needs this '
             'access. App Review rejects vague or placeholder purpose strings.',
         source:
-            'https://developer.apple.com/documentation/uikit/protecting-the-user-s-privacy/requesting-access-to-protected-resources',
+            'https://developer.apple.com/documentation/uikit/requesting-access-to-protected-resources',
       ),
 ];
 
