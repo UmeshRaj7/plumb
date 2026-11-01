@@ -66,7 +66,7 @@ DoctorReport runChecks(ProjectSnapshot snapshot, RecipeIndex index) {
       if (infoPlist != null)
         ...purposeStringFindings(infoPlist, keysCheckedByRecipes),
       ...flavorFindings(snapshot),
-      ...packageFindings,
+      ..._mergeDuplicates(packageFindings),
     ],
   );
 }
@@ -102,4 +102,35 @@ Finding _notCheckedFinding(ResolvedPackage dependency, RecipeLookup lookup) {
         : null,
     source: lookup.candidates.first.source,
   );
+}
+
+/// Several recipes can require the same thing (camera, image_picker and
+/// permission_handler all check NSCameraUsageDescription). When they observe
+/// the same result, keep the first finding and list the other packages, so
+/// one problem is shown and counted once. Conditional/manual items (info)
+/// stay per package because their hints differ.
+List<Finding> _mergeDuplicates(List<Finding> findings) {
+  final merged = <Finding>[];
+  final indexByObservation = <String, int>{};
+  for (final finding in findings) {
+    if (finding.severity == Severity.info || finding.key == null) {
+      merged.add(finding);
+      continue;
+    }
+    final observation = [
+      finding.severity,
+      finding.platform,
+      finding.file,
+      finding.key,
+      finding.message,
+    ].join('|');
+    final index = indexByObservation[observation];
+    if (index == null) {
+      indexByObservation[observation] = merged.length;
+      merged.add(finding);
+    } else {
+      merged[index] = merged[index].withAlsoNeededBy(finding.package!);
+    }
+  }
+  return merged;
 }

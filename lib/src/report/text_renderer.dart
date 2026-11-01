@@ -61,7 +61,7 @@ void _writeSection(
   final shown = verbose
       ? findings
       : findings.where((f) => !_collapsible(f)).toList();
-  final hidden = findings.length - shown.length;
+  final hidden = findings.where((f) => !shown.contains(f)).toList();
 
   out
     ..writeln()
@@ -83,6 +83,9 @@ void _writeSection(
       indent = ' ' * (4 + 7 + 2 + fileWidth + 2);
       out.writeln('  $symbol $platform  $file  ${finding.message}');
     }
+    if (finding.alsoNeededBy.isNotEmpty) {
+      out.writeln('${indent}also: ${finding.alsoNeededBy.join(', ')}');
+    }
     if (finding.severity != Severity.ok) {
       if (finding.fix != null) out.writeln('${indent}fix:  ${finding.fix}');
       if (finding.source != null) {
@@ -90,12 +93,28 @@ void _writeSection(
       }
     }
   }
-  if (hidden > 0) {
-    final items = hidden == 1 ? 'item' : 'items';
+  if (findings.isEmpty) {
+    // Its files were unreadable or its platform directory is missing;
+    // the reason is listed under "Your app".
+    out.writeln('  No results (see "Your app" above).');
+  }
+  if (hidden.isNotEmpty) {
     out.writeln(
-      '  ${style.symbol(Severity.info)} $hidden conditional or manual $items (run with --verbose to list)',
+      '  ${style.symbol(Severity.info)} ${_hiddenSummary(hidden)} '
+      '(run with --verbose to list)',
     );
   }
+}
+
+/// "2 conditional items and 1 manual step" for the collapsed findings.
+String _hiddenSummary(List<Finding> hidden) {
+  final manual = hidden.where((f) => f.file == null).length;
+  final conditional = hidden.length - manual;
+  String count(int n, String noun) => '$n $noun${n == 1 ? '' : 's'}';
+  return [
+    if (conditional > 0) count(conditional, 'conditional item'),
+    if (manual > 0) count(manual, 'manual step'),
+  ].join(' and ');
 }
 
 /// The file name shown in the file column (full path when it's a directory

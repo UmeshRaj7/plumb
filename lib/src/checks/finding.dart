@@ -31,16 +31,19 @@ class Finding {
     this.key,
     this.fix,
     this.source,
+    this.alsoNeededBy = const [],
   });
 
   /// Builds the finding for [requirement] of [recipe]. The id is stable:
-  /// `<package>/<platform>/<section>/<key>`.
+  /// `<package>/<platform>/<section>/<key>`. [fix] defaults to the
+  /// requirement's hint.
   factory Finding.forRequirement(
     Recipe recipe,
     Requirement requirement,
     Severity severity, {
     required String message,
     String? file,
+    String? fix,
   }) => Finding(
     id: [
       recipe.package,
@@ -54,7 +57,7 @@ class Finding {
     file: file,
     key: requirement.key,
     message: message,
-    fix: severity == Severity.ok ? null : requirement.hint,
+    fix: severity == Severity.ok ? null : (fix ?? requirement.hint),
     source: requirement.source ?? recipe.source,
   );
 
@@ -84,4 +87,22 @@ class Finding {
 
   /// Documentation URL backing the finding.
   final String? source;
+
+  /// Other packages whose recipes led to this same observation (same file,
+  /// key and result). Reported once so one problem is counted once.
+  final List<String> alsoNeededBy;
+
+  /// A copy with [package] added to [alsoNeededBy].
+  Finding withAlsoNeededBy(String package) => Finding(
+    id: id,
+    severity: severity,
+    message: message,
+    package: this.package,
+    platform: platform,
+    file: file,
+    key: key,
+    fix: fix,
+    source: source,
+    alsoNeededBy: [...alsoNeededBy, package],
+  );
 }

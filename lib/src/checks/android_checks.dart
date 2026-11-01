@@ -8,6 +8,10 @@ import 'placeholder.dart';
 
 const _manifest = 'android/app/src/main/AndroidManifest.xml';
 
+/// Builds a finding for the requirement being checked.
+typedef _MakeFinding =
+    Finding Function(Severity, String message, {String? file, String? fix});
+
 /// Checks one Android [requirement] of [recipe] against [android].
 ///
 /// Returns null when AndroidManifest.xml is unreadable; that problem is
@@ -21,12 +25,14 @@ Finding? checkAndroidRequirement(
     Severity severity,
     String message, {
     String? file = _manifest,
+    String? fix,
   }) => Finding.forRequirement(
     recipe,
     requirement,
     severity,
     message: message,
     file: file,
+    fix: fix,
   );
 
   if (requirement.kind == RequirementKind.manual) {
@@ -69,7 +75,8 @@ Finding? checkAndroidRequirement(
       if (isPlaceholder(value)) {
         return finding(
           Severity.warning,
-          '<meta-data> $key looks like a placeholder: "$value"',
+          placeholderMessage('<meta-data> $key', value),
+          fix: placeholderFix(requirement.hint),
         );
       }
       if (isBuildVariable(value)) {
@@ -127,7 +134,7 @@ Finding _checkActivityClass(
   Requirement requirement,
   AndroidManifest manifest,
   AndroidFiles android,
-  Finding Function(Severity, String, {String? file}) finding,
+  _MakeFinding finding,
 ) {
   final required = _simpleName(requirement.key);
   final wrong = requirement.necessity == Necessity.required

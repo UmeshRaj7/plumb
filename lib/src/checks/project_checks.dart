@@ -54,7 +54,7 @@ List<Finding> purposeStringFindings(
         platform: NativePlatform.ios,
         file: 'ios/Runner/Info.plist',
         key: key,
-        message: '$key looks like a placeholder: "${value.trim()}"',
+        message: placeholderMessage(key, value),
         fix:
             'Replace it with a sentence telling users why the app needs this '
             'access. App Review rejects vague or placeholder purpose strings.',

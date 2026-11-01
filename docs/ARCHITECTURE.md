@@ -201,6 +201,7 @@ class Finding {
   final String message;     // what plumb observed
   final String? fix;        // what to do (from recipe hint)
   final String? source;     // URL
+  final List<String> alsoNeededBy; // other packages with the same observation (§6.7)
 }
 enum Severity { error, missing, warning, ok, info }
 ```
@@ -291,6 +292,15 @@ A value containing `$(…)` or `${…}` is a **build variable**: reported ✓ wi
   and read the superclass. Simple name equals required → ✓; `FlutterActivity` → ✗;
   anything else or file not found → ℹ (custom base classes can't be verified).
 
+### 6.7 One problem, one finding
+Several recipes can require the same key (camera, image_picker and permission_handler all
+check `NSCameraUsageDescription`). When they observe the same result (same severity, file,
+key and message), the first package's finding is kept and the others are listed in
+`alsoNeededBy` (text: `also:` line; JSON: `also_needed_by`). Summary counts therefore
+count problems, not recipes. ℹ items are never merged (their hints differ per plugin).
+
+Placeholder warnings use the fix "Replace it with a real value." followed by the recipe hint.
+
 ### 6.6 Native file problems
 - Binary plist (`bplist00` magic) → `error`: "Info.plist is a binary plist; plumb reads
   XML plists. Convert with `plutil -convert xml1 ios/Runner/Info.plist`" (the command is a
@@ -364,7 +374,9 @@ plumb help [command]
 ```
 - `path` defaults to the current directory; plumb walks up to the nearest `pubspec.yaml`.
 - `--json` prints JSON only (no colors, no progress text). Errors are JSON too.
-- `--verbose` lists every ℹ item (by default they are counted per package).
+- `--verbose` lists every conditional/manual ℹ item (by default they are counted per
+  package). Notes about a package or the app (version not covered, flavors) always show.
+- A package section with no findings says `No results (see "Your app" above)`.
 - Colors only when stdout is a terminal that supports ANSI and `NO_COLOR` is not set.
 
 Text output (sample):
@@ -377,11 +389,13 @@ geolocator 14.1.2
   ✗ ios      Info.plist           NSLocationWhenInUseUsageDescription is missing
              fix:  Add NSLocationWhenInUseUsageDescription to ios/Runner/Info.plist explaining why your app needs location while in use.
              docs: https://pub.dev/packages/geolocator#usage
-  ℹ 4 conditional or manual items (run with --verbose to list)
+  ℹ 3 conditional items and 1 manual step (run with --verbose to list)
 
 image_picker 1.2.4
   ⚠ ios      Info.plist           NSCameraUsageDescription looks like a placeholder: "TODO"
              fix:  …
+             also: permission_handler
+             fix:  Replace it with a real value. …
              docs: https://pub.dev/packages/image_picker#ios
 
 Summary: 5 ok · 1 missing · 1 warning · 6 info
@@ -402,7 +416,8 @@ JSON output (format 1):
       "severity": "missing", "package": "geolocator", "platform": "ios",
       "file": "ios/Runner/Info.plist", "key": "NSLocationWhenInUseUsageDescription",
       "message": "NSLocationWhenInUseUsageDescription is missing",
-      "fix": "…", "source": "https://pub.dev/packages/geolocator#usage"
+      "fix": "…", "source": "https://pub.dev/packages/geolocator#usage",
+      "also_needed_by": []
     }
   ],
   "summary": { "error": 0, "missing": 1, "warning": 1, "ok": 5, "info": 6 }
@@ -423,6 +438,7 @@ recipe declaration order. Deterministic output is what makes golden tests possib
 | checks | unit per severity rule in §5.4 with tiny in-memory snapshots | `test/checks/` |
 | report | renderer unit tests | `test/report/` |
 | end-to-end | fixture → text + JSON **goldens** + exit codes | `test/doctor_golden_test.dart`, `test/goldens/` |
+| read-only promise | copy fixture → run every mode → tree byte-identical | `test/read_only_test.dart` |
 
 Fixtures (`test/fixtures/`, tiny, committed — `.gitignore` re-includes their `pubspec.lock`):
 `good_app`, `broken_app`, `edge_app` (build variables, INFOPLIST_KEY, partial entitlements,

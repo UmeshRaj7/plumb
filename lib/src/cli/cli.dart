@@ -77,7 +77,7 @@ class _PlumbCommandRunner extends CommandRunner<int> {
       negatable: false,
       help: 'Print the plumb version.',
     );
-    addCommand(DoctorCommand());
+    addCommand(DoctorCommand(_console));
   }
 
   final Console _console;

@@ -25,3 +25,12 @@ bool isPlaceholder(String value) {
 /// Whether [value] contains an Xcode `$(VAR)` or Gradle `${var}` reference,
 /// which is only resolved at build time (so plumb can't see the real value).
 bool isBuildVariable(String value) => _buildVariable.hasMatch(value);
+
+/// The message for a placeholder [value] of [subject]: "is empty" or
+/// "looks like a placeholder".
+String placeholderMessage(String subject, String value) => value.trim().isEmpty
+    ? '$subject is empty'
+    : '$subject looks like a placeholder: "${value.trim()}"';
+
+/// The fix for a placeholder: replace it, then the recipe's own hint.
+String placeholderFix(String hint) => 'Replace it with a real value. $hint';

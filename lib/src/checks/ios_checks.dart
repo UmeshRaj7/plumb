@@ -7,6 +7,10 @@ import 'placeholder.dart';
 const _infoPlist = 'ios/Runner/Info.plist';
 const _pbxproj = 'ios/Runner.xcodeproj/project.pbxproj';
 
+/// Builds a finding for the requirement being checked.
+typedef _MakeFinding =
+    Finding Function(Severity, String message, {String? file, String? fix});
+
 /// Checks one iOS [requirement] of [recipe] against [ios].
 ///
 /// Returns null when a file the check needs is unreadable; that problem is
@@ -16,14 +20,19 @@ Finding? checkIosRequirement(
   Recipe recipe,
   IosFiles ios,
 ) {
-  Finding finding(Severity severity, String message, {String? file}) =>
-      Finding.forRequirement(
-        recipe,
-        requirement,
-        severity,
-        message: message,
-        file: file,
-      );
+  Finding finding(
+    Severity severity,
+    String message, {
+    String? file,
+    String? fix,
+  }) => Finding.forRequirement(
+    recipe,
+    requirement,
+    severity,
+    message: message,
+    file: file,
+    fix: fix,
+  );
 
   switch (requirement.kind) {
     case RequirementKind.infoPlistKey:
@@ -72,7 +81,7 @@ Finding _checkInfoPlistKey(
   Requirement requirement,
   Map<String, Object?> plist,
   String? pbxproj,
-  Finding Function(Severity, String, {String? file}) finding,
+  _MakeFinding finding,
 ) {
   final key = requirement.key;
   if (!plist.containsKey(key)) {
@@ -85,6 +94,9 @@ Finding _checkInfoPlistKey(
         '$key is not in Info.plist but is set as build setting '
         'INFOPLIST_KEY_$key; plumb can\'t verify build settings',
         file: _pbxproj,
+        fix:
+            'Nothing to do if Xcode generates Info.plist keys for this target '
+            '(GENERATE_INFOPLIST_FILE = YES); otherwise add $key to Info.plist.',
       );
     }
     return finding(
@@ -101,14 +113,14 @@ Finding _checkInfoPlistKey(
 Finding _checkEntitlement(
   Requirement requirement,
   List<FileRead<Map<String, Object?>>> files,
-  Finding Function(Severity, String, {String? file}) finding,
+  _MakeFinding finding,
 ) {
   final key = requirement.key;
   if (files.isEmpty) {
     return finding(
       _absent(requirement),
       'No .entitlements file in ios/Runner, so $key is not set',
-      file: 'ios/Runner',
+      file: 'ios/Runner/',
     );
   }
   final withKey = [
@@ -148,7 +160,7 @@ Finding _checkEntitlement(
 Finding _checkValue(
   Requirement requirement,
   Object? value,
-  Finding Function(Severity, String, {String? file}) finding, {
+  _MakeFinding finding, {
   required String file,
 }) {
   final key = requirement.key;
@@ -165,8 +177,9 @@ Finding _checkValue(
     if (isPlaceholder(value)) {
       return finding(
         Severity.warning,
-        '$key looks like a placeholder: "${value.trim()}"',
+        placeholderMessage(key, value),
         file: file,
+        fix: placeholderFix(requirement.hint),
       );
     }
     if (isBuildVariable(value)) {

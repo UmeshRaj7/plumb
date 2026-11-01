@@ -44,6 +44,7 @@ String renderJson(DoctorReport report) {
           'message': finding.message,
           'fix': finding.fix,
           'source': finding.source,
+          'also_needed_by': finding.alsoNeededBy,
         },
     ],
     'summary': {

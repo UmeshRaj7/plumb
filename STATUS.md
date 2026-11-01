@@ -3,7 +3,7 @@
 _Last updated: 2026-11-01_
 
 ## Current milestone
-v0.0.1 — `plumb doctor` (read-only). Step 13 of 15: wire `doctor`, fixtures + goldens.
+v0.0.1 — `plumb doctor` (read-only). Step 14 of 15: README, CHANGELOG, example/, publish dry-run.
 
 ## Checklist (ARCHITECTURE.md §12; recipes moved before goldens on 2026-11-01)
 - [x] 1. Docs: ARCHITECTURE, STRATEGY, STATUS, CONTRIBUTING, CLAUDE.md
@@ -18,7 +18,7 @@ v0.0.1 — `plumb doctor` (read-only). Step 13 of 15: wire `doctor`, fixtures + 
 - [x] 10. Checks (iOS, Android, app-level, placeholder)
 - [x] 11. Report model, text + JSON renderers, exit codes
 - [x] 12. Recipes (10 plugins, 12 files, every URL + anchor verified live)
-- [ ] 13. Wire `doctor`; fixtures + goldens (on real recipes)
+- [x] 13. Wire `doctor`; fixtures + goldens (on real recipes)
 - [ ] 14. README, CHANGELOG, example/, pubspec metadata, publish dry-run
 - [ ] 15. Validate on a real Flutter app
 
