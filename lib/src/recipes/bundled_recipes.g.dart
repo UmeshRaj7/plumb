@@ -21,6 +21,165 @@ ios:
       required: true
       hint: Add NSMicrophoneUsageDescription to Info.plist with a usage description.
 ''',
+  'firebase_messaging.yaml': r'''
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from Firebase's "Get started with FCM in Flutter apps" guide and the
+# firebase_messaging 17 README. Older versions: firebase_messaging@14.yaml.
+# Android needs no app changes: the plugin's own manifest declares its
+# permissions and services.
+schema: 1
+package: firebase_messaging
+versions: ">=17.0.0 <18.0.0"
+source: https://firebase.google.com/docs/cloud-messaging/flutter/client
+ios:
+  entitlements:
+    aps-environment:
+      required: true
+      hint: >-
+        Enable the Push Notifications capability in Xcode (Signing & Capabilities);
+        it adds aps-environment to your .entitlements file.
+      source: https://developer.apple.com/documentation/bundleresources/entitlements/aps-environment
+  background_modes:
+    remote-notification:
+      required: true
+      hint: Enable Background Modes → Remote notifications in Xcode.
+    fetch:
+      required: when_used
+      hint: >-
+        Firebase's guide asks you to enable Background fetch too; the official
+        firebase_messaging example app doesn't, so plumb doesn't require it.
+  manual:
+    - id: apns-auth-key
+      required: true
+      hint: >-
+        Upload your APNs authentication key in the Firebase console
+        (Project settings → Cloud Messaging → Apple app configuration).
+    - id: keep-method-swizzling
+      required: true
+      hint: >-
+        FCM on Apple platforms needs method swizzling: don't set
+        FirebaseAppDelegateProxyEnabled to NO in Info.plist.
+    - id: uiscene-notification-delegate
+      required: when_used
+      hint: >-
+        If your app uses the UIScene lifecycle, call
+        FLTFirebaseMessagingPlugin.configureNotificationCenterDelegate() in your
+        AppDelegate's application(_:didFinishLaunchingWithOptions:).
+      source: https://pub.dev/packages/firebase_messaging#ios-apps-using-uiscene
+''',
+  'firebase_messaging@14.yaml': r'''
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from Firebase's "Get started with FCM in Flutter apps" guide; the
+# iOS setup matches the official example app shipped in 14.9.4, 15.2.10 and
+# 16.1.2 (aps-environment + remote-notification). Newer: firebase_messaging.yaml.
+schema: 1
+package: firebase_messaging
+versions: ">=14.0.0 <17.0.0"
+source: https://firebase.google.com/docs/cloud-messaging/flutter/client
+ios:
+  entitlements:
+    aps-environment:
+      required: true
+      hint: >-
+        Enable the Push Notifications capability in Xcode (Signing & Capabilities);
+        it adds aps-environment to your .entitlements file.
+      source: https://developer.apple.com/documentation/bundleresources/entitlements/aps-environment
+  background_modes:
+    remote-notification:
+      required: true
+      hint: Enable Background Modes → Remote notifications in Xcode.
+    fetch:
+      required: when_used
+      hint: >-
+        Firebase's guide asks you to enable Background fetch too; the official
+        firebase_messaging example app doesn't, so plumb doesn't require it.
+  manual:
+    - id: apns-auth-key
+      required: true
+      hint: >-
+        Upload your APNs authentication key in the Firebase console
+        (Project settings → Cloud Messaging → Apple app configuration).
+    - id: keep-method-swizzling
+      required: true
+      hint: >-
+        FCM on Apple platforms needs method swizzling: don't set
+        FirebaseAppDelegateProxyEnabled to NO in Info.plist.
+''',
+  'flutter_local_notifications.yaml': r'''
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from the flutter_local_notifications README (compared 19.5.0, 20.1.0,
+# 21.0.0, 22.3.3). Since v16 the plugin's own manifest only declares
+# POST_NOTIFICATIONS and VIBRATE; everything else depends on the features you use.
+schema: 1
+package: flutter_local_notifications
+versions: ">=19.0.0 <23.0.0"
+source: https://pub.dev/packages/flutter_local_notifications#-android-setup
+ios:
+  manual:
+    - id: notification-center-delegate
+      required: true
+      hint: >-
+        In AppDelegate's application(_:didFinishLaunchingWithOptions:), set
+        UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate.
+      source: https://pub.dev/packages/flutter_local_notifications#general-setup
+android:
+  permissions:
+    android.permission.RECEIVE_BOOT_COMPLETED:
+      required: when_used
+      hint: Needed to schedule notifications, so the plugin can reschedule them after a reboot.
+      source: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+    android.permission.SCHEDULE_EXACT_ALARM:
+      required: when_used
+      hint: >-
+        For notifications at exact times: add this and call
+        requestExactAlarmsPermission(), or use USE_EXACT_ALARM instead.
+      source: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+    android.permission.USE_EXACT_ALARM:
+      required: when_used
+      hint: >-
+        Alternative to SCHEDULE_EXACT_ALARM for exact alarms; requires targeting
+        Android 13+ and may be subject to app store approval.
+      source: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+    android.permission.USE_FULL_SCREEN_INTENT:
+      required: when_used
+      hint: Needed for full-screen intent notifications.
+      source: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+    android.permission.ACCESS_NOTIFICATION_POLICY:
+      required: when_used
+      hint: Needed to create channels that bypass Do Not Disturb.
+      source: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+  components:
+    com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver:
+      kind: receiver
+      required: when_used
+      hint: Needed to show scheduled notifications; declare it inside <application> with android:exported="false".
+      source: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+    com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver:
+      kind: receiver
+      required: when_used
+      hint: >-
+        Needed to reschedule notifications after a reboot or app update; include its
+        BOOT_COMPLETED / MY_PACKAGE_REPLACED / QUICKBOOT_POWERON intent-filter.
+      source: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+    com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver:
+      kind: receiver
+      required: when_used
+      hint: Needed for notification actions.
+      source: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+    com.dexterous.flutterlocalnotifications.ForegroundService:
+      kind: service
+      required: when_used
+      hint: Needed for foreground services; set android:foregroundServiceType to the types you use.
+      source: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+  manual:
+    - id: core-library-desugaring
+      required: true
+      hint: >-
+        Enable core library desugaring in android/app/build.gradle(.kts)
+        (coreLibraryDesugaringEnabled plus the desugar_jdk_libs dependency).
+        Required since v10, even if you don't schedule notifications.
+      source: https://pub.dev/packages/flutter_local_notifications#gradle-setup
+''',
   'geolocator.yaml': r'''
 # yaml-language-server: $schema=../schema/recipe.schema.json
 # Written from the geolocator README, 14.1.1 onwards (compared 14.1.1 and 14.1.2).
@@ -105,6 +264,38 @@ android:
     android.permission.ACCESS_BACKGROUND_LOCATION:
       required: when_used
       hint: Android 10+ needs it to keep receiving updates while the app is in the background.
+''',
+  'google_maps_flutter.yaml': r'''
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from the google_maps_flutter README and the endorsed platform READMEs
+# it points to (google_maps_flutter_android, google_maps_flutter_ios_sdk10).
+# Compared 2.2.0 and 2.19.0.
+schema: 1
+package: google_maps_flutter
+versions: ">=2.0.0 <3.0.0"
+source: https://pub.dev/packages/google_maps_flutter#platform-setup
+ios:
+  manual:
+    - id: ios-api-key
+      required: true
+      hint: >-
+        Call GMSServices.provideAPIKey("<your key>") in
+        ios/Runner/AppDelegate.swift before registering plugins.
+      source: https://pub.dev/packages/google_maps_flutter_ios_sdk10#setup
+    - id: ios-deployment-target
+      required: when_used
+      hint: >-
+        Google Maps SDK 10.x requires iOS 16 (SDK 9.x: iOS 15); raise your minimum
+        iOS deployment target if needed.
+      source: https://pub.dev/packages/google_maps_flutter_ios_sdk10#setup
+android:
+  manifest_meta_data:
+    com.google.android.geo.API_KEY:
+      required: true
+      hint: >-
+        Add <meta-data android:name="com.google.android.geo.API_KEY"
+        android:value="<your key>"/> inside <application>.
+      source: https://pub.dev/packages/google_maps_flutter_android#setup
 ''',
   'image_picker.yaml': r'''
 # yaml-language-server: $schema=../schema/recipe.schema.json
@@ -245,5 +436,34 @@ android:
         For Sign in with Apple on Android, your activity's launchMode must be
         singleTask or singleTop so the login page can return to the app.
       source: https://pub.dev/packages/sign_in_with_apple#android
+''',
+  'url_launcher.yaml': r'''
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from the url_launcher README (compared 6.0.20, 6.1.0, 6.3.3).
+# Everything depends on which URL schemes your app checks with canLaunchUrl,
+# which plumb can't know, so nothing here is reported as ✗.
+schema: 1
+package: url_launcher
+versions: ">=6.0.0 <7.0.0"
+source: https://pub.dev/packages/url_launcher#configuration
+ios:
+  info_plist:
+    LSApplicationQueriesSchemes:
+      required: when_used
+      expect_type: array
+      hint: >-
+        List every URL scheme you pass to canLaunchUrl in LSApplicationQueriesSchemes,
+        otherwise canLaunchUrl returns false.
+android:
+  queries:
+    - intent: { action: android.support.customtabs.action.CustomTabsService }
+      required: when_used
+      hint: Needed if you check supportsLaunchMode(LaunchMode.inAppBrowserView).
+  manual:
+    - id: queries-for-can-launch-url
+      required: when_used
+      hint: >-
+        Add a <queries><intent> entry (action VIEW + data scheme) for each URL scheme
+        you pass to canLaunchUrl, or it returns false on Android 11+ in most cases.
 ''',
 };

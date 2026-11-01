@@ -1,0 +1,73 @@
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from the flutter_local_notifications README (compared 19.5.0, 20.1.0,
+# 21.0.0, 22.3.3). Since v16 the plugin's own manifest only declares
+# POST_NOTIFICATIONS and VIBRATE; everything else depends on the features you use.
+schema: 1
+package: flutter_local_notifications
+versions: ">=19.0.0 <23.0.0"
+source: https://pub.dev/packages/flutter_local_notifications#-android-setup
+ios:
+  manual:
+    - id: notification-center-delegate
+      required: true
+      hint: >-
+        In AppDelegate's application(_:didFinishLaunchingWithOptions:), set
+        UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate.
+      source: https://pub.dev/packages/flutter_local_notifications#general-setup
+android:
+  permissions:
+    android.permission.RECEIVE_BOOT_COMPLETED:
+      required: when_used
+      hint: Needed to schedule notifications, so the plugin can reschedule them after a reboot.
+      source: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+    android.permission.SCHEDULE_EXACT_ALARM:
+      required: when_used
+      hint: >-
+        For notifications at exact times: add this and call
+        requestExactAlarmsPermission(), or use USE_EXACT_ALARM instead.
+      source: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+    android.permission.USE_EXACT_ALARM:
+      required: when_used
+      hint: >-
+        Alternative to SCHEDULE_EXACT_ALARM for exact alarms; requires targeting
+        Android 13+ and may be subject to app store approval.
+      source: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+    android.permission.USE_FULL_SCREEN_INTENT:
+      required: when_used
+      hint: Needed for full-screen intent notifications.
+      source: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+    android.permission.ACCESS_NOTIFICATION_POLICY:
+      required: when_used
+      hint: Needed to create channels that bypass Do Not Disturb.
+      source: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+  components:
+    com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver:
+      kind: receiver
+      required: when_used
+      hint: Needed to show scheduled notifications; declare it inside <application> with android:exported="false".
+      source: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+    com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver:
+      kind: receiver
+      required: when_used
+      hint: >-
+        Needed to reschedule notifications after a reboot or app update; include its
+        BOOT_COMPLETED / MY_PACKAGE_REPLACED / QUICKBOOT_POWERON intent-filter.
+      source: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+    com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver:
+      kind: receiver
+      required: when_used
+      hint: Needed for notification actions.
+      source: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+    com.dexterous.flutterlocalnotifications.ForegroundService:
+      kind: service
+      required: when_used
+      hint: Needed for foreground services; set android:foregroundServiceType to the types you use.
+      source: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+  manual:
+    - id: core-library-desugaring
+      required: true
+      hint: >-
+        Enable core library desugaring in android/app/build.gradle(.kts)
+        (coreLibraryDesugaringEnabled plus the desugar_jdk_libs dependency).
+        Required since v10, even if you don't schedule notifications.
+      source: https://pub.dev/packages/flutter_local_notifications#gradle-setup

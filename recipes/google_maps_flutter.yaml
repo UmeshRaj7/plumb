@@ -1,0 +1,30 @@
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from the google_maps_flutter README and the endorsed platform READMEs
+# it points to (google_maps_flutter_android, google_maps_flutter_ios_sdk10).
+# Compared 2.2.0 and 2.19.0.
+schema: 1
+package: google_maps_flutter
+versions: ">=2.0.0 <3.0.0"
+source: https://pub.dev/packages/google_maps_flutter#platform-setup
+ios:
+  manual:
+    - id: ios-api-key
+      required: true
+      hint: >-
+        Call GMSServices.provideAPIKey("<your key>") in
+        ios/Runner/AppDelegate.swift before registering plugins.
+      source: https://pub.dev/packages/google_maps_flutter_ios_sdk10#setup
+    - id: ios-deployment-target
+      required: when_used
+      hint: >-
+        Google Maps SDK 10.x requires iOS 16 (SDK 9.x: iOS 15); raise your minimum
+        iOS deployment target if needed.
+      source: https://pub.dev/packages/google_maps_flutter_ios_sdk10#setup
+android:
+  manifest_meta_data:
+    com.google.android.geo.API_KEY:
+      required: true
+      hint: >-
+        Add <meta-data android:name="com.google.android.geo.API_KEY"
+        android:value="<your key>"/> inside <application>.
+      source: https://pub.dev/packages/google_maps_flutter_android#setup

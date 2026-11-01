@@ -1,0 +1,36 @@
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from Firebase's "Get started with FCM in Flutter apps" guide; the
+# iOS setup matches the official example app shipped in 14.9.4, 15.2.10 and
+# 16.1.2 (aps-environment + remote-notification). Newer: firebase_messaging.yaml.
+schema: 1
+package: firebase_messaging
+versions: ">=14.0.0 <17.0.0"
+source: https://firebase.google.com/docs/cloud-messaging/flutter/client
+ios:
+  entitlements:
+    aps-environment:
+      required: true
+      hint: >-
+        Enable the Push Notifications capability in Xcode (Signing & Capabilities);
+        it adds aps-environment to your .entitlements file.
+      source: https://developer.apple.com/documentation/bundleresources/entitlements/aps-environment
+  background_modes:
+    remote-notification:
+      required: true
+      hint: Enable Background Modes → Remote notifications in Xcode.
+    fetch:
+      required: when_used
+      hint: >-
+        Firebase's guide asks you to enable Background fetch too; the official
+        firebase_messaging example app doesn't, so plumb doesn't require it.
+  manual:
+    - id: apns-auth-key
+      required: true
+      hint: >-
+        Upload your APNs authentication key in the Firebase console
+        (Project settings → Cloud Messaging → Apple app configuration).
+    - id: keep-method-swizzling
+      required: true
+      hint: >-
+        FCM on Apple platforms needs method swizzling: don't set
+        FirebaseAppDelegateProxyEnabled to NO in Info.plist.

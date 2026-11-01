@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=../schema/recipe.schema.json
+# Written from the url_launcher README (compared 6.0.20, 6.1.0, 6.3.3).
+# Everything depends on which URL schemes your app checks with canLaunchUrl,
+# which plumb can't know, so nothing here is reported as ✗.
+schema: 1
+package: url_launcher
+versions: ">=6.0.0 <7.0.0"
+source: https://pub.dev/packages/url_launcher#configuration
+ios:
+  info_plist:
+    LSApplicationQueriesSchemes:
+      required: when_used
+      expect_type: array
+      hint: >-
+        List every URL scheme you pass to canLaunchUrl in LSApplicationQueriesSchemes,
+        otherwise canLaunchUrl returns false.
+android:
+  queries:
+    - intent: { action: android.support.customtabs.action.CustomTabsService }
+      required: when_used
+      hint: Needed if you check supportsLaunchMode(LaunchMode.inAppBrowserView).
+  manual:
+    - id: queries-for-can-launch-url
+      required: when_used
+      hint: >-
+        Add a <queries><intent> entry (action VIEW + data scheme) for each URL scheme
+        you pass to canLaunchUrl, or it returns false on Android 11+ in most cases.
