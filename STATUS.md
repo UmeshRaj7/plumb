@@ -3,7 +3,7 @@
 _Last updated: 2026-11-01_
 
 ## Current milestone
-v0.0.1 — `plumb doctor` (read-only). All 15 steps done; awaiting owner review before publishing.
+v0.0.1 — **published to pub.dev on 2026-11-01** (https://pub.dev/packages/plumb). Next: launch study.
 
 ## Checklist (ARCHITECTURE.md §12; recipes moved before goldens on 2026-11-01)
 - [x] 1. Docs: ARCHITECTURE, STRATEGY, STATUS, CONTRIBUTING, CLAUDE.md
@@ -38,11 +38,19 @@ Recipe calls made from the docs; please confirm or overrule:
    Older range reports both as ℹ (schema 1 can't say "one of").
 6. **firebase_messaging** — split at 17.0.0 (UIScene `configureNotificationCenterDelegate` step is new).
 
-## Before publishing (owner)
-- [ ] Review the open decisions above.
-- [ ] Record the 20-second README GIF (CLAUDE.md asks for it; I can't record screen video here).
-- [ ] Push to GitHub so CI runs on Linux/macOS/Windows + SDK 3.8 with downgraded deps.
-- [ ] `dart pub publish` (only when you say so).
+## Release 0.0.1
+- [x] Pushed; CI green on Linux/macOS/Windows + Dart 3.8.0 (lowest runtime deps).
+- [x] Published 0.0.1; verified `dart pub global activate plumb` + `plumb doctor` from pub.dev.
+- [ ] pub.dev score (analysis pending at publish time; expected 160/160).
+- [ ] Tag `v0.0.1` + GitHub release with the CHANGELOG entry.
+- [ ] README GIF (static screenshot in place for now).
+- [ ] Decide whether to scrub `doc/` (strategy notes) from public git history.
+
+## Next: launch (doc/STRATEGY.md)
+1. Pick 25 popular OSS Flutter apps (commit list + selection criteria), pin commits.
+2. Run `plumb doctor --json` on each; hand-verify every ✗/⚠ before publishing numbers.
+3. Write-up with methodology + raw data; post r/FlutterDev, X, LinkedIn, Flutter forum.
+4. One friendly issue/PR per affected repo, with the plugin doc link.
 
 ## Known issues / limitations (by design for v0.0.1)
 - Only main AndroidManifest and `ios/Runner/Info.plist` are checked; flavor files are listed as ℹ.
