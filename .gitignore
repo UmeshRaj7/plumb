@@ -35,3 +35,7 @@ coverage/
 
 # Internal design/strategy notes (kept locally, not published).
 doc/
+
+# Internal working notes (kept locally, not published).
+CLAUDE.md
+STATUS.md
