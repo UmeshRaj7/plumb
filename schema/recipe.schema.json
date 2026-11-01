@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "plumb recipe (schema 1)",
-  "description": "Native setup a Flutter plugin documents. Spec: doc/ARCHITECTURE.md §7. The Dart parser (lib/src/recipes/recipe_parser.dart) enforces the same rules; test/recipes/recipe_schema_test.dart keeps them in agreement.",
+  "description": "Native setup a Flutter plugin documents. The Dart parser (lib/src/recipes/recipe_parser.dart) enforces the same rules; test/recipes/recipe_schema_test.dart keeps them in agreement.",
   "type": "object",
   "additionalProperties": false,
   "required": [

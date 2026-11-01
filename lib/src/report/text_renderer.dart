@@ -1,7 +1,7 @@
 import '../checks/doctor_report.dart';
 import '../checks/finding.dart';
 
-/// Renders [report] for humans (ARCHITECTURE.md §9).
+/// Renders [report] for humans, grouped by package.
 ///
 /// Conditional, manual and "can't verify" items of a package are counted on
 /// one line unless [verbose]; everything else is always listed. [color]

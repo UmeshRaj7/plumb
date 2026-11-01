@@ -1,15 +1,33 @@
 # Contributing to plumb
 
-Thanks for helping! plumb is small on purpose. Please read
-[doc/ARCHITECTURE.md](doc/ARCHITECTURE.md) before changing code.
+Thanks for helping! plumb is small on purpose, and the code is meant to be easy to
+read end to end.
+
+## How the code is organized
+
+`plumb doctor` is a straight pipeline. Only the first two steps touch the file
+system, and they only read:
+
+```
+find the app            lib/src/project/flutter_project.dart   walk up to pubspec.yaml
+read native files       lib/src/project/snapshot_loader.dart   Info.plist, entitlements, manifest…
+  └─ parse them         lib/src/parsers/                       pure: text in, model out
+compare with recipes    lib/src/checks/                        pure: snapshot + recipes → findings
+print the report        lib/src/report/                        pure: findings → text or JSON
+```
+
+- `lib/src/recipes/`: recipe model, the strict YAML parser, and the bundled recipes
+  (generated from `recipes/*.yaml`).
+- `lib/src/cli/`: the `plumb` command, flags and exit codes.
+- `lib/src/doctor.dart`: the few lines that connect the steps above.
 
 ## Ground rules
 
 - **v0.0.1 is read-only.** plumb must never write to the project it inspects.
 - **Precision over recall.** If a check can't be sure, it reports ℹ, not ✗.
 - **No new dependencies** without an issue/discussion first.
-- **Docs move with code.** A change to behaviour updates ARCHITECTURE.md (and CLAUDE.md
-  if it changes a decision) in the same commit.
+- **Docs move with code.** A change to behaviour updates the README, the CHANGELOG
+  and the golden files in the same commit.
 
 ## Before every commit
 
@@ -54,8 +72,11 @@ Commits follow [Conventional Commits](https://www.conventionalcommits.org/):
 
 1. Read the plugin's **own** docs (pub.dev README, the README of its endorsed platform
    packages, or the official docs site it links to). Nothing else counts as a source.
-2. Create `recipes/<package>.yaml` (format: ARCHITECTURE.md §7). Put the docs URL in
-   `source:`; use a per-item `source:` when a fact is on a different page.
+2. Create `recipes/<package>.yaml`. Copy an existing recipe as a starting point; the
+   full format is [`schema/recipe.schema.json`](schema/recipe.schema.json) (add
+   `# yaml-language-server: $schema=../schema/recipe.schema.json` at the top for
+   editor help). Put the docs URL in `source:`; use a per-item `source:` when a fact
+   is on a different page.
 3. `required: true` only when the docs say the app must add it for the plugin to work
    (or for App Store/Play acceptance). Otherwise `required: when_used` with a hint that
    says *when*.

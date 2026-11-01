@@ -4,7 +4,7 @@ import '../checks/doctor_report.dart';
 import '../version.dart';
 
 /// The JSON output format version. Additive changes only; a breaking change
-/// bumps it (ARCHITECTURE.md §9).
+/// bumps it.
 const jsonFormatVersion = 1;
 
 /// Renders [report] as JSON for CI and AI agents.

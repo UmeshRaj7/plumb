@@ -67,7 +67,8 @@ class DoctorReport {
       severity: findings.where((f) => f.severity == severity).length,
   };
 
-  /// The process exit code (ARCHITECTURE.md §5.5).
+  /// The process exit code: 2 if any finding is an error (incomplete check),
+  /// 1 if [strict] and anything is missing or a warning, otherwise 0.
   int exitCode({required bool strict}) {
     final counts = summary;
     if (counts[Severity.error]! > 0) return ExitCodes.incomplete;

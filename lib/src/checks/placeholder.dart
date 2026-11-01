@@ -1,5 +1,5 @@
-/// Values that look like they were never filled in. Kept deliberately small
-/// (ARCHITECTURE.md §6.2): each pattern must almost never match a real
+/// Values that look like they were never filled in. Kept deliberately
+/// small: each pattern must almost never match a real
 /// purpose string, because a false ⚠ costs more trust than a missed one.
 final _placeholderPatterns = [
   RegExp(r'\b(TODO|FIXME|TBD)\b', caseSensitive: false),

@@ -18,7 +18,8 @@ enum Severity {
   info,
 }
 
-/// One observation about the project. See ARCHITECTURE.md §5.3.
+/// One observation about the project, e.g. "NSCameraUsageDescription is
+/// missing", with where it is, how to fix it and the docs that say so.
 class Finding {
   /// Creates a finding.
   const Finding({

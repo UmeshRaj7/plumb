@@ -21,7 +21,8 @@ class RecipeFormatException extends PlumbException {
   final List<String> problems;
 }
 
-/// Parses and strictly validates a schema 1 recipe (ARCHITECTURE.md §7).
+/// Parses and strictly validates a schema 1 recipe (format:
+/// `schema/recipe.schema.json`).
 ///
 /// Throws [RecipeFormatException] listing every problem; never returns a
 /// partially valid recipe.

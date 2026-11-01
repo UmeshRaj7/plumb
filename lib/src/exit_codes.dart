@@ -1,4 +1,4 @@
-/// Process exit codes used by the plumb CLI (see ARCHITECTURE.md §5.5).
+/// Process exit codes used by the plumb CLI.
 abstract final class ExitCodes {
   /// The run completed; with `--strict`, nothing is missing or a placeholder.
   static const int ok = 0;
