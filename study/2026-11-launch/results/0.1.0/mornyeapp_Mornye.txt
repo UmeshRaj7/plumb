@@ -1,0 +1,100 @@
+plumb doctor · mornye
+Found 3 plugins with recipes (read from pubspec.lock).
+
+Your app
+  ℹ android    Not checked: android/app/src/androidTest/AndroidManifest.xml (plumb checks the main AndroidManifest.xml only)
+
+flutter_local_notifications 22.3.3
+  ℹ ios                           Manual step plumb can't check (required)
+                                  fix:  In AppDelegate's application(_:didFinishLaunchingWithOptions:), set UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#general-setup
+  ℹ android  AndroidManifest.xml  android.permission.RECEIVE_BOOT_COMPLETED is not declared
+                                  fix:  Needed to schedule notifications, so the plugin can reschedule them after a reboot.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+  ℹ android  AndroidManifest.xml  android.permission.SCHEDULE_EXACT_ALARM is not declared
+                                  fix:  For notifications at exact times: add this and call requestExactAlarmsPermission(), or use USE_EXACT_ALARM instead.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+  ℹ android  AndroidManifest.xml  android.permission.USE_EXACT_ALARM is not declared
+                                  fix:  Alternative to SCHEDULE_EXACT_ALARM for exact alarms; requires targeting Android 13+ and may be subject to app store approval.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+  ℹ android  AndroidManifest.xml  android.permission.USE_FULL_SCREEN_INTENT is not declared
+                                  fix:  Needed for full-screen intent notifications.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+  ℹ android  AndroidManifest.xml  android.permission.ACCESS_NOTIFICATION_POLICY is not declared
+                                  fix:  Needed to create channels that bypass Do Not Disturb.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+  ✓ android  AndroidManifest.xml  <receiver> com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver is declared
+  ✓ android  AndroidManifest.xml  <receiver> com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver is declared
+  ℹ android  AndroidManifest.xml  <receiver> com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver is not declared
+                                  fix:  Needed for notification actions.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+  ℹ android  AndroidManifest.xml  <service> com.dexterous.flutterlocalnotifications.ForegroundService is not declared
+                                  fix:  Needed for foreground services; set android:foregroundServiceType to the types you use.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+  ℹ android                       Manual step plumb can't check (required)
+                                  fix:  Enable core library desugaring in android/app/build.gradle(.kts) (coreLibraryDesugaringEnabled plus the desugar_jdk_libs dependency). Required since v10, even if you don't schedule notifications.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#gradle-setup
+
+permission_handler 13.0.2
+  ✓ ios      Info.plist  NSCalendarsUsageDescription is set
+  ℹ ios      Info.plist  NSCalendarsFullAccessUsageDescription is not set
+                         fix:  Needed for Permission.calendarFullAccess (iOS 17+).
+                         docs: https://pub.dev/packages/permission_handler#setup
+  ℹ ios      Info.plist  NSCalendarsWriteOnlyAccessUsageDescription is not set
+                         fix:  Needed for Permission.calendarWriteOnly (iOS 17+).
+                         docs: https://pub.dev/packages/permission_handler#setup
+  ℹ ios      Info.plist  NSRemindersUsageDescription is not set
+                         fix:  Needed for Permission.reminders.
+                         docs: https://pub.dev/packages/permission_handler#setup
+  ℹ ios      Info.plist  NSContactsUsageDescription is not set
+                         fix:  Needed for Permission.contacts.
+                         docs: https://pub.dev/packages/permission_handler#setup
+  ℹ ios      Info.plist  NSCameraUsageDescription is not set
+                         fix:  Needed for Permission.camera.
+                         docs: https://pub.dev/packages/permission_handler#setup
+  ✓ ios      Info.plist  NSMicrophoneUsageDescription is set
+  ℹ ios      Info.plist  NSSpeechRecognitionUsageDescription is not set
+                         fix:  Needed for Permission.speech.
+                         docs: https://pub.dev/packages/permission_handler#setup
+  ✓ ios      Info.plist  NSPhotoLibraryUsageDescription is set
+  ℹ ios      Info.plist  NSPhotoLibraryAddUsageDescription is not set
+                         fix:  Needed for Permission.photosAddOnly.
+                         docs: https://pub.dev/packages/permission_handler#setup
+  ℹ ios      Info.plist  NSLocationWhenInUseUsageDescription is not set
+                         fix:  Needed for Permission.location / locationWhenInUse.
+                         docs: https://pub.dev/packages/permission_handler#setup
+  ℹ ios      Info.plist  NSLocationAlwaysAndWhenInUseUsageDescription is not set
+                         fix:  Needed for Permission.locationAlways.
+                         docs: https://pub.dev/packages/permission_handler#setup
+  ℹ ios      Info.plist  NSAppleMusicUsageDescription is not set
+                         fix:  Needed for Permission.mediaLibrary.
+                         docs: https://pub.dev/packages/permission_handler#setup
+  ℹ ios      Info.plist  NSMotionUsageDescription is not set
+                         fix:  Needed for Permission.sensors.
+                         docs: https://pub.dev/packages/permission_handler#setup
+  ℹ ios      Info.plist  NSBluetoothAlwaysUsageDescription is not set
+                         fix:  Needed for Permission.bluetooth.
+                         docs: https://pub.dev/packages/permission_handler#setup
+  ℹ ios      Info.plist  NSUserTrackingUsageDescription is not set
+                         fix:  Needed for Permission.appTrackingTransparency.
+                         docs: https://pub.dev/packages/permission_handler#setup
+  ℹ ios      Info.plist  NSSiriUsageDescription is not set
+                         fix:  Needed for Permission.assistant.
+                         docs: https://pub.dev/packages/permission_handler#setup
+  ℹ ios                  Manual step plumb can't check (only if you use this feature)
+                         fix:  With CocoaPods, enable each permission you use with a PERMISSION_<GROUP>=1 macro in your Podfile's post_install block (GCC_PREPROCESSOR_DEFINITIONS); disabled permissions always report denied.
+                         docs: https://pub.dev/packages/permission_handler#setup
+  ℹ android              Manual step plumb can't check (only if you use this feature)
+                         fix:  Add a <uses-permission> to android/app/src/main/AndroidManifest.xml for each permission you request (the README links an example manifest with all of them).
+                         docs: https://pub.dev/packages/permission_handler#setup
+
+url_launcher 6.3.3
+  ✓ ios      Info.plist           LSApplicationQueriesSchemes is set
+  ℹ android  AndroidManifest.xml  <queries> has no intent:android.support.customtabs.action.CustomTabsService
+                                  fix:  Needed if you check supportsLaunchMode(LaunchMode.inAppBrowserView).
+                                  docs: https://pub.dev/packages/url_launcher#configuration
+  ℹ android                       Manual step plumb can't check (only if you use this feature)
+                                  fix:  Add a <queries><intent> entry (action VIEW + data scheme) for each URL scheme you pass to canLaunchUrl, or it returns false on Android 11+ in most cases.
+                                  docs: https://pub.dev/packages/url_launcher#configuration
+
+Summary: 6 ok · 0 missing · 0 warning · 28 info

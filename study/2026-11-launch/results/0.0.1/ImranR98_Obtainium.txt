@@ -1,0 +1,48 @@
+plumb doctor · obtainium
+Found 3 plugins with recipes (read from pubspec.lock).
+
+Your app
+  ℹ ios      ios/  ios/ not found; ios requirements of flutter_local_notifications, permission_handler, url_launcher were not checked
+
+flutter_local_notifications 22.3.3
+  ✓ android  AndroidManifest.xml  android.permission.RECEIVE_BOOT_COMPLETED is declared
+  ℹ android  AndroidManifest.xml  android.permission.SCHEDULE_EXACT_ALARM is not declared
+                                  fix:  For notifications at exact times: add this and call requestExactAlarmsPermission(), or use USE_EXACT_ALARM instead.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+  ℹ android  AndroidManifest.xml  android.permission.USE_EXACT_ALARM is not declared
+                                  fix:  Alternative to SCHEDULE_EXACT_ALARM for exact alarms; requires targeting Android 13+ and may be subject to app store approval.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+  ℹ android  AndroidManifest.xml  android.permission.USE_FULL_SCREEN_INTENT is not declared
+                                  fix:  Needed for full-screen intent notifications.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+  ℹ android  AndroidManifest.xml  android.permission.ACCESS_NOTIFICATION_POLICY is not declared
+                                  fix:  Needed to create channels that bypass Do Not Disturb.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+  ℹ android  AndroidManifest.xml  <receiver> com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver is not declared
+                                  fix:  Needed to show scheduled notifications; declare it inside <application> with android:exported="false".
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+  ℹ android  AndroidManifest.xml  <receiver> com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver is not declared
+                                  fix:  Needed to reschedule notifications after a reboot or app update; include its BOOT_COMPLETED / MY_PACKAGE_REPLACED / QUICKBOOT_POWERON intent-filter.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+  ✓ android  AndroidManifest.xml  <receiver> com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver is declared
+  ℹ android  AndroidManifest.xml  <service> com.dexterous.flutterlocalnotifications.ForegroundService is not declared
+                                  fix:  Needed for foreground services; set android:foregroundServiceType to the types you use.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+  ℹ android                       Manual step plumb can't check (required)
+                                  fix:  Enable core library desugaring in android/app/build.gradle(.kts) (coreLibraryDesugaringEnabled plus the desugar_jdk_libs dependency). Required since v10, even if you don't schedule notifications.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#gradle-setup
+
+permission_handler 13.0.2
+  ℹ android    Manual step plumb can't check (only if you use this feature)
+               fix:  Add a <uses-permission> to android/app/src/main/AndroidManifest.xml for each permission you request (the README links an example manifest with all of them).
+               docs: https://pub.dev/packages/permission_handler#setup
+
+url_launcher 6.3.3
+  ℹ android  AndroidManifest.xml  <queries> has no intent:android.support.customtabs.action.CustomTabsService
+                                  fix:  Needed if you check supportsLaunchMode(LaunchMode.inAppBrowserView).
+                                  docs: https://pub.dev/packages/url_launcher#configuration
+  ℹ android                       Manual step plumb can't check (only if you use this feature)
+                                  fix:  Add a <queries><intent> entry (action VIEW + data scheme) for each URL scheme you pass to canLaunchUrl, or it returns false on Android 11+ in most cases.
+                                  docs: https://pub.dev/packages/url_launcher#configuration
+
+Summary: 2 ok · 0 missing · 0 warning · 12 info

@@ -1,0 +1,18 @@
+plumb doctor · dsh_app
+Found 2 plugins with recipes (read from pubspec.lock).
+
+Your app
+  ℹ ios      ios/  ios/ not found; ios requirements of image_picker, url_launcher were not checked
+
+image_picker 1.2.4
+  No results (see "Your app" above).
+
+url_launcher 6.3.3
+  ℹ android  AndroidManifest.xml  <queries> has no intent:android.support.customtabs.action.CustomTabsService
+                                  fix:  Needed if you check supportsLaunchMode(LaunchMode.inAppBrowserView).
+                                  docs: https://pub.dev/packages/url_launcher#configuration
+  ℹ android                       Manual step plumb can't check (only if you use this feature)
+                                  fix:  Add a <queries><intent> entry (action VIEW + data scheme) for each URL scheme you pass to canLaunchUrl, or it returns false on Android 11+ in most cases.
+                                  docs: https://pub.dev/packages/url_launcher#configuration
+
+Summary: 0 ok · 0 missing · 0 warning · 3 info

@@ -1,0 +1,103 @@
+{
+  "format": 1,
+  "plumb_version": "0.1.0",
+  "project": {
+    "name": "PiliPlus",
+    "dependency_source": "pubspec.lock"
+  },
+  "packages": [
+    {
+      "name": "image_picker",
+      "version": "1.2.4",
+      "status": "checked",
+      "recipe": "recipes/image_picker.yaml"
+    },
+    {
+      "name": "url_launcher",
+      "version": "6.3.3",
+      "status": "checked",
+      "recipe": "recipes/url_launcher.yaml"
+    }
+  ],
+  "findings": [
+    {
+      "id": "image_picker/ios/info_plist/NSPhotoLibraryUsageDescription",
+      "severity": "ok",
+      "package": "image_picker",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSPhotoLibraryUsageDescription",
+      "message": "NSPhotoLibraryUsageDescription is set",
+      "fix": null,
+      "source": "https://pub.dev/packages/image_picker#ios",
+      "also_needed_by": []
+    },
+    {
+      "id": "image_picker/ios/info_plist/NSCameraUsageDescription",
+      "severity": "ok",
+      "package": "image_picker",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSCameraUsageDescription",
+      "message": "NSCameraUsageDescription is set",
+      "fix": null,
+      "source": "https://pub.dev/packages/image_picker#ios",
+      "also_needed_by": []
+    },
+    {
+      "id": "image_picker/ios/info_plist/NSMicrophoneUsageDescription",
+      "severity": "info",
+      "package": "image_picker",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSMicrophoneUsageDescription",
+      "message": "NSMicrophoneUsageDescription is not set",
+      "fix": "Needed if you record videos. Add NSMicrophoneUsageDescription to Info.plist describing why your app needs the microphone.",
+      "source": "https://pub.dev/packages/image_picker#ios",
+      "also_needed_by": []
+    },
+    {
+      "id": "url_launcher/ios/info_plist/LSApplicationQueriesSchemes",
+      "severity": "ok",
+      "package": "url_launcher",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "LSApplicationQueriesSchemes",
+      "message": "LSApplicationQueriesSchemes is set",
+      "fix": null,
+      "source": "https://pub.dev/packages/url_launcher#configuration",
+      "also_needed_by": []
+    },
+    {
+      "id": "url_launcher/android/queries/intent:android.support.customtabs.action.CustomTabsService",
+      "severity": "info",
+      "package": "url_launcher",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "intent:android.support.customtabs.action.CustomTabsService",
+      "message": "<queries> has no intent:android.support.customtabs.action.CustomTabsService",
+      "fix": "Needed if you check supportsLaunchMode(LaunchMode.inAppBrowserView).",
+      "source": "https://pub.dev/packages/url_launcher#configuration",
+      "also_needed_by": []
+    },
+    {
+      "id": "url_launcher/android/manual/queries-for-can-launch-url",
+      "severity": "info",
+      "package": "url_launcher",
+      "platform": "android",
+      "file": null,
+      "key": "queries-for-can-launch-url",
+      "message": "Manual step plumb can't check (only if you use this feature)",
+      "fix": "Add a <queries><intent> entry (action VIEW + data scheme) for each URL scheme you pass to canLaunchUrl, or it returns false on Android 11+ in most cases.",
+      "source": "https://pub.dev/packages/url_launcher#configuration",
+      "also_needed_by": []
+    }
+  ],
+  "summary": {
+    "error": 0,
+    "missing": 0,
+    "warning": 0,
+    "ok": 3,
+    "info": 3
+  }
+}

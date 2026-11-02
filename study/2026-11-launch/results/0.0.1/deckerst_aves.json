@@ -1,0 +1,139 @@
+{
+  "format": 1,
+  "plumb_version": "0.0.1",
+  "project": {
+    "name": "aves",
+    "dependency_source": "pubspec.lock"
+  },
+  "packages": [
+    {
+      "name": "google_maps_flutter",
+      "version": "2.19.0",
+      "status": "checked",
+      "recipe": "recipes/google_maps_flutter.yaml"
+    },
+    {
+      "name": "local_auth",
+      "version": "3.0.2",
+      "status": "checked",
+      "recipe": "recipes/local_auth.yaml"
+    },
+    {
+      "name": "permission_handler",
+      "version": "13.0.2",
+      "status": "checked",
+      "recipe": "recipes/permission_handler.yaml"
+    },
+    {
+      "name": "url_launcher",
+      "version": "6.3.3",
+      "status": "checked",
+      "recipe": "recipes/url_launcher.yaml"
+    }
+  ],
+  "findings": [
+    {
+      "id": "app/ios/directory",
+      "severity": "info",
+      "package": null,
+      "platform": "ios",
+      "file": "ios/",
+      "key": null,
+      "message": "ios/ not found; ios requirements of google_maps_flutter, local_auth, permission_handler, url_launcher were not checked",
+      "fix": null,
+      "source": null,
+      "also_needed_by": []
+    },
+    {
+      "id": "google_maps_flutter/android/manifest_meta_data/com.google.android.geo.API_KEY",
+      "severity": "ok",
+      "package": "google_maps_flutter",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "com.google.android.geo.API_KEY",
+      "message": "<meta-data> com.google.android.geo.API_KEY is set via a build variable (${googleApiKey}); its final value isn't checked",
+      "fix": null,
+      "source": "https://pub.dev/packages/google_maps_flutter_android#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "local_auth/android/activity_class/io.flutter.embedding.android.FlutterFragmentActivity",
+      "severity": "ok",
+      "package": "local_auth",
+      "platform": "android",
+      "file": "android/app/src/main/kotlin/deckers/thibault/aves/MainActivity.kt",
+      "key": "io.flutter.embedding.android.FlutterFragmentActivity",
+      "message": "MainActivity extends FlutterFragmentActivity",
+      "fix": null,
+      "source": "https://pub.dev/packages/local_auth_android#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "local_auth/android/permissions/android.permission.USE_BIOMETRIC",
+      "severity": "info",
+      "package": "local_auth",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "android.permission.USE_BIOMETRIC",
+      "message": "android.permission.USE_BIOMETRIC is not declared",
+      "fix": "The README asks you to add USE_BIOMETRIC; local_auth_android's own manifest already declares it, so the manifest merger adds it for you.",
+      "source": "https://pub.dev/packages/local_auth_android#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "local_auth/android/manual/launch-theme-appcompat",
+      "severity": "info",
+      "package": "local_auth",
+      "platform": "android",
+      "file": null,
+      "key": "launch-theme-appcompat",
+      "message": "Manual step plumb can't check (only if you use this feature)",
+      "fix": "On Android 8 and below, LaunchTheme's parent must be a Theme.AppCompat theme (android/app/src/main/res/values/styles.xml) to prevent crashes.",
+      "source": "https://pub.dev/packages/local_auth_android#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/android/manual/android-manifest-permissions",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "android",
+      "file": null,
+      "key": "android-manifest-permissions",
+      "message": "Manual step plumb can't check (only if you use this feature)",
+      "fix": "Add a <uses-permission> to android/app/src/main/AndroidManifest.xml for each permission you request (the README links an example manifest with all of them).",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "url_launcher/android/queries/intent:android.support.customtabs.action.CustomTabsService",
+      "severity": "info",
+      "package": "url_launcher",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "intent:android.support.customtabs.action.CustomTabsService",
+      "message": "<queries> has no intent:android.support.customtabs.action.CustomTabsService",
+      "fix": "Needed if you check supportsLaunchMode(LaunchMode.inAppBrowserView).",
+      "source": "https://pub.dev/packages/url_launcher#configuration",
+      "also_needed_by": []
+    },
+    {
+      "id": "url_launcher/android/manual/queries-for-can-launch-url",
+      "severity": "info",
+      "package": "url_launcher",
+      "platform": "android",
+      "file": null,
+      "key": "queries-for-can-launch-url",
+      "message": "Manual step plumb can't check (only if you use this feature)",
+      "fix": "Add a <queries><intent> entry (action VIEW + data scheme) for each URL scheme you pass to canLaunchUrl, or it returns false on Android 11+ in most cases.",
+      "source": "https://pub.dev/packages/url_launcher#configuration",
+      "also_needed_by": []
+    }
+  ],
+  "summary": {
+    "error": 0,
+    "missing": 0,
+    "warning": 0,
+    "ok": 2,
+    "info": 6
+  }
+}

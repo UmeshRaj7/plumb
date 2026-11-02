@@ -1,0 +1,205 @@
+{
+  "format": 1,
+  "plumb_version": "0.1.0",
+  "project": {
+    "name": "obtainium",
+    "dependency_source": "pubspec.lock"
+  },
+  "packages": [
+    {
+      "name": "flutter_local_notifications",
+      "version": "22.3.3",
+      "status": "checked",
+      "recipe": "recipes/flutter_local_notifications.yaml"
+    },
+    {
+      "name": "permission_handler",
+      "version": "13.0.2",
+      "status": "checked",
+      "recipe": "recipes/permission_handler.yaml"
+    },
+    {
+      "name": "url_launcher",
+      "version": "6.3.3",
+      "status": "checked",
+      "recipe": "recipes/url_launcher.yaml"
+    }
+  ],
+  "findings": [
+    {
+      "id": "app/ios/directory",
+      "severity": "info",
+      "package": null,
+      "platform": "ios",
+      "file": "ios/",
+      "key": null,
+      "message": "ios/ not found; ios requirements of flutter_local_notifications, permission_handler, url_launcher were not checked",
+      "fix": null,
+      "source": null,
+      "also_needed_by": []
+    },
+    {
+      "id": "flutter_local_notifications/android/permissions/android.permission.RECEIVE_BOOT_COMPLETED",
+      "severity": "ok",
+      "package": "flutter_local_notifications",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "android.permission.RECEIVE_BOOT_COMPLETED",
+      "message": "android.permission.RECEIVE_BOOT_COMPLETED is declared",
+      "fix": null,
+      "source": "https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "flutter_local_notifications/android/permissions/android.permission.SCHEDULE_EXACT_ALARM",
+      "severity": "info",
+      "package": "flutter_local_notifications",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "android.permission.SCHEDULE_EXACT_ALARM",
+      "message": "android.permission.SCHEDULE_EXACT_ALARM is not declared",
+      "fix": "For notifications at exact times: add this and call requestExactAlarmsPermission(), or use USE_EXACT_ALARM instead.",
+      "source": "https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "flutter_local_notifications/android/permissions/android.permission.USE_EXACT_ALARM",
+      "severity": "info",
+      "package": "flutter_local_notifications",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "android.permission.USE_EXACT_ALARM",
+      "message": "android.permission.USE_EXACT_ALARM is not declared",
+      "fix": "Alternative to SCHEDULE_EXACT_ALARM for exact alarms; requires targeting Android 13+ and may be subject to app store approval.",
+      "source": "https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "flutter_local_notifications/android/permissions/android.permission.USE_FULL_SCREEN_INTENT",
+      "severity": "info",
+      "package": "flutter_local_notifications",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "android.permission.USE_FULL_SCREEN_INTENT",
+      "message": "android.permission.USE_FULL_SCREEN_INTENT is not declared",
+      "fix": "Needed for full-screen intent notifications.",
+      "source": "https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "flutter_local_notifications/android/permissions/android.permission.ACCESS_NOTIFICATION_POLICY",
+      "severity": "info",
+      "package": "flutter_local_notifications",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "android.permission.ACCESS_NOTIFICATION_POLICY",
+      "message": "android.permission.ACCESS_NOTIFICATION_POLICY is not declared",
+      "fix": "Needed to create channels that bypass Do Not Disturb.",
+      "source": "https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "flutter_local_notifications/android/components/com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver",
+      "severity": "info",
+      "package": "flutter_local_notifications",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver",
+      "message": "<receiver> com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver is not declared",
+      "fix": "Needed to show scheduled notifications; declare it inside <application> with android:exported=\"false\".",
+      "source": "https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "flutter_local_notifications/android/components/com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver",
+      "severity": "info",
+      "package": "flutter_local_notifications",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver",
+      "message": "<receiver> com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver is not declared",
+      "fix": "Needed to reschedule notifications after a reboot or app update; include its BOOT_COMPLETED / MY_PACKAGE_REPLACED / QUICKBOOT_POWERON intent-filter.",
+      "source": "https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "flutter_local_notifications/android/components/com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver",
+      "severity": "ok",
+      "package": "flutter_local_notifications",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver",
+      "message": "<receiver> com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver is declared",
+      "fix": null,
+      "source": "https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "flutter_local_notifications/android/components/com.dexterous.flutterlocalnotifications.ForegroundService",
+      "severity": "info",
+      "package": "flutter_local_notifications",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "com.dexterous.flutterlocalnotifications.ForegroundService",
+      "message": "<service> com.dexterous.flutterlocalnotifications.ForegroundService is not declared",
+      "fix": "Needed for foreground services; set android:foregroundServiceType to the types you use.",
+      "source": "https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "flutter_local_notifications/android/manual/core-library-desugaring",
+      "severity": "info",
+      "package": "flutter_local_notifications",
+      "platform": "android",
+      "file": null,
+      "key": "core-library-desugaring",
+      "message": "Manual step plumb can't check (required)",
+      "fix": "Enable core library desugaring in android/app/build.gradle(.kts) (coreLibraryDesugaringEnabled plus the desugar_jdk_libs dependency). Required since v10, even if you don't schedule notifications.",
+      "source": "https://pub.dev/packages/flutter_local_notifications#gradle-setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/android/manual/android-manifest-permissions",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "android",
+      "file": null,
+      "key": "android-manifest-permissions",
+      "message": "Manual step plumb can't check (only if you use this feature)",
+      "fix": "Add a <uses-permission> to android/app/src/main/AndroidManifest.xml for each permission you request (the README links an example manifest with all of them).",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "url_launcher/android/queries/intent:android.support.customtabs.action.CustomTabsService",
+      "severity": "info",
+      "package": "url_launcher",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "intent:android.support.customtabs.action.CustomTabsService",
+      "message": "<queries> has no intent:android.support.customtabs.action.CustomTabsService",
+      "fix": "Needed if you check supportsLaunchMode(LaunchMode.inAppBrowserView).",
+      "source": "https://pub.dev/packages/url_launcher#configuration",
+      "also_needed_by": []
+    },
+    {
+      "id": "url_launcher/android/manual/queries-for-can-launch-url",
+      "severity": "info",
+      "package": "url_launcher",
+      "platform": "android",
+      "file": null,
+      "key": "queries-for-can-launch-url",
+      "message": "Manual step plumb can't check (only if you use this feature)",
+      "fix": "Add a <queries><intent> entry (action VIEW + data scheme) for each URL scheme you pass to canLaunchUrl, or it returns false on Android 11+ in most cases.",
+      "source": "https://pub.dev/packages/url_launcher#configuration",
+      "also_needed_by": []
+    }
+  ],
+  "summary": {
+    "error": 0,
+    "missing": 0,
+    "warning": 0,
+    "ok": 2,
+    "info": 12
+  }
+}

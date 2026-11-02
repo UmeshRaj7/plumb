@@ -1,0 +1,61 @@
+{
+  "format": 1,
+  "plumb_version": "0.0.1",
+  "project": {
+    "name": "hiddify",
+    "dependency_source": "pubspec.lock"
+  },
+  "packages": [
+    {
+      "name": "url_launcher",
+      "version": "6.3.1",
+      "status": "checked",
+      "recipe": "recipes/url_launcher.yaml"
+    }
+  ],
+  "findings": [
+    {
+      "id": "url_launcher/ios/info_plist/LSApplicationQueriesSchemes",
+      "severity": "info",
+      "package": "url_launcher",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "LSApplicationQueriesSchemes",
+      "message": "LSApplicationQueriesSchemes is not set",
+      "fix": "List every URL scheme you pass to canLaunchUrl in LSApplicationQueriesSchemes, otherwise canLaunchUrl returns false.",
+      "source": "https://pub.dev/packages/url_launcher#configuration",
+      "also_needed_by": []
+    },
+    {
+      "id": "url_launcher/android/queries/intent:android.support.customtabs.action.CustomTabsService",
+      "severity": "info",
+      "package": "url_launcher",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "intent:android.support.customtabs.action.CustomTabsService",
+      "message": "<queries> has no intent:android.support.customtabs.action.CustomTabsService",
+      "fix": "Needed if you check supportsLaunchMode(LaunchMode.inAppBrowserView).",
+      "source": "https://pub.dev/packages/url_launcher#configuration",
+      "also_needed_by": []
+    },
+    {
+      "id": "url_launcher/android/manual/queries-for-can-launch-url",
+      "severity": "info",
+      "package": "url_launcher",
+      "platform": "android",
+      "file": null,
+      "key": "queries-for-can-launch-url",
+      "message": "Manual step plumb can't check (only if you use this feature)",
+      "fix": "Add a <queries><intent> entry (action VIEW + data scheme) for each URL scheme you pass to canLaunchUrl, or it returns false on Android 11+ in most cases.",
+      "source": "https://pub.dev/packages/url_launcher#configuration",
+      "also_needed_by": []
+    }
+  ],
+  "summary": {
+    "error": 0,
+    "missing": 0,
+    "warning": 0,
+    "ok": 0,
+    "info": 3
+  }
+}

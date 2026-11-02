@@ -1,0 +1,327 @@
+{
+  "format": 1,
+  "plumb_version": "0.0.1",
+  "project": {
+    "name": "localsend_app",
+    "dependency_source": "pubspec.lock"
+  },
+  "packages": [
+    {
+      "name": "image_picker",
+      "version": "1.2.3",
+      "status": "checked",
+      "recipe": "recipes/image_picker.yaml"
+    },
+    {
+      "name": "permission_handler",
+      "version": "12.0.3",
+      "status": "checked",
+      "recipe": "recipes/permission_handler.yaml"
+    },
+    {
+      "name": "url_launcher",
+      "version": "6.3.2",
+      "status": "checked",
+      "recipe": "recipes/url_launcher.yaml"
+    }
+  ],
+  "findings": [
+    {
+      "id": "image_picker/ios/info_plist/NSPhotoLibraryUsageDescription",
+      "severity": "ok",
+      "package": "image_picker",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSPhotoLibraryUsageDescription",
+      "message": "NSPhotoLibraryUsageDescription is set",
+      "fix": null,
+      "source": "https://pub.dev/packages/image_picker#ios",
+      "also_needed_by": [
+        "permission_handler"
+      ]
+    },
+    {
+      "id": "image_picker/ios/info_plist/NSCameraUsageDescription",
+      "severity": "missing",
+      "package": "image_picker",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSCameraUsageDescription",
+      "message": "NSCameraUsageDescription is missing",
+      "fix": "Add NSCameraUsageDescription to Info.plist describing why your app needs the camera.",
+      "source": "https://pub.dev/packages/image_picker#ios",
+      "also_needed_by": []
+    },
+    {
+      "id": "image_picker/ios/info_plist/NSMicrophoneUsageDescription",
+      "severity": "info",
+      "package": "image_picker",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSMicrophoneUsageDescription",
+      "message": "NSMicrophoneUsageDescription is not set",
+      "fix": "Needed if you record videos. Add NSMicrophoneUsageDescription to Info.plist describing why your app needs the microphone.",
+      "source": "https://pub.dev/packages/image_picker#ios",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSCalendarsUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSCalendarsUsageDescription",
+      "message": "NSCalendarsUsageDescription is not set",
+      "fix": "Needed for Permission.calendar (before iOS 17).",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSCalendarsFullAccessUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSCalendarsFullAccessUsageDescription",
+      "message": "NSCalendarsFullAccessUsageDescription is not set",
+      "fix": "Needed for Permission.calendarFullAccess (iOS 17+).",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSCalendarsWriteOnlyAccessUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSCalendarsWriteOnlyAccessUsageDescription",
+      "message": "NSCalendarsWriteOnlyAccessUsageDescription is not set",
+      "fix": "Needed for Permission.calendarWriteOnly (iOS 17+).",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSRemindersUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSRemindersUsageDescription",
+      "message": "NSRemindersUsageDescription is not set",
+      "fix": "Needed for Permission.reminders.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSContactsUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSContactsUsageDescription",
+      "message": "NSContactsUsageDescription is not set",
+      "fix": "Needed for Permission.contacts.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSCameraUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSCameraUsageDescription",
+      "message": "NSCameraUsageDescription is not set",
+      "fix": "Needed for Permission.camera.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSMicrophoneUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSMicrophoneUsageDescription",
+      "message": "NSMicrophoneUsageDescription is not set",
+      "fix": "Needed for Permission.microphone.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSSpeechRecognitionUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSSpeechRecognitionUsageDescription",
+      "message": "NSSpeechRecognitionUsageDescription is not set",
+      "fix": "Needed for Permission.speech.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSPhotoLibraryAddUsageDescription",
+      "severity": "ok",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSPhotoLibraryAddUsageDescription",
+      "message": "NSPhotoLibraryAddUsageDescription is set",
+      "fix": null,
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSLocationWhenInUseUsageDescription",
+      "severity": "ok",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSLocationWhenInUseUsageDescription",
+      "message": "NSLocationWhenInUseUsageDescription is set",
+      "fix": null,
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSLocationAlwaysAndWhenInUseUsageDescription",
+      "severity": "ok",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSLocationAlwaysAndWhenInUseUsageDescription",
+      "message": "NSLocationAlwaysAndWhenInUseUsageDescription is set",
+      "fix": null,
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSAppleMusicUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSAppleMusicUsageDescription",
+      "message": "NSAppleMusicUsageDescription is not set",
+      "fix": "Needed for Permission.mediaLibrary.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSMotionUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSMotionUsageDescription",
+      "message": "NSMotionUsageDescription is not set",
+      "fix": "Needed for Permission.sensors.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSBluetoothAlwaysUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSBluetoothAlwaysUsageDescription",
+      "message": "NSBluetoothAlwaysUsageDescription is not set",
+      "fix": "Needed for Permission.bluetooth.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSUserTrackingUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSUserTrackingUsageDescription",
+      "message": "NSUserTrackingUsageDescription is not set",
+      "fix": "Needed for Permission.appTrackingTransparency.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/info_plist/NSSiriUsageDescription",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSSiriUsageDescription",
+      "message": "NSSiriUsageDescription is not set",
+      "fix": "Needed for Permission.assistant.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/ios/manual/podfile-permission-macros",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "ios",
+      "file": null,
+      "key": "podfile-permission-macros",
+      "message": "Manual step plumb can't check (only if you use this feature)",
+      "fix": "With CocoaPods, enable each permission you use with a PERMISSION_<GROUP>=1 macro in your Podfile's post_install block (GCC_PREPROCESSOR_DEFINITIONS); disabled permissions always report denied.",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "permission_handler/android/manual/android-manifest-permissions",
+      "severity": "info",
+      "package": "permission_handler",
+      "platform": "android",
+      "file": null,
+      "key": "android-manifest-permissions",
+      "message": "Manual step plumb can't check (only if you use this feature)",
+      "fix": "Add a <uses-permission> to android/app/src/main/AndroidManifest.xml for each permission you request (the README links an example manifest with all of them).",
+      "source": "https://pub.dev/packages/permission_handler#setup",
+      "also_needed_by": []
+    },
+    {
+      "id": "url_launcher/ios/info_plist/LSApplicationQueriesSchemes",
+      "severity": "info",
+      "package": "url_launcher",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "LSApplicationQueriesSchemes",
+      "message": "LSApplicationQueriesSchemes is not set",
+      "fix": "List every URL scheme you pass to canLaunchUrl in LSApplicationQueriesSchemes, otherwise canLaunchUrl returns false.",
+      "source": "https://pub.dev/packages/url_launcher#configuration",
+      "also_needed_by": []
+    },
+    {
+      "id": "url_launcher/android/queries/intent:android.support.customtabs.action.CustomTabsService",
+      "severity": "info",
+      "package": "url_launcher",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "intent:android.support.customtabs.action.CustomTabsService",
+      "message": "<queries> has no intent:android.support.customtabs.action.CustomTabsService",
+      "fix": "Needed if you check supportsLaunchMode(LaunchMode.inAppBrowserView).",
+      "source": "https://pub.dev/packages/url_launcher#configuration",
+      "also_needed_by": []
+    },
+    {
+      "id": "url_launcher/android/manual/queries-for-can-launch-url",
+      "severity": "info",
+      "package": "url_launcher",
+      "platform": "android",
+      "file": null,
+      "key": "queries-for-can-launch-url",
+      "message": "Manual step plumb can't check (only if you use this feature)",
+      "fix": "Add a <queries><intent> entry (action VIEW + data scheme) for each URL scheme you pass to canLaunchUrl, or it returns false on Android 11+ in most cases.",
+      "source": "https://pub.dev/packages/url_launcher#configuration",
+      "also_needed_by": []
+    }
+  ],
+  "summary": {
+    "error": 0,
+    "missing": 1,
+    "warning": 0,
+    "ok": 4,
+    "info": 19
+  }
+}
