@@ -13,6 +13,10 @@ plumb doctor
 
 plumb only reads your project. It never changes a file.
 
+If your terminal says `plumb` is not recognized or not found (common on
+Windows), run `dart pub global run plumb doctor` instead, or see
+[Install](#install).
+
 ## The problem
 
 Adding a plugin like `camera` to `pubspec.yaml` is often only half the job.
@@ -83,6 +87,22 @@ dart pub global activate plumb
 ```
 
 Requires Dart 3.8+ (Flutter 3.32+). Runs on macOS, Linux and Windows; Xcode is not needed.
+
+**`plumb` is not recognized / command not found?** `dart pub global activate`
+puts the `plumb` command in pub's cache folder, which is not on your `PATH` by
+default. Pick one:
+
+- Add the folder to your `PATH`, then open a new terminal:
+  - Windows: `%LOCALAPPDATA%\Pub\Cache\bin`
+  - macOS / Linux: `$HOME/.pub-cache/bin`
+- Or skip `PATH` and run it through Dart: `dart pub global run plumb doctor`
+- Or add plumb to your app as a dev dependency (handy for teams and CI, since
+  everyone gets the same version):
+
+  ```sh
+  flutter pub add --dev plumb
+  dart run plumb doctor
+  ```
 
 ## Usage
 
