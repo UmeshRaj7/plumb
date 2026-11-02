@@ -110,6 +110,11 @@ default. Pick one:
   dart run plumb doctor
   ```
 
+**Updating.** Run `dart pub global activate plumb` again; it installs the latest
+version (check with `plumb --version`). For a dev dependency, run
+`flutter pub upgrade --major-versions plumb`: while plumb is below 1.0, a plain
+`flutter pub upgrade` doesn't move between minor versions (`^0.0.1` stays on 0.0.x).
+
 ## Usage
 
 ```sh
@@ -140,7 +145,8 @@ incomplete (not a Flutter app, no `pubspec.lock`, unreadable native file) ·
 ### In CI
 
 ```yaml
-# .github/workflows/native-config.yml
+# steps in a job of .github/workflows/native-config.yml
+- uses: actions/checkout@v4
 - uses: dart-lang/setup-dart@v1
 - run: dart pub global activate plumb
 - run: plumb doctor --strict

@@ -12,11 +12,14 @@ Fewer false alarms, based on running plumb on popular open-source Flutter apps.
 - README: what to do when the `plumb` command is not found (common on Windows),
   running it with `dart pub global run plumb doctor`, and the dev_dependency
   option (`flutter pub add --dev plumb` + `dart run plumb doctor`).
+- README: how to update, and `actions/checkout` in the CI example.
 - README screenshot and JSON example updated to the new output.
 - Releases are now published from GitHub Actions when a version tag is pushed.
 
-Why 0.1.0 and not 0.0.2: under pub's caret rules, `^0.0.1` never upgrades to
-0.0.2, so dev_dependency users would be stuck.
+Updating: `dart pub global activate plumb`. As a dev dependency, `^0.0.1` only
+allows 0.0.1, so run `flutter pub upgrade --major-versions plumb` once. From
+`^0.1.0` on, later 0.1.x fixes arrive with a normal `flutter pub upgrade`, which
+is why this release is 0.1.0 rather than 0.0.2.
 
 ## 0.0.1
 
