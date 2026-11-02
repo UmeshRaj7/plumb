@@ -17,9 +17,15 @@ ios:
     NSCameraUsageDescription:
       required: true
       hint: Add NSCameraUsageDescription to Info.plist with a usage description.
+    # The README lists this key without a condition, but camera_avfoundation
+    # only asks for microphone access when enableAudio is true. So it's
+    # `when_used` (precision rule in CONTRIBUTING.md).
     NSMicrophoneUsageDescription:
-      required: true
-      hint: Add NSMicrophoneUsageDescription to Info.plist with a usage description.
+      required: when_used
+      hint: >-
+        Needed unless every CameraController is created with enableAudio: false
+        (the default is true). Add NSMicrophoneUsageDescription to Info.plist
+        with a usage description.
 ''',
   'firebase_messaging.yaml': r'''
 # yaml-language-server: $schema=../schema/recipe.schema.json
@@ -312,9 +318,14 @@ ios:
         Add NSPhotoLibraryUsageDescription to Info.plist describing why your app
         needs the photo library. App Store policy requires it even if you always
         pass requestFullMetadata: false.
+    # The README lists this key without a condition, but image_picker_ios only
+    # asks for camera access for ImageSource.camera, and gallery-only apps
+    # ship without it. So it's `when_used` (precision rule in CONTRIBUTING.md).
     NSCameraUsageDescription:
-      required: true
-      hint: Add NSCameraUsageDescription to Info.plist describing why your app needs the camera.
+      required: when_used
+      hint: >-
+        Needed if you use ImageSource.camera. Add NSCameraUsageDescription to
+        Info.plist describing why your app needs the camera.
     NSMicrophoneUsageDescription:
       required: when_used
       hint: >-

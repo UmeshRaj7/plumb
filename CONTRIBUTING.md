@@ -80,6 +80,11 @@ Commits follow [Conventional Commits](https://www.conventionalcommits.org/):
 3. `required: true` only when the docs say the app must add it for the plugin to work
    (or for App Store/Play acceptance). Otherwise `required: when_used` with a hint that
    says *when*.
+   - If the docs list a key without a condition but only an optional feature uses it
+     (image_picker's camera key when the app only picks from the gallery; camera's
+     microphone key with `enableAudio: false`), use `when_used` and name the feature in
+     the hint. Check the plugin's code to confirm. A ✗ the app doesn't actually need
+     costs more trust than a ℹ.
 4. If the plugin's own AndroidManifest already declares a permission, the app doesn't
    need to — don't mark it `required: true` even if the README says to add it.
 5. Things plumb can't check (Gradle, Podfile, AppDelegate) go under `manual:`.

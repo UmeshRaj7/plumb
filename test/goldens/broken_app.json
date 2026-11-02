@@ -85,13 +85,13 @@
     },
     {
       "id": "camera/ios/info_plist/NSMicrophoneUsageDescription",
-      "severity": "missing",
+      "severity": "info",
       "package": "camera",
       "platform": "ios",
       "file": "ios/Runner/Info.plist",
       "key": "NSMicrophoneUsageDescription",
-      "message": "NSMicrophoneUsageDescription is missing",
-      "fix": "Add NSMicrophoneUsageDescription to Info.plist with a usage description.",
+      "message": "NSMicrophoneUsageDescription is not set",
+      "fix": "Needed unless every CameraController is created with enableAudio: false (the default is true). Add NSMicrophoneUsageDescription to Info.plist with a usage description.",
       "source": "https://pub.dev/packages/camera#ios",
       "also_needed_by": []
     },
@@ -532,9 +532,9 @@
   ],
   "summary": {
     "error": 0,
-    "missing": 5,
+    "missing": 4,
     "warning": 5,
     "ok": 0,
-    "info": 29
+    "info": 30
   }
 }

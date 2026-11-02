@@ -12,9 +12,14 @@ ios:
         Add NSPhotoLibraryUsageDescription to Info.plist describing why your app
         needs the photo library. App Store policy requires it even if you always
         pass requestFullMetadata: false.
+    # The README lists this key without a condition, but image_picker_ios only
+    # asks for camera access for ImageSource.camera, and gallery-only apps
+    # ship without it. So it's `when_used` (precision rule in CONTRIBUTING.md).
     NSCameraUsageDescription:
-      required: true
-      hint: Add NSCameraUsageDescription to Info.plist describing why your app needs the camera.
+      required: when_used
+      hint: >-
+        Needed if you use ImageSource.camera. Add NSCameraUsageDescription to
+        Info.plist describing why your app needs the camera.
     NSMicrophoneUsageDescription:
       required: when_used
       hint: >-

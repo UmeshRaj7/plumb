@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:plumb/src/recipes/bundled.dart';
+import 'package:plumb/src/recipes/recipe.dart';
 import 'package:plumb/src/recipes/recipe_index.dart';
 import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
@@ -46,6 +47,25 @@ void main() {
             '$file should be named ${recipe.package}.yaml or ${recipe.package}@<label>.yaml',
       );
     }
+  });
+
+  // Keys the docs list without a condition but only an optional feature uses.
+  // Real apps ship without them, so they must stay `when_used`.
+  test('feature-only keys are when_used, not required', () {
+    Necessity necessityOf(String package, String key) => bundledRecipes()
+        .firstWhere((recipe) => recipe.package == package)
+        .requirements
+        .firstWhere((requirement) => requirement.key == key)
+        .necessity;
+
+    expect(
+      necessityOf('image_picker', 'NSCameraUsageDescription'),
+      Necessity.whenUsed,
+    );
+    expect(
+      necessityOf('camera', 'NSMicrophoneUsageDescription'),
+      Necessity.whenUsed,
+    );
   });
 
   group('every bundled recipe matches the JSON Schema:', () {

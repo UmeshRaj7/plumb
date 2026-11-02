@@ -11,8 +11,8 @@ camera 0.11.2
                          also: image_picker, permission_handler
                          fix:  Replace it with a real value. Add NSCameraUsageDescription to Info.plist with a usage description.
                          docs: https://pub.dev/packages/camera#ios
-  ✗ ios      Info.plist  NSMicrophoneUsageDescription is missing
-                         fix:  Add NSMicrophoneUsageDescription to Info.plist with a usage description.
+  ℹ ios      Info.plist  NSMicrophoneUsageDescription is not set
+                         fix:  Needed unless every CameraController is created with enableAudio: false (the default is true). Add NSMicrophoneUsageDescription to Info.plist with a usage description.
                          docs: https://pub.dev/packages/camera#ios
 
 flutter_local_notifications 99.0.0
@@ -137,4 +137,4 @@ sign_in_with_apple 8.2.0
                                   fix:  For Sign in with Apple on Android, your activity's launchMode must be singleTask or singleTop so the login page can return to the app.
                                   docs: https://pub.dev/packages/sign_in_with_apple#android
 
-Summary: 0 ok · 5 missing · 5 warning · 29 info
+Summary: 0 ok · 4 missing · 5 warning · 30 info

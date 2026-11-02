@@ -11,9 +11,7 @@ camera 0.11.2
                          also: image_picker, permission_handler
                          fix:  Replace it with a real value. Add NSCameraUsageDescription to Info.plist with a usage description.
                          docs: https://pub.dev/packages/camera#ios
-  ✗ ios      Info.plist  NSMicrophoneUsageDescription is missing
-                         fix:  Add NSMicrophoneUsageDescription to Info.plist with a usage description.
-                         docs: https://pub.dev/packages/camera#ios
+  ℹ 1 conditional item (run with --verbose to list)
 
 flutter_local_notifications 99.0.0
   ℹ No recipe for flutter_local_notifications 99.0.0 (recipes cover >=19.0.0 <23.0.0), so it was not checked
@@ -59,4 +57,4 @@ sign_in_with_apple 8.2.0
                           docs: https://pub.dev/packages/sign_in_with_apple#ios
   ℹ 1 conditional item and 1 manual step (run with --verbose to list)
 
-Summary: 0 ok · 5 missing · 5 warning · 29 info
+Summary: 0 ok · 4 missing · 5 warning · 30 info
