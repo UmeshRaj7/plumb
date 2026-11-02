@@ -84,25 +84,28 @@ Stars as of 2026-11-02. Raw output per app and version: `results/<version>/<owne
 
 ## The real findings
 
-Each was reported to the app's maintainers in a friendly GitHub issue. These are small,
-common slips. Most of the 25 apps got everything right.
+Each was reported to the app's maintainers in a friendly GitHub issue on 2026-11-02. These
+are small, common slips. Most of the 25 apps got everything right.
 
 - **Kazumi:** `NSPhotoLibraryAddUsageDescription` is an empty string
   ([Info.plist L51-52](https://github.com/Predidit/Kazumi/blob/69ba855ef4554b79a18d8becc83165c0fd000443/ios/Runner/Info.plist#L51-L52)),
   while the app saves images to Photos
   ([info_actions_menu.dart L88](https://github.com/Predidit/Kazumi/blob/69ba855ef4554b79a18d8becc83165c0fd000443/lib/pages/info/info_actions_menu.dart#L88)).
   Users see a permission prompt with no explanation.
+  Reported: [Kazumi #2807](https://github.com/Predidit/Kazumi/issues/2807).
 - **Bagisto mobile:** no `UIBackgroundModes` → `remote-notification`, although push is enabled
   and the app registers
   [`FirebaseMessaging.onBackgroundMessage`](https://github.com/bagisto/opensource-ecommerce-mobile-app/blob/18a2c27c6d25a2e98a1bc84b69328e72d6a5bded/lib/main.dart#L48).
   Apple: "To receive background notifications, you must add the remote notifications background
   mode to your app."
+  Reported: [Bagisto #79](https://github.com/bagisto/opensource-ecommerce-mobile-app/issues/79).
 - **ServerBox:** no `NSFaceIDUsageDescription`, although the app offers an opt-in biometric lock
   ([app_auth.dart L9](https://github.com/lollipopkit/flutter_server_box/blob/3ddb7b5612a1c34ef95e99de5f772d7eca6c320a/lib/core/utils/app_auth.dart#L9)
   → [fl_lib auth.dart L82](https://github.com/lollipopkit/fl_lib/blob/387f964973b4ac2ccd52670b1904259476fe0b1e/lib/src/core/utils/platform/auth.dart#L82)).
   local_auth's iOS docs: "To support Face ID on iOS devices, you must add an
   `NSFaceIDUsageDescription` entry to your `Info.plist` file." The plugin isn't in the app's
   `pubspec.yaml`; it comes in through a submodule, which makes it easy to miss by hand.
+  Reported: [ServerBox #1851](https://github.com/lollipopkit/flutter_server_box/issues/1851).
 - **Docs-backed, low impact (Kazumi):** image_picker's README asks for
   `NSPhotoLibraryUsageDescription` ("App Store policy requires including the plist entry").
   Kazumi isn't on the App Store and picks with PHPicker on iOS 14+, so this matters little.
