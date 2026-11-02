@@ -3,7 +3,7 @@ description: >-
   Native config for Flutter™. `plumb doctor` checks your app's Info.plist,
   entitlements and AndroidManifest against what its plugins' docs require.
   Read-only.
-version: 0.0.1
+version: 0.1.0
 repository: https://github.com/UmeshRaj7/plumb
 issue_tracker: https://github.com/UmeshRaj7/plumb/issues
 topics:

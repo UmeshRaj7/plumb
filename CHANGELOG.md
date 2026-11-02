@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.1.0
+
+Fewer false alarms, based on running plumb on popular open-source Flutter apps.
+
+- **image_picker:** a missing `NSCameraUsageDescription` is now ℹ ("needed if you
+  use `ImageSource.camera`") instead of ✗. Apps that only pick from the gallery
+  don't need it.
+- **camera:** a missing `NSMicrophoneUsageDescription` is now ℹ ("needed unless
+  every `CameraController` uses `enableAudio: false`") instead of ✗.
+- README: what to do when the `plumb` command is not found (common on Windows),
+  running it with `dart pub global run plumb doctor`, and the dev_dependency
+  option (`flutter pub add --dev plumb` + `dart run plumb doctor`).
+- README screenshot and JSON example updated to the new output.
+- Releases are now published from GitHub Actions when a version tag is pushed.
+
+Why 0.1.0 and not 0.0.2: under pub's caret rules, `^0.0.1` never upgrades to
+0.0.2, so dev_dependency users would be stuck.
+
 ## 0.0.1
 
 First release: `plumb doctor`, a read-only check of native config.

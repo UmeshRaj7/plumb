@@ -51,7 +51,7 @@ plumb is a checklist that runs itself:
 
 Run it after adding a plugin, before a release, or in CI on every pull request.
 
-**In numbers (v0.0.1):** checks 10 popular plugins · reads 5 kinds of files ·
+**In numbers (v0.1.0):** checks 10 popular plugins · reads 5 kinds of files ·
 takes about half a second · needs no Mac or Xcode · changes 0 files.
 
 ## Reading the report
@@ -71,7 +71,7 @@ React Native developers already have this through
 plumb aims to bring that idea to Flutter, starting with a read-only `doctor`
 that tells you exactly what's missing, with a source link for every check.
 
-None of that exists yet. v0.0.1 only reads and reports, so you can trust what
+None of that exists yet. v0.1.0 only reads and reports, so you can trust what
 it tells you before trusting it to change anything.
 
 ---
@@ -197,7 +197,7 @@ additive) with no absolute paths or timestamps:
 ```json
 {
   "format": 1,
-  "plumb_version": "0.0.1",
+  "plumb_version": "0.1.0",
   "project": { "name": "my_app", "dependency_source": "pubspec.lock" },
   "packages": [
     { "name": "image_picker", "version": "1.2.4", "status": "checked", "recipe": "recipes/image_picker.yaml" }
@@ -221,7 +221,7 @@ additive) with no absolute paths or timestamps:
 ```
 
 Finding `id`s are stable, so CI scripts can match on them. Setup errors are
-JSON too: `{"format": 1, "plumb_version": "0.0.1", "error": "…"}`.
+JSON too: `{"format": 1, "plumb_version": "0.1.0", "error": "…"}`.
 
 ## Recipes
 

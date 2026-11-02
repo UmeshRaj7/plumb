@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "plumb_version": "0.0.1",
+  "plumb_version": "0.1.0",
   "project": {
     "name": "ios_only_app",
     "dependency_source": "pubspec.lock"
