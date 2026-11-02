@@ -12,7 +12,8 @@ Fewer false alarms, based on running plumb on popular open-source Flutter apps.
 - README: what to do when the `plumb` command is not found (common on Windows),
   running it with `dart pub global run plumb doctor`, and the dev_dependency
   option (`flutter pub add --dev plumb` + `dart run plumb doctor`).
-- README: how to update, and `actions/checkout` in the CI example.
+- README: how to update, `actions/checkout` in the CI example, and wording that
+  matches Apple's docs on missing purpose strings ("can crash", with a link).
 - README screenshot and JSON example updated to the new output.
 - Releases are now published from GitHub Actions when a version tag is pushed.
 

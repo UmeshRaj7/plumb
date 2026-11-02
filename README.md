@@ -1,7 +1,7 @@
 # plumb — native config for Flutter™
 
 **Find the missing iOS and Android setup that your Flutter plugins need, before
-it crashes your app or gets it rejected from the App Store.**
+it can crash your app or get it rejected from the App Store.**
 
 ![plumb doctor output: a placeholder camera purpose string, a missing photo library purpose string and the wrong MainActivity base class, each with a fix and a docs link](https://raw.githubusercontent.com/UmeshRaj7/plumb/main/assets/plumb-doctor.png)
 
@@ -24,8 +24,9 @@ Many plugins also need you to edit files inside your app's `ios/` and
 `android/` folders, files most Flutter developers rarely open:
 
 - **iOS:** add a sentence to `Info.plist` explaining *why* your app wants the
-  camera, location or Face ID. Forget it and your app **crashes** the moment it
-  asks for access. Leave it as `"TODO"` and App Review can **reject** your app.
+  camera, location or Face ID. Forget it and access fails, and your app
+  [can **crash**](https://developer.apple.com/documentation/uikit/requesting-access-to-protected-resources)
+  when it asks. Leave it as `"TODO"` and App Review can **reject** your app.
 - **Android:** add permissions to `AndroidManifest.xml`, or change which class
   your `MainActivity` extends. Forget it and the feature **quietly fails**.
 
