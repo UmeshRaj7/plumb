@@ -3,7 +3,7 @@
 **Find the missing iOS and Android setup that your Flutter plugins need, before
 it crashes your app or gets it rejected from the App Store.**
 
-![plumb doctor output: a placeholder camera purpose string, a missing microphone string and the wrong MainActivity base class, each with a fix and a docs link](https://raw.githubusercontent.com/UmeshRaj7/plumb/main/assets/plumb-doctor.png)
+![plumb doctor output: a placeholder camera purpose string, a missing photo library purpose string and the wrong MainActivity base class, each with a fix and a docs link](https://raw.githubusercontent.com/UmeshRaj7/plumb/main/assets/plumb-doctor.png)
 
 ```sh
 dart pub global activate plumb
@@ -200,19 +200,19 @@ additive) with no absolute paths or timestamps:
   "plumb_version": "0.0.1",
   "project": { "name": "my_app", "dependency_source": "pubspec.lock" },
   "packages": [
-    { "name": "camera", "version": "0.12.2", "status": "checked", "recipe": "recipes/camera.yaml" }
+    { "name": "image_picker", "version": "1.2.4", "status": "checked", "recipe": "recipes/image_picker.yaml" }
   ],
   "findings": [
     {
-      "id": "camera/ios/info_plist/NSMicrophoneUsageDescription",
+      "id": "image_picker/ios/info_plist/NSPhotoLibraryUsageDescription",
       "severity": "missing",
-      "package": "camera",
+      "package": "image_picker",
       "platform": "ios",
       "file": "ios/Runner/Info.plist",
-      "key": "NSMicrophoneUsageDescription",
-      "message": "NSMicrophoneUsageDescription is missing",
-      "fix": "Add NSMicrophoneUsageDescription to Info.plist with a usage description.",
-      "source": "https://pub.dev/packages/camera#ios",
+      "key": "NSPhotoLibraryUsageDescription",
+      "message": "NSPhotoLibraryUsageDescription is missing",
+      "fix": "Add NSPhotoLibraryUsageDescription to Info.plist describing why your app needs the photo library. App Store policy requires it even if you always pass requestFullMetadata: false.",
+      "source": "https://pub.dev/packages/image_picker#ios",
       "also_needed_by": []
     }
   ],
