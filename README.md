@@ -92,10 +92,16 @@ Requires Dart 3.8+ (Flutter 3.32+). Runs on macOS, Linux and Windows; Xcode is n
 puts the `plumb` command in pub's cache folder, which is not on your `PATH` by
 default. Pick one:
 
-- Add the folder to your `PATH`, then open a new terminal:
+- Skip `PATH` and run it through Dart (works right away):
+  `dart pub global run plumb doctor`
+- Or add the folder to your `PATH`:
   - Windows: `%LOCALAPPDATA%\Pub\Cache\bin`
   - macOS / Linux: `$HOME/.pub-cache/bin`
-- Or skip `PATH` and run it through Dart: `dart pub global run plumb doctor`
+
+  Programs read `PATH` when they start, so open a new terminal afterwards. If
+  you use the terminal inside VS Code or Android Studio, quit the editor
+  completely and reopen it; a new terminal tab is not enough. You don't need
+  to restart your computer.
 - Or add plumb to your app as a dev dependency (handy for teams and CI, since
   everyone gets the same version):
 
