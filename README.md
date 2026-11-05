@@ -50,9 +50,9 @@ plumb is a checklist that runs itself:
 3. It tells you, in plain words, what's missing, what still says "TODO", and
    exactly how to fix it, with a link to the docs it got that from.
 
-Run it after adding a plugin, before a release, or in CI on every pull request.
+Run it after adding a plugin, before a release, or [on every build](#run-it-on-every-build).
 
-**In numbers (v0.1.0):** checks 10 popular plugins · reads 5 kinds of files ·
+**In numbers:** checks 10 popular plugins · reads 5 kinds of files ·
 takes about half a second · needs no Mac or Xcode · changes 0 files.
 
 ## Reading the report
@@ -72,7 +72,7 @@ React Native developers already have this through
 plumb aims to bring that idea to Flutter, starting with a read-only `doctor`
 that tells you exactly what's missing, with a source link for every check.
 
-None of that exists yet. v0.1.0 only reads and reports, so you can trust what
+None of that exists yet. plumb only reads and reports, so you can trust what
 it tells you before trusting it to change anything.
 
 ---
@@ -123,7 +123,7 @@ cd my_flutter_app
 plumb doctor            # human-readable report
 plumb doctor --strict   # exit 1 if anything is missing or a placeholder (for CI)
 plumb doctor --json     # machine-readable report (for CI and AI agents)
-plumb doctor --verbose  # also list conditional and manual items
+plumb doctor --verbose  # also list conditional and manual items, and finding ids
 plumb doctor path/to/app
 ```
 
@@ -143,7 +143,16 @@ applies the recipe for each plugin version it knows.
 incomplete (not a Flutter app, no `pubspec.lock`, unreadable native file) ·
 `64` invalid command line. ℹ never fails a run.
 
-### In CI
+### Run it on every build
+
+plumb takes about half a second, so it can run before every build and catch a
+missing or placeholder purpose string before you upload, without anyone having
+to remember. It only knows the plugins in the table below; others aren't checked.
+
+Tip: start without `--strict` (report only), fix or [ignore](#ignoring-a-finding)
+what it finds, then turn `--strict` on.
+
+**GitHub Actions**
 
 ```yaml
 # steps in a job of .github/workflows/native-config.yml
@@ -152,6 +161,54 @@ incomplete (not a Flutter app, no `pubspec.lock`, unreadable native file) ·
 - run: dart pub global activate plumb
 - run: plumb doctor --strict
 ```
+
+**Other CI** (Codemagic, Bitrise, GitLab…): add a script step after
+`flutter pub get`, with plumb as a dev dependency so every machine runs the same
+version:
+
+```sh
+dart run plumb doctor --strict
+```
+
+**fastlane:** add it as the first step of the lanes that build or upload.
+fastlane runs `sh` from the `fastlane/` folder; plumb finds your app from there.
+
+```ruby
+lane :beta do
+  sh("dart", "run", "plumb", "doctor", "--strict")
+  # build_app, upload_to_testflight, …
+end
+```
+
+**Your own build script:** show the problems and ask before building anyway.
+Without a terminal to answer (CI), it stops.
+
+```sh
+#!/bin/sh
+if ! dart run plumb doctor --strict; then
+  printf 'plumb found native config problems (see above). Build anyway? [y/N] '
+  read -r answer
+  [ "$answer" = y ] || exit 1
+fi
+flutter build ipa
+```
+
+### Ignoring a finding
+
+If plumb is wrong about your app, or you've decided a finding doesn't matter,
+ignore it in `pubspec.yaml` with a reason:
+
+```yaml
+plumb:
+  ignore:
+    local_auth/ios/info_plist/NSFaceIDUsageDescription: Set in Info-Release.plist, which plumb doesn't read
+```
+
+Get the id from `plumb doctor --verbose` (the `id:` line) or `--json`. An
+ignored finding no longer counts for `--strict`; the report shows how many
+were ignored, and `--verbose` lists them with your reason. An entry that matches
+nothing is reported as ℹ, so you notice when it can go. If plumb was wrong,
+please [open an issue](https://github.com/UmeshRaj7/plumb/issues) too.
 
 ## What plumb checks
 
@@ -189,6 +246,9 @@ Being clear about this matters more than looking complete:
   core library desugaring, Google Maps' iOS API key) are listed as ℹ manual steps.
 - **Flavors** — only `ios/Runner/Info.plist` and the main `AndroidManifest.xml`
   are checked; other `Info*.plist` files and flavor manifests are listed as ℹ.
+  If your Xcode project builds with other plists only (`INFOPLIST_FILE`, e.g.
+  `Runner/Info-$(CONFIGURATION).plist`), plumb says so and lists the keys your
+  plugins need as ℹ "not checked" instead of reporting them missing.
 - **Merged manifests** — plumb reads your app's manifest, not the merged one.
   Recipes only list what a plugin's docs ask *you* to add.
 - **Binary plists** (reported as ✗ with how to convert), localized
@@ -204,7 +264,7 @@ additive) with no absolute paths or timestamps:
 ```json
 {
   "format": 1,
-  "plumb_version": "0.1.0",
+  "plumb_version": "0.1.1",
   "project": { "name": "my_app", "dependency_source": "pubspec.lock" },
   "packages": [
     { "name": "image_picker", "version": "1.2.4", "status": "checked", "recipe": "recipes/image_picker.yaml" }
@@ -220,15 +280,18 @@ additive) with no absolute paths or timestamps:
       "message": "NSPhotoLibraryUsageDescription is missing",
       "fix": "Add NSPhotoLibraryUsageDescription to Info.plist describing why your app needs the photo library. App Store policy requires it even if you always pass requestFullMetadata: false.",
       "source": "https://pub.dev/packages/image_picker#ios",
-      "also_needed_by": []
+      "also_needed_by": [],
+      "ignored": null
     }
   ],
-  "summary": { "error": 0, "missing": 1, "warning": 0, "ok": 0, "info": 0 }
+  "summary": { "error": 0, "missing": 1, "warning": 0, "ok": 0, "info": 0, "ignored": 0 }
 }
 ```
 
-Finding `id`s are stable, so CI scripts can match on them. Setup errors are
-JSON too: `{"format": 1, "plumb_version": "0.1.0", "error": "…"}`.
+Finding `id`s are stable, so CI scripts can match on them. `ignored` is the
+reason from `plumb: ignore:` (or `null`); ignored findings keep their severity
+but aren't counted in `summary`. Setup errors are JSON too:
+`{"format": 1, "plumb_version": "0.1.1", "error": "…"}`.
 
 ## Recipes
 
