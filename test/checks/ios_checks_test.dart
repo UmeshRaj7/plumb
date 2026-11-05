@@ -103,6 +103,24 @@ ios:
       },
     );
 
+    test('Info.plist not used by the build → info naming the plist', () {
+      final ios = IosFiles(
+        infoPlist: const FileRead.failed(
+          'ios/Runner/Info.plist',
+          FileProblem.notUsed,
+          r'Runner/Info-$(CONFIGURATION).plist',
+        ),
+      );
+      final f = check(cameraRequired, ios)!;
+      expect(f.severity, Severity.info);
+      expect(
+        f.message,
+        r'NSCameraUsageDescription not checked: your build uses '
+        r'Runner/Info-$(CONFIGURATION).plist, not Info.plist',
+      );
+      expect(f.fix, 'Explain camera use');
+    });
+
     test('unreadable Info.plist → null (reported once at app level)', () {
       final ios = IosFiles(
         infoPlist: const FileRead.failed(

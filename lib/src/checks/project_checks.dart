@@ -3,7 +3,8 @@ import '../recipes/recipe.dart';
 import 'finding.dart';
 import 'placeholder.dart';
 
-/// One `error` finding per native file plumb couldn't read.
+/// One finding per native file plumb couldn't read: an `error`, or `info`
+/// for a file the build doesn't use.
 List<Finding> fileProblemFindings(ProjectSnapshot snapshot) => [
   if (snapshot.ios case final ios?) ...[
     ?_fileProblem(NativePlatform.ios, ios.infoPlist),
@@ -87,6 +88,21 @@ List<Finding> flavorFindings(ProjectSnapshot snapshot) => [
 Finding? _fileProblem(NativePlatform platform, FileRead<Object?> file) {
   final problem = file.problem;
   if (problem == null) return null;
+  if (problem == FileProblem.notUsed) {
+    return Finding(
+      id: 'app/${platform.name}/file/${file.path}',
+      severity: Severity.info,
+      platform: platform,
+      file: file.path,
+      message:
+          'Not checked: your Xcode project builds with ${file.detail} '
+          '(INFOPLIST_FILE), not Info.plist',
+      fix:
+          'plumb reads ${file.path} only. Check the keys your plugins need '
+          '(--verbose lists them) in ${file.detail} yourself. If Info.plist '
+          'is a leftover, consider deleting it.',
+    );
+  }
   final (message, fix) = switch (problem) {
     FileProblem.missing => ('${file.path} not found', null),
     FileProblem.binaryPlist => (
@@ -101,6 +117,7 @@ Finding? _fileProblem(NativePlatform platform, FileRead<Object?> file) {
       '${file.path} is ambiguous: ${file.detail}',
       null,
     ),
+    FileProblem.notUsed => throw StateError('handled above'),
   };
   return Finding(
     id: 'app/${platform.name}/file/${file.path}',

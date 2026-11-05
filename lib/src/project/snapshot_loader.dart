@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 
 import '../parsers/android_manifest.dart';
+import '../parsers/pbxproj.dart';
 import '../parsers/plist.dart';
 import 'dependencies.dart';
 import 'flutter_project.dart';
@@ -42,13 +43,14 @@ class _Loader {
   IosFiles ios() {
     final runner = Directory(_abs('ios/Runner'));
     final plists = _list(runner, (name) => name.endsWith('.plist'));
+    final pbxproj = _readText('ios/Runner.xcodeproj/project.pbxproj');
     return IosFiles(
-      infoPlist: _readPlist('ios/Runner/Info.plist'),
+      infoPlist: _readInfoPlist(pbxproj),
       entitlements: [
         for (final name in _list(runner, (n) => n.endsWith('.entitlements')))
           _readPlist('ios/Runner/$name'),
       ],
-      pbxproj: _readText('ios/Runner.xcodeproj/project.pbxproj'),
+      pbxproj: pbxproj,
       otherInfoPlists: [
         for (final name in plists)
           if (name.startsWith('Info') && name != 'Info.plist')
@@ -104,6 +106,21 @@ class _Loader {
       );
     }
     return FileRead.ok(candidates.single, _readText(candidates.single)!);
+  }
+
+  /// `ios/Runner/Info.plist`, unless the Xcode project builds the app with
+  /// other plists in Runner/ only (e.g. `Runner/Info-$(CONFIGURATION).plist`).
+  /// Then Info.plist isn't what ships, and checking it would report keys as
+  /// missing that the app does have.
+  FileRead<Map<String, Object?>> _readInfoPlist(String? pbxproj) {
+    const path = 'ios/Runner/Info.plist';
+    final settings = pbxproj == null
+        ? const <String>[]
+        : runnerInfoPlistSettings(pbxproj);
+    if (settings.isNotEmpty && !settings.contains('Runner/Info.plist')) {
+      return FileRead.failed(path, FileProblem.notUsed, settings.join(', '));
+    }
+    return _readPlist(path);
   }
 
   FileRead<Map<String, Object?>> _readPlist(String relative) {

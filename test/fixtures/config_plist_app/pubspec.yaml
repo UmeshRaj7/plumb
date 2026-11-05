@@ -1,0 +1,13 @@
+name: config_plist_app
+description: "plumb test fixture — builds with Info-$(CONFIGURATION).plist (INFOPLIST_FILE); Info.plist is a leftover."
+publish_to: none
+environment:
+  sdk: ^3.8.0
+dependencies:
+  flutter:
+    sdk: flutter
+  local_auth: any
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0

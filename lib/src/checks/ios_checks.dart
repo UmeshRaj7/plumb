@@ -34,6 +34,17 @@ Finding? checkIosRequirement(
     fix: fix,
   );
 
+  if (ios.infoPlist.problem == FileProblem.notUsed &&
+      (requirement.kind == RequirementKind.infoPlistKey ||
+          requirement.kind == RequirementKind.backgroundMode)) {
+    return finding(
+      Severity.info,
+      '${requirement.key} not checked: your build uses '
+      '${ios.infoPlist.detail}, not Info.plist',
+      file: _infoPlist,
+    );
+  }
+
   switch (requirement.kind) {
     case RequirementKind.infoPlistKey:
       final plist = ios.infoPlist.value;

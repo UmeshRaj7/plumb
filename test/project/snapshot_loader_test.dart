@@ -48,6 +48,20 @@ void main() {
     });
   });
 
+  group('config_plist_app', () {
+    final ios = load('config_plist_app').ios!;
+
+    test('does not read Info.plist when the build uses other plists', () {
+      expect(ios.infoPlist.path, 'ios/Runner/Info.plist');
+      expect(ios.infoPlist.problem, FileProblem.notUsed);
+      expect(ios.infoPlist.detail, r'Runner/Info-$(CONFIGURATION).plist');
+      expect(ios.otherInfoPlists, [
+        'ios/Runner/Info-Debug.plist',
+        'ios/Runner/Info-Release.plist',
+      ]);
+    });
+  });
+
   group('edge_app', () {
     final snapshot = load('edge_app');
 

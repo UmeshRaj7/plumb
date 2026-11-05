@@ -14,6 +14,10 @@ enum FileProblem {
 
   /// More than one candidate file was found (e.g. two MainActivity.kt).
   ambiguous,
+
+  /// The Xcode project builds with a different plist (`INFOPLIST_FILE`), so
+  /// this file isn't what ships. Not an error: plumb just can't check it.
+  notUsed,
 }
 
 /// The result of reading and parsing one native file.
@@ -48,7 +52,8 @@ class IosFiles {
     this.otherInfoPlists = const [],
   });
 
-  /// `ios/Runner/Info.plist`.
+  /// `ios/Runner/Info.plist`, or [FileProblem.notUsed] when the Xcode
+  /// project builds with another plist.
   final FileRead<Map<String, Object?>> infoPlist;
 
   /// Every `ios/Runner/*.entitlements`, sorted by path.

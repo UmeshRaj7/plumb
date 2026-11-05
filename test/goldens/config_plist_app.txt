@@ -1,0 +1,13 @@
+plumb doctor · config_plist_app
+Found 1 plugin with a recipe (read from pubspec.lock).
+
+Your app
+  ℹ ios      Info.plist  Not checked: your Xcode project builds with Runner/Info-$(CONFIGURATION).plist (INFOPLIST_FILE), not Info.plist
+                         fix:  plumb reads ios/Runner/Info.plist only. Check the keys your plugins need (--verbose lists them) in Runner/Info-$(CONFIGURATION).plist yourself. If Info.plist is a leftover, consider deleting it.
+  ℹ android  android/    android/ not found; android requirements of local_auth were not checked
+  ℹ ios                  Not checked: ios/Runner/Info-Debug.plist, ios/Runner/Info-Release.plist (plumb checks ios/Runner/Info.plist only)
+
+local_auth 2.3.0
+  ℹ 1 conditional item (run with --verbose to list)
+
+Summary: 0 ok · 0 missing · 0 warning · 4 info

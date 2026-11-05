@@ -15,6 +15,7 @@ const cases = [
   ('edge_app', ['--strict'], 1),
   ('unreadable_app', <String>[], 2),
   ('ios_only_app', ['--strict'], 0),
+  ('config_plist_app', ['--strict'], 0),
   ('package_config_only_app', <String>[], 0),
 ];
 
