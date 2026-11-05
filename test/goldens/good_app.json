@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "plumb_version": "0.1.0",
+  "plumb_version": "0.1.1",
   "project": {
     "name": "good_app",
     "dependency_source": "pubspec.lock"

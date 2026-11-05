@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.1.1
+
+Safer to run on every build.
+
+- **Fix:** if your Xcode project builds with other plists only (`INFOPLIST_FILE`,
+  e.g. `Runner/Info-$(CONFIGURATION).plist`), plumb no longer checks the unused
+  `ios/Runner/Info.plist` and reports keys as missing that your app does have.
+  It says so (ℹ) and lists the keys your plugins need as "not checked".
+  Reported by the ServerBox maintainer after the launch study.
+- **New:** ignore a finding in `pubspec.yaml` with a reason
+  (`plumb: ignore: <finding id>: <reason>`). Ignored findings don't count for
+  `--strict`; entries that match nothing are reported as ℹ.
+- `--verbose` shows each finding's id, to copy into `plumb: ignore:`.
+- The report says how many plugins plumb has recipes for, since the others
+  aren't checked.
+- JSON (format 1, additive): `findings[].ignored` and `summary.ignored`.
+- README: running plumb on every build (GitHub Actions, other CI, fastlane, your
+  own build script) and ignoring findings.
+
 ## 0.1.0
 
 Fewer false alarms, based on running plumb on popular open-source Flutter apps.
