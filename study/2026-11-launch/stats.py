@@ -9,7 +9,8 @@ import json
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-VERSIONS = ("0.0.1", "0.1.0")
+VERSIONS = ("0.0.1", "0.1.0", "0.1.1")
+LATEST = VERSIONS[-1]
 FLAGGED = ("missing", "warning", "error")
 
 
@@ -35,6 +36,12 @@ def load_verdicts():
     return out
 
 
+def precision(per_verdict):
+    right = per_verdict["real"] + per_verdict["docs"]
+    total = right + per_verdict["false_positive"]
+    return f"{right}/{total} = {100 * right / total:.0f}%" if total else "n/a"
+
+
 def platforms(result):
     missing = {f["platform"] for f in result["findings"]
                if f["package"] is None and "not found" in f["message"]}
@@ -47,18 +54,20 @@ def main():
     print(f"Apps: {len(apps)}\n")
 
     # Per-app table.
-    print("| # | App | ⭐ | Platforms | Plugins with recipes | 0.0.1 ✗/⚠ | 0.1.0 ✗/⚠ | 0.1.0 ✓ | 0.1.0 ℹ |")
-    print("|---|---|---|---|---|---|---|---|---|")
+    print("| # | App | ⭐ | Platforms | Plugins with recipes | "
+          + " | ".join(f"{v} ✗/⚠" for v in VERSIONS) + f" | {LATEST} ✓ | {LATEST} ℹ |")
+    print("|---|---|---|---|---|" + "---|" * (len(VERSIONS) + 2))
     for i, app in enumerate(apps, 1):
-        old, new = (load_result(v, app["repo"]) for v in VERSIONS)
+        results = [load_result(v, app["repo"]) for v in VERSIONS]
+        new = results[-1]
         flagged = lambda r: sum(r["summary"][k] for k in FLAGGED)
         checked = [p["name"] for p in new["packages"] if p["status"] == "checked"]
         print(f"| {i} | {app['repo']} | {int(app['stars']) / 1000:.1f}k | {platforms(new)} | "
-              f"{', '.join(checked)} | {flagged(old)} | {flagged(new)} | "
+              f"{', '.join(checked)} | " + " | ".join(str(flagged(r)) for r in results) + " | "
               f"{new['summary']['ok']} | {new['summary']['info']} |")
 
     # Totals per version.
-    print("\n| | 0.0.1 | 0.1.0 |\n|---|---|---|")
+    print("\n| | " + " | ".join(VERSIONS) + " |\n|---|" + "---|" * len(VERSIONS))
     totals = {}
     for v in VERSIONS:
         t = collections.Counter()
@@ -87,6 +96,7 @@ def main():
         ("✗/⚠ confirmed real", lambda t, a, p: p["real"]),
         ("✗/⚠ docs-backed, low impact", lambda t, a, p: p["docs"]),
         ("✗/⚠ false positive", lambda t, a, p: p["false_positive"]),
+        ("Precision (real or docs ÷ all ✗/⚠)", lambda t, a, p: precision(p)),
     ]
     for label, fn in rows:
         print(f"| {label} | " + " | ".join(str(fn(*totals[v][:3])) for v in VERSIONS) + " |")
@@ -94,10 +104,10 @@ def main():
         if totals[v][3]:
             print(f"\nUNVERIFIED in {v}: {totals[v][3]}")
 
-    # Plugin usage across apps (0.1.0 packages list).
+    # Plugin usage across apps (latest packages list).
     usage = collections.Counter()
     for app in apps:
-        for p in load_result("0.1.0", app["repo"])["packages"]:
+        for p in load_result(LATEST, app["repo"])["packages"]:
             usage[(p["name"], p["status"])] += 1
     print("\n| Plugin (has a recipe) | Apps |\n|---|---|")
     for (name, status), n in sorted(usage.items(), key=lambda x: (-x[1], x[0])):
@@ -106,8 +116,8 @@ def main():
 
     # Other facts.
     flavors = [a["repo"] for a in apps if any(
-        f["message"].startswith("Not checked:") for f in load_result("0.1.0", a["repo"])["findings"])]
-    no_ios = [a["repo"] for a in apps if "ios" not in platforms(load_result("0.1.0", a["repo"]))]
+        f["id"].endswith("/flavors") for f in load_result(LATEST, a["repo"])["findings"])]
+    no_ios = [a["repo"] for a in apps if "ios" not in platforms(load_result(LATEST, a["repo"]))]
     print(f"\nApps in a subfolder (monorepo): {[a['repo'] for a in apps if a['app'] != '.']}")
     print(f"Apps with flavor manifests/plists plumb lists as not checked: {len(flavors)} {flavors}")
     print(f"Android-only (no ios/): {len(no_ios)} {no_ios}")

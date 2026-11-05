@@ -1,0 +1,36 @@
+plumb doctor · kazumi
+Found 2 plugins with recipes (read from pubspec.lock).
+plumb has recipes for 10 plugins so far; others aren't checked.
+
+Your app
+  ⚠ ios      Info.plist  NSPhotoLibraryAddUsageDescription is empty
+                         fix:  Replace it with a sentence telling users why the app needs this access. App Review rejects vague or placeholder purpose strings.
+                         docs: https://developer.apple.com/documentation/uikit/requesting-access-to-protected-resources
+                         id:   app/ios/info_plist/NSPhotoLibraryAddUsageDescription
+
+image_picker 1.2.2
+  ✗ ios      Info.plist  NSPhotoLibraryUsageDescription is missing
+                         fix:  Add NSPhotoLibraryUsageDescription to Info.plist describing why your app needs the photo library. App Store policy requires it even if you always pass requestFullMetadata: false.
+                         docs: https://pub.dev/packages/image_picker#ios
+                         id:   image_picker/ios/info_plist/NSPhotoLibraryUsageDescription
+  ℹ ios      Info.plist  NSCameraUsageDescription is not set
+                         fix:  Needed if you use ImageSource.camera. Add NSCameraUsageDescription to Info.plist describing why your app needs the camera.
+                         docs: https://pub.dev/packages/image_picker#ios
+                         id:   image_picker/ios/info_plist/NSCameraUsageDescription
+  ℹ ios      Info.plist  NSMicrophoneUsageDescription is not set
+                         fix:  Needed if you record videos. Add NSMicrophoneUsageDescription to Info.plist describing why your app needs the microphone.
+                         docs: https://pub.dev/packages/image_picker#ios
+                         id:   image_picker/ios/info_plist/NSMicrophoneUsageDescription
+
+url_launcher 6.3.2
+  ✓ ios      Info.plist           LSApplicationQueriesSchemes is set
+  ℹ android  AndroidManifest.xml  <queries> has no intent:android.support.customtabs.action.CustomTabsService
+                                  fix:  Needed if you check supportsLaunchMode(LaunchMode.inAppBrowserView).
+                                  docs: https://pub.dev/packages/url_launcher#configuration
+                                  id:   url_launcher/android/queries/intent:android.support.customtabs.action.CustomTabsService
+  ℹ android                       Manual step plumb can't check (only if you use this feature)
+                                  fix:  Add a <queries><intent> entry (action VIEW + data scheme) for each URL scheme you pass to canLaunchUrl, or it returns false on Android 11+ in most cases.
+                                  docs: https://pub.dev/packages/url_launcher#configuration
+                                  id:   url_launcher/android/manual/queries-for-can-launch-url
+
+Summary: 1 ok · 1 missing · 1 warning · 4 info

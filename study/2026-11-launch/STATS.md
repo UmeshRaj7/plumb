@@ -2,44 +2,45 @@
 
 Apps: 25
 
-| # | App | ⭐ | Platforms | Plugins with recipes | 0.0.1 ✗/⚠ | 0.1.0 ✗/⚠ | 0.1.0 ✓ | 0.1.0 ℹ |
-|---|---|---|---|---|---|---|---|---|
-| 1 | localsend/localsend | 97.0k | ios+android | image_picker, permission_handler, url_launcher | 1 | 0 | 4 | 20 |
-| 2 | AppFlowy-IO/AppFlowy | 78.1k | ios+android | image_picker, permission_handler, url_launcher | 0 | 0 | 4 | 19 |
-| 3 | chen08209/FlClash | 60.5k | android | image_picker, url_launcher | 0 | 0 | 0 | 3 |
-| 4 | Predidit/Kazumi | 40.7k | ios+android | image_picker, url_launcher | 3 | 2 | 1 | 4 |
-| 5 | hiddify/hiddify-app | 33.6k | ios+android | url_launcher | 0 | 0 | 0 | 3 |
-| 6 | ente/ente | 29.8k | ios+android | camera, firebase_messaging, flutter_local_notifications, local_auth, permission_handler, url_launcher | 1 | 0 | 13 | 32 |
-| 7 | GopeedLab/gopeed | 27.3k | ios+android | flutter_local_notifications, permission_handler, url_launcher | 0 | 0 | 3 | 30 |
-| 8 | ImranR98/Obtainium | 21.1k | android | flutter_local_notifications, permission_handler, url_launcher | 0 | 0 | 2 | 12 |
-| 9 | bggRGjQaUbCoE/PiliPlus | 20.2k | ios+android | image_picker, url_launcher | 0 | 0 | 3 | 3 |
-| 10 | getlantern/lantern | 16.6k | ios+android | flutter_local_notifications, image_picker, url_launcher | 0 | 0 | 5 | 12 |
-| 11 | bagisto/opensource-ecommerce-mobile-app | 16.1k | ios+android | camera, firebase_messaging, image_picker, permission_handler, url_launcher | 1 | 1 | 5 | 22 |
-| 12 | KaringX/karing | 15.9k | ios+android | flutter_local_notifications, image_picker, permission_handler, url_launcher | 0 | 0 | 6 | 28 |
-| 13 | CarGuo/gsy_github_app_flutter | 15.5k | ios+android | permission_handler, url_launcher | 0 | 0 | 9 | 13 |
-| 14 | wanghongenpin/proxypin | 14.3k | ios+android | permission_handler, url_launcher | 0 | 0 | 2 | 20 |
-| 15 | Notsfsssf/pixez-flutter | 13.3k | ios+android | image_picker, permission_handler, url_launcher | 0 | 0 | 5 | 19 |
-| 16 | KaringX/clashmi | 10.2k | ios+android | image_picker, permission_handler, url_launcher | 0 | 0 | 5 | 18 |
-| 17 | Anxcye/anx-reader | 9.2k | ios+android | permission_handler, url_launcher | 0 | 0 | 6 | 16 |
-| 18 | lollipopkit/flutter_server_box | 8.9k | ios+android | camera, flutter_local_notifications, image_picker, local_auth, url_launcher | 2 | 1 | 4 | 18 |
-| 19 | toly1994328/FlutterUnit | 8.9k | ios+android | permission_handler, sign_in_with_apple, url_launcher | 0 | 0 | 4 | 22 |
-| 20 | mornyeapp/Mornye | 7.6k | ios+android | flutter_local_notifications, permission_handler, url_launcher | 0 | 0 | 6 | 28 |
-| 21 | Sle2p/AniCh | 7.6k | ios+android | permission_handler, url_launcher | 0 | 0 | 1 | 21 |
-| 22 | ccch1mneyyy/dsh-Go | 5.6k | android | image_picker, url_launcher | 0 | 0 | 0 | 3 |
-| 23 | deckerst/aves | 5.5k | android | google_maps_flutter, local_auth, permission_handler, url_launcher | 0 | 0 | 2 | 6 |
-| 24 | saber-notes/saber | 5.0k | ios+android | permission_handler, url_launcher | 0 | 0 | 2 | 20 |
-| 25 | bepass-org/oblivion | 4.9k | ios+android | url_launcher | 0 | 0 | 0 | 3 |
+| # | App | ⭐ | Platforms | Plugins with recipes | 0.0.1 ✗/⚠ | 0.1.0 ✗/⚠ | 0.1.1 ✗/⚠ | 0.1.1 ✓ | 0.1.1 ℹ |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | localsend/localsend | 97.0k | ios+android | image_picker, permission_handler, url_launcher | 1 | 0 | 0 | 4 | 20 |
+| 2 | AppFlowy-IO/AppFlowy | 78.1k | ios+android | image_picker, permission_handler, url_launcher | 0 | 0 | 0 | 4 | 19 |
+| 3 | chen08209/FlClash | 60.5k | android | image_picker, url_launcher | 0 | 0 | 0 | 0 | 3 |
+| 4 | Predidit/Kazumi | 40.7k | ios+android | image_picker, url_launcher | 3 | 2 | 2 | 1 | 4 |
+| 5 | hiddify/hiddify-app | 33.6k | ios+android | url_launcher | 0 | 0 | 0 | 0 | 3 |
+| 6 | ente/ente | 29.8k | ios+android | camera, firebase_messaging, flutter_local_notifications, local_auth, permission_handler, url_launcher | 1 | 0 | 0 | 13 | 32 |
+| 7 | GopeedLab/gopeed | 27.3k | ios+android | flutter_local_notifications, permission_handler, url_launcher | 0 | 0 | 0 | 3 | 30 |
+| 8 | ImranR98/Obtainium | 21.1k | android | flutter_local_notifications, permission_handler, url_launcher | 0 | 0 | 0 | 2 | 12 |
+| 9 | bggRGjQaUbCoE/PiliPlus | 20.2k | ios+android | image_picker, url_launcher | 0 | 0 | 0 | 3 | 3 |
+| 10 | getlantern/lantern | 16.6k | ios+android | flutter_local_notifications, image_picker, url_launcher | 0 | 0 | 0 | 5 | 12 |
+| 11 | bagisto/opensource-ecommerce-mobile-app | 16.1k | ios+android | camera, firebase_messaging, image_picker, permission_handler, url_launcher | 1 | 1 | 1 | 5 | 22 |
+| 12 | KaringX/karing | 15.9k | ios+android | flutter_local_notifications, image_picker, permission_handler, url_launcher | 0 | 0 | 0 | 6 | 28 |
+| 13 | CarGuo/gsy_github_app_flutter | 15.5k | ios+android | permission_handler, url_launcher | 0 | 0 | 0 | 9 | 13 |
+| 14 | wanghongenpin/proxypin | 14.3k | ios+android | permission_handler, url_launcher | 0 | 0 | 0 | 2 | 20 |
+| 15 | Notsfsssf/pixez-flutter | 13.3k | ios+android | image_picker, permission_handler, url_launcher | 0 | 0 | 0 | 5 | 19 |
+| 16 | KaringX/clashmi | 10.2k | ios+android | image_picker, permission_handler, url_launcher | 0 | 0 | 0 | 5 | 18 |
+| 17 | Anxcye/anx-reader | 9.2k | ios+android | permission_handler, url_launcher | 0 | 0 | 0 | 6 | 16 |
+| 18 | lollipopkit/flutter_server_box | 8.9k | ios+android | camera, flutter_local_notifications, image_picker, local_auth, url_launcher | 2 | 1 | 0 | 2 | 23 |
+| 19 | toly1994328/FlutterUnit | 8.9k | ios+android | permission_handler, sign_in_with_apple, url_launcher | 0 | 0 | 0 | 4 | 22 |
+| 20 | mornyeapp/Mornye | 7.6k | ios+android | flutter_local_notifications, permission_handler, url_launcher | 0 | 0 | 0 | 6 | 28 |
+| 21 | Sle2p/AniCh | 7.6k | ios+android | permission_handler, url_launcher | 0 | 0 | 0 | 1 | 21 |
+| 22 | ccch1mneyyy/dsh-Go | 5.6k | android | image_picker, url_launcher | 0 | 0 | 0 | 0 | 3 |
+| 23 | deckerst/aves | 5.5k | android | google_maps_flutter, local_auth, permission_handler, url_launcher | 0 | 0 | 0 | 2 | 6 |
+| 24 | saber-notes/saber | 5.0k | ios+android | permission_handler, url_launcher | 0 | 0 | 0 | 2 | 20 |
+| 25 | bepass-org/oblivion | 4.9k | ios+android | url_launcher | 0 | 0 | 0 | 0 | 3 |
 
-| | 0.0.1 | 0.1.0 |
-|---|---|---|
-| ✗ missing | 7 | 3 |
-| ⚠ warning | 1 | 1 |
-| ✓ ok | 92 | 92 |
-| ℹ info | 391 | 395 |
-| Apps with any ✗/⚠ | 5 | 3 |
-| ✗/⚠ confirmed real | 3 | 3 |
-| ✗/⚠ docs-backed, low impact | 1 | 1 |
-| ✗/⚠ false positive | 4 | 0 |
+| | 0.0.1 | 0.1.0 | 0.1.1 |
+|---|---|---|---|
+| ✗ missing | 7 | 3 | 2 |
+| ⚠ warning | 1 | 1 | 1 |
+| ✓ ok | 92 | 92 | 90 |
+| ℹ info | 391 | 395 | 400 |
+| Apps with any ✗/⚠ | 5 | 3 | 2 |
+| ✗/⚠ confirmed real | 2 | 2 | 2 |
+| ✗/⚠ docs-backed, low impact | 1 | 1 | 1 |
+| ✗/⚠ false positive | 5 | 1 | 0 |
+| Precision (real or docs ÷ all ✗/⚠) | 3/8 = 38% | 3/4 = 75% | 3/3 = 100% |
 
 | Plugin (has a recipe) | Apps |
 |---|---|

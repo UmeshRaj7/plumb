@@ -1,0 +1,39 @@
+plumb doctor · aves
+Found 4 plugins with recipes (read from pubspec.lock).
+plumb has recipes for 10 plugins so far; others aren't checked.
+
+Your app
+  ℹ ios      ios/  ios/ not found; ios requirements of google_maps_flutter, local_auth, permission_handler, url_launcher were not checked
+                   id:   app/ios/directory
+
+google_maps_flutter 2.19.0
+  ✓ android  AndroidManifest.xml  <meta-data> com.google.android.geo.API_KEY is set via a build variable (${googleApiKey}); its final value isn't checked
+
+local_auth 3.0.2
+  ✓ android  MainActivity.kt      MainActivity extends FlutterFragmentActivity
+  ℹ android  AndroidManifest.xml  android.permission.USE_BIOMETRIC is not declared
+                                  fix:  The README asks you to add USE_BIOMETRIC; local_auth_android's own manifest already declares it, so the manifest merger adds it for you.
+                                  docs: https://pub.dev/packages/local_auth_android#setup
+                                  id:   local_auth/android/permissions/android.permission.USE_BIOMETRIC
+  ℹ android                       Manual step plumb can't check (only if you use this feature)
+                                  fix:  On Android 8 and below, LaunchTheme's parent must be a Theme.AppCompat theme (android/app/src/main/res/values/styles.xml) to prevent crashes.
+                                  docs: https://pub.dev/packages/local_auth_android#setup
+                                  id:   local_auth/android/manual/launch-theme-appcompat
+
+permission_handler 13.0.2
+  ℹ android    Manual step plumb can't check (only if you use this feature)
+               fix:  Add a <uses-permission> to android/app/src/main/AndroidManifest.xml for each permission you request (the README links an example manifest with all of them).
+               docs: https://pub.dev/packages/permission_handler#setup
+               id:   permission_handler/android/manual/android-manifest-permissions
+
+url_launcher 6.3.3
+  ℹ android  AndroidManifest.xml  <queries> has no intent:android.support.customtabs.action.CustomTabsService
+                                  fix:  Needed if you check supportsLaunchMode(LaunchMode.inAppBrowserView).
+                                  docs: https://pub.dev/packages/url_launcher#configuration
+                                  id:   url_launcher/android/queries/intent:android.support.customtabs.action.CustomTabsService
+  ℹ android                       Manual step plumb can't check (only if you use this feature)
+                                  fix:  Add a <queries><intent> entry (action VIEW + data scheme) for each URL scheme you pass to canLaunchUrl, or it returns false on Android 11+ in most cases.
+                                  docs: https://pub.dev/packages/url_launcher#configuration
+                                  id:   url_launcher/android/manual/queries-for-can-launch-url
+
+Summary: 2 ok · 0 missing · 0 warning · 6 info

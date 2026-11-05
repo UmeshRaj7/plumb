@@ -1,0 +1,108 @@
+plumb doctor · server_box
+Found 5 plugins with recipes (read from pubspec.lock).
+plumb has recipes for 10 plugins so far; others aren't checked.
+
+Your app
+  ℹ ios      Info.plist  Not checked: your Xcode project builds with Runner/Info-$(CONFIGURATION).plist (INFOPLIST_FILE), not Info.plist
+                         fix:  plumb reads ios/Runner/Info.plist only. Check the keys your plugins need (--verbose lists them) in Runner/Info-$(CONFIGURATION).plist yourself. If Info.plist is a leftover, consider deleting it.
+                         id:   app/ios/file/ios/Runner/Info.plist
+  ℹ ios                  Not checked: ios/Runner/Info-Debug.plist, ios/Runner/Info-Profile.plist, ios/Runner/Info-Release.plist (plumb checks ios/Runner/Info.plist only)
+                         id:   app/ios/flavors
+
+camera 0.12.1
+  ℹ ios      Info.plist  NSCameraUsageDescription not checked: your build uses Runner/Info-$(CONFIGURATION).plist, not Info.plist
+                         fix:  Add NSCameraUsageDescription to Info.plist with a usage description.
+                         docs: https://pub.dev/packages/camera#ios
+                         id:   camera/ios/info_plist/NSCameraUsageDescription
+  ℹ ios      Info.plist  NSMicrophoneUsageDescription not checked: your build uses Runner/Info-$(CONFIGURATION).plist, not Info.plist
+                         fix:  Needed unless every CameraController is created with enableAudio: false (the default is true). Add NSMicrophoneUsageDescription to Info.plist with a usage description.
+                         docs: https://pub.dev/packages/camera#ios
+                         id:   camera/ios/info_plist/NSMicrophoneUsageDescription
+
+flutter_local_notifications 22.3.1
+  ℹ ios                           Manual step plumb can't check (required)
+                                  fix:  In AppDelegate's application(_:didFinishLaunchingWithOptions:), set UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#general-setup
+                                  id:   flutter_local_notifications/ios/manual/notification-center-delegate
+  ℹ android  AndroidManifest.xml  android.permission.RECEIVE_BOOT_COMPLETED is not declared
+                                  fix:  Needed to schedule notifications, so the plugin can reschedule them after a reboot.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+                                  id:   flutter_local_notifications/android/permissions/android.permission.RECEIVE_BOOT_COMPLETED
+  ℹ android  AndroidManifest.xml  android.permission.SCHEDULE_EXACT_ALARM is not declared
+                                  fix:  For notifications at exact times: add this and call requestExactAlarmsPermission(), or use USE_EXACT_ALARM instead.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+                                  id:   flutter_local_notifications/android/permissions/android.permission.SCHEDULE_EXACT_ALARM
+  ℹ android  AndroidManifest.xml  android.permission.USE_EXACT_ALARM is not declared
+                                  fix:  Alternative to SCHEDULE_EXACT_ALARM for exact alarms; requires targeting Android 13+ and may be subject to app store approval.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+                                  id:   flutter_local_notifications/android/permissions/android.permission.USE_EXACT_ALARM
+  ℹ android  AndroidManifest.xml  android.permission.USE_FULL_SCREEN_INTENT is not declared
+                                  fix:  Needed for full-screen intent notifications.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+                                  id:   flutter_local_notifications/android/permissions/android.permission.USE_FULL_SCREEN_INTENT
+  ℹ android  AndroidManifest.xml  android.permission.ACCESS_NOTIFICATION_POLICY is not declared
+                                  fix:  Needed to create channels that bypass Do Not Disturb.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+                                  id:   flutter_local_notifications/android/permissions/android.permission.ACCESS_NOTIFICATION_POLICY
+  ℹ android  AndroidManifest.xml  <receiver> com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver is not declared
+                                  fix:  Needed to show scheduled notifications; declare it inside <application> with android:exported="false".
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+                                  id:   flutter_local_notifications/android/components/com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver
+  ℹ android  AndroidManifest.xml  <receiver> com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver is not declared
+                                  fix:  Needed to reschedule notifications after a reboot or app update; include its BOOT_COMPLETED / MY_PACKAGE_REPLACED / QUICKBOOT_POWERON intent-filter.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+                                  id:   flutter_local_notifications/android/components/com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver
+  ℹ android  AndroidManifest.xml  <receiver> com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver is not declared
+                                  fix:  Needed for notification actions.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+                                  id:   flutter_local_notifications/android/components/com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver
+  ℹ android  AndroidManifest.xml  <service> com.dexterous.flutterlocalnotifications.ForegroundService is not declared
+                                  fix:  Needed for foreground services; set android:foregroundServiceType to the types you use.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
+                                  id:   flutter_local_notifications/android/components/com.dexterous.flutterlocalnotifications.ForegroundService
+  ℹ android                       Manual step plumb can't check (required)
+                                  fix:  Enable core library desugaring in android/app/build.gradle(.kts) (coreLibraryDesugaringEnabled plus the desugar_jdk_libs dependency). Required since v10, even if you don't schedule notifications.
+                                  docs: https://pub.dev/packages/flutter_local_notifications#gradle-setup
+                                  id:   flutter_local_notifications/android/manual/core-library-desugaring
+
+image_picker 1.2.3
+  ℹ ios      Info.plist  NSPhotoLibraryUsageDescription not checked: your build uses Runner/Info-$(CONFIGURATION).plist, not Info.plist
+                         fix:  Add NSPhotoLibraryUsageDescription to Info.plist describing why your app needs the photo library. App Store policy requires it even if you always pass requestFullMetadata: false.
+                         docs: https://pub.dev/packages/image_picker#ios
+                         id:   image_picker/ios/info_plist/NSPhotoLibraryUsageDescription
+  ℹ ios      Info.plist  NSCameraUsageDescription not checked: your build uses Runner/Info-$(CONFIGURATION).plist, not Info.plist
+                         fix:  Needed if you use ImageSource.camera. Add NSCameraUsageDescription to Info.plist describing why your app needs the camera.
+                         docs: https://pub.dev/packages/image_picker#ios
+                         id:   image_picker/ios/info_plist/NSCameraUsageDescription
+  ℹ ios      Info.plist  NSMicrophoneUsageDescription not checked: your build uses Runner/Info-$(CONFIGURATION).plist, not Info.plist
+                         fix:  Needed if you record videos. Add NSMicrophoneUsageDescription to Info.plist describing why your app needs the microphone.
+                         docs: https://pub.dev/packages/image_picker#ios
+                         id:   image_picker/ios/info_plist/NSMicrophoneUsageDescription
+
+local_auth 3.0.2
+  ℹ ios      Info.plist           NSFaceIDUsageDescription not checked: your build uses Runner/Info-$(CONFIGURATION).plist, not Info.plist
+                                  fix:  Add NSFaceIDUsageDescription to Info.plist explaining why your app uses Face ID.
+                                  docs: https://pub.dev/packages/local_auth_darwin#setup
+                                  id:   local_auth/ios/info_plist/NSFaceIDUsageDescription
+  ✓ android  MainActivity.kt      MainActivity extends FlutterFragmentActivity
+  ✓ android  AndroidManifest.xml  android.permission.USE_BIOMETRIC is declared
+  ℹ android                       Manual step plumb can't check (only if you use this feature)
+                                  fix:  On Android 8 and below, LaunchTheme's parent must be a Theme.AppCompat theme (android/app/src/main/res/values/styles.xml) to prevent crashes.
+                                  docs: https://pub.dev/packages/local_auth_android#setup
+                                  id:   local_auth/android/manual/launch-theme-appcompat
+
+url_launcher 6.3.2
+  ℹ ios      Info.plist           LSApplicationQueriesSchemes not checked: your build uses Runner/Info-$(CONFIGURATION).plist, not Info.plist
+                                  fix:  List every URL scheme you pass to canLaunchUrl in LSApplicationQueriesSchemes, otherwise canLaunchUrl returns false.
+                                  docs: https://pub.dev/packages/url_launcher#configuration
+                                  id:   url_launcher/ios/info_plist/LSApplicationQueriesSchemes
+  ℹ android  AndroidManifest.xml  <queries> has no intent:android.support.customtabs.action.CustomTabsService
+                                  fix:  Needed if you check supportsLaunchMode(LaunchMode.inAppBrowserView).
+                                  docs: https://pub.dev/packages/url_launcher#configuration
+                                  id:   url_launcher/android/queries/intent:android.support.customtabs.action.CustomTabsService
+  ℹ android                       Manual step plumb can't check (only if you use this feature)
+                                  fix:  Add a <queries><intent> entry (action VIEW + data scheme) for each URL scheme you pass to canLaunchUrl, or it returns false on Android 11+ in most cases.
+                                  docs: https://pub.dev/packages/url_launcher#configuration
+                                  id:   url_launcher/android/manual/queries-for-can-launch-url
+
+Summary: 2 ok · 0 missing · 0 warning · 23 info

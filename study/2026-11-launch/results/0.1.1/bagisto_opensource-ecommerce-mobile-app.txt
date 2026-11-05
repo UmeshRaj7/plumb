@@ -1,0 +1,116 @@
+plumb doctor · bagisto_flutter
+Found 6 plugins with recipes (read from pubspec.lock).
+plumb has recipes for 10 plugins so far; others aren't checked.
+
+camera 0.10.6
+  ✓ ios      Info.plist  NSCameraUsageDescription is set
+                         also: image_picker, permission_handler
+  ✓ ios      Info.plist  NSMicrophoneUsageDescription is set
+                         also: image_picker, permission_handler
+
+firebase_messaging 15.2.10
+  ✓ ios      Runner.entitlements  aps-environment is set
+  ✗ ios      Info.plist           UIBackgroundModes does not include remote-notification
+                                  fix:  Enable Background Modes → Remote notifications in Xcode.
+                                  docs: https://firebase.google.com/docs/cloud-messaging/flutter/client
+                                  id:   firebase_messaging/ios/background_modes/remote-notification
+  ℹ ios      Info.plist           UIBackgroundModes does not include fetch
+                                  fix:  Firebase's guide asks you to enable Background fetch too; the official firebase_messaging example app doesn't, so plumb doesn't require it.
+                                  docs: https://firebase.google.com/docs/cloud-messaging/flutter/client
+                                  id:   firebase_messaging/ios/background_modes/fetch
+  ℹ ios                           Manual step plumb can't check (required)
+                                  fix:  Upload your APNs authentication key in the Firebase console (Project settings → Cloud Messaging → Apple app configuration).
+                                  docs: https://firebase.google.com/docs/cloud-messaging/flutter/client
+                                  id:   firebase_messaging/ios/manual/apns-auth-key
+  ℹ ios                           Manual step plumb can't check (required)
+                                  fix:  FCM on Apple platforms needs method swizzling: don't set FirebaseAppDelegateProxyEnabled to NO in Info.plist.
+                                  docs: https://firebase.google.com/docs/cloud-messaging/flutter/client
+                                  id:   firebase_messaging/ios/manual/keep-method-swizzling
+
+flutter_local_notifications 17.2.4
+  ℹ No recipe for flutter_local_notifications 17.2.4 (recipes cover >=19.0.0 <23.0.0), so it was not checked
+    docs: https://pub.dev/packages/flutter_local_notifications#-android-setup
+    id:   flutter_local_notifications/recipe
+
+image_picker 1.2.1
+  ✓ ios      Info.plist  NSPhotoLibraryUsageDescription is set
+                         also: permission_handler
+
+permission_handler 11.4.0
+  ℹ ios      Info.plist  NSCalendarsUsageDescription is not set
+                         fix:  Needed for Permission.calendar (before iOS 17).
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSCalendarsUsageDescription
+  ℹ ios      Info.plist  NSCalendarsFullAccessUsageDescription is not set
+                         fix:  Needed for Permission.calendarFullAccess (iOS 17+).
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSCalendarsFullAccessUsageDescription
+  ℹ ios      Info.plist  NSCalendarsWriteOnlyAccessUsageDescription is not set
+                         fix:  Needed for Permission.calendarWriteOnly (iOS 17+).
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSCalendarsWriteOnlyAccessUsageDescription
+  ℹ ios      Info.plist  NSRemindersUsageDescription is not set
+                         fix:  Needed for Permission.reminders.
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSRemindersUsageDescription
+  ℹ ios      Info.plist  NSContactsUsageDescription is not set
+                         fix:  Needed for Permission.contacts.
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSContactsUsageDescription
+  ✓ ios      Info.plist  NSSpeechRecognitionUsageDescription is set
+  ℹ ios      Info.plist  NSPhotoLibraryAddUsageDescription is not set
+                         fix:  Needed for Permission.photosAddOnly.
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSPhotoLibraryAddUsageDescription
+  ℹ ios      Info.plist  NSLocationWhenInUseUsageDescription is not set
+                         fix:  Needed for Permission.location / locationWhenInUse.
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSLocationWhenInUseUsageDescription
+  ℹ ios      Info.plist  NSLocationAlwaysAndWhenInUseUsageDescription is not set
+                         fix:  Needed for Permission.locationAlways.
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSLocationAlwaysAndWhenInUseUsageDescription
+  ℹ ios      Info.plist  NSAppleMusicUsageDescription is not set
+                         fix:  Needed for Permission.mediaLibrary.
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSAppleMusicUsageDescription
+  ℹ ios      Info.plist  NSMotionUsageDescription is not set
+                         fix:  Needed for Permission.sensors.
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSMotionUsageDescription
+  ℹ ios      Info.plist  NSBluetoothAlwaysUsageDescription is not set
+                         fix:  Needed for Permission.bluetooth.
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSBluetoothAlwaysUsageDescription
+  ℹ ios      Info.plist  NSUserTrackingUsageDescription is not set
+                         fix:  Needed for Permission.appTrackingTransparency.
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSUserTrackingUsageDescription
+  ℹ ios      Info.plist  NSSiriUsageDescription is not set
+                         fix:  Needed for Permission.assistant.
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSSiriUsageDescription
+  ℹ ios                  Manual step plumb can't check (only if you use this feature)
+                         fix:  With CocoaPods, enable each permission you use with a PERMISSION_<GROUP>=1 macro in your Podfile's post_install block (GCC_PREPROCESSOR_DEFINITIONS); disabled permissions always report denied.
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/manual/podfile-permission-macros
+  ℹ android              Manual step plumb can't check (only if you use this feature)
+                         fix:  Add a <uses-permission> to android/app/src/main/AndroidManifest.xml for each permission you request (the README links an example manifest with all of them).
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/android/manual/android-manifest-permissions
+
+url_launcher 6.3.2
+  ℹ ios      Info.plist           LSApplicationQueriesSchemes is not set
+                                  fix:  List every URL scheme you pass to canLaunchUrl in LSApplicationQueriesSchemes, otherwise canLaunchUrl returns false.
+                                  docs: https://pub.dev/packages/url_launcher#configuration
+                                  id:   url_launcher/ios/info_plist/LSApplicationQueriesSchemes
+  ℹ android  AndroidManifest.xml  <queries> has no intent:android.support.customtabs.action.CustomTabsService
+                                  fix:  Needed if you check supportsLaunchMode(LaunchMode.inAppBrowserView).
+                                  docs: https://pub.dev/packages/url_launcher#configuration
+                                  id:   url_launcher/android/queries/intent:android.support.customtabs.action.CustomTabsService
+  ℹ android                       Manual step plumb can't check (only if you use this feature)
+                                  fix:  Add a <queries><intent> entry (action VIEW + data scheme) for each URL scheme you pass to canLaunchUrl, or it returns false on Android 11+ in most cases.
+                                  docs: https://pub.dev/packages/url_launcher#configuration
+                                  id:   url_launcher/android/manual/queries-for-can-launch-url
+
+Summary: 5 ok · 1 missing · 0 warning · 22 info

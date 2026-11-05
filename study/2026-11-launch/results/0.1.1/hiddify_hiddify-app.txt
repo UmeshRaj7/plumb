@@ -1,0 +1,19 @@
+plumb doctor · hiddify
+Found 1 plugin with a recipe (read from pubspec.lock).
+plumb has recipes for 10 plugins so far; others aren't checked.
+
+url_launcher 6.3.1
+  ℹ ios      Info.plist           LSApplicationQueriesSchemes is not set
+                                  fix:  List every URL scheme you pass to canLaunchUrl in LSApplicationQueriesSchemes, otherwise canLaunchUrl returns false.
+                                  docs: https://pub.dev/packages/url_launcher#configuration
+                                  id:   url_launcher/ios/info_plist/LSApplicationQueriesSchemes
+  ℹ android  AndroidManifest.xml  <queries> has no intent:android.support.customtabs.action.CustomTabsService
+                                  fix:  Needed if you check supportsLaunchMode(LaunchMode.inAppBrowserView).
+                                  docs: https://pub.dev/packages/url_launcher#configuration
+                                  id:   url_launcher/android/queries/intent:android.support.customtabs.action.CustomTabsService
+  ℹ android                       Manual step plumb can't check (only if you use this feature)
+                                  fix:  Add a <queries><intent> entry (action VIEW + data scheme) for each URL scheme you pass to canLaunchUrl, or it returns false on Android 11+ in most cases.
+                                  docs: https://pub.dev/packages/url_launcher#configuration
+                                  id:   url_launcher/android/manual/queries-for-can-launch-url
+
+Summary: 0 ok · 0 missing · 0 warning · 3 info

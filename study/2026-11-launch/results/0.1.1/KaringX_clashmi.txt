@@ -1,0 +1,90 @@
+plumb doctor · clashmi
+Found 3 plugins with recipes (read from pubspec.lock).
+plumb has recipes for 10 plugins so far; others aren't checked.
+
+image_picker 1.2.4
+  ✓ ios      Info.plist  NSPhotoLibraryUsageDescription is set
+                         also: permission_handler
+  ✓ ios      Info.plist  NSCameraUsageDescription is set
+                         also: permission_handler
+  ℹ ios      Info.plist  NSMicrophoneUsageDescription is not set
+                         fix:  Needed if you record videos. Add NSMicrophoneUsageDescription to Info.plist describing why your app needs the microphone.
+                         docs: https://pub.dev/packages/image_picker#ios
+                         id:   image_picker/ios/info_plist/NSMicrophoneUsageDescription
+
+permission_handler 12.0.3
+  ℹ ios      Info.plist  NSCalendarsUsageDescription is not set
+                         fix:  Needed for Permission.calendar (before iOS 17).
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSCalendarsUsageDescription
+  ℹ ios      Info.plist  NSCalendarsFullAccessUsageDescription is not set
+                         fix:  Needed for Permission.calendarFullAccess (iOS 17+).
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSCalendarsFullAccessUsageDescription
+  ℹ ios      Info.plist  NSCalendarsWriteOnlyAccessUsageDescription is not set
+                         fix:  Needed for Permission.calendarWriteOnly (iOS 17+).
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSCalendarsWriteOnlyAccessUsageDescription
+  ℹ ios      Info.plist  NSRemindersUsageDescription is not set
+                         fix:  Needed for Permission.reminders.
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSRemindersUsageDescription
+  ℹ ios      Info.plist  NSContactsUsageDescription is not set
+                         fix:  Needed for Permission.contacts.
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSContactsUsageDescription
+  ℹ ios      Info.plist  NSMicrophoneUsageDescription is not set
+                         fix:  Needed for Permission.microphone.
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSMicrophoneUsageDescription
+  ℹ ios      Info.plist  NSSpeechRecognitionUsageDescription is not set
+                         fix:  Needed for Permission.speech.
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSSpeechRecognitionUsageDescription
+  ℹ ios      Info.plist  NSPhotoLibraryAddUsageDescription is not set
+                         fix:  Needed for Permission.photosAddOnly.
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSPhotoLibraryAddUsageDescription
+  ✓ ios      Info.plist  NSLocationWhenInUseUsageDescription is set
+  ✓ ios      Info.plist  NSLocationAlwaysAndWhenInUseUsageDescription is set
+  ℹ ios      Info.plist  NSAppleMusicUsageDescription is not set
+                         fix:  Needed for Permission.mediaLibrary.
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSAppleMusicUsageDescription
+  ℹ ios      Info.plist  NSMotionUsageDescription is not set
+                         fix:  Needed for Permission.sensors.
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSMotionUsageDescription
+  ℹ ios      Info.plist  NSBluetoothAlwaysUsageDescription is not set
+                         fix:  Needed for Permission.bluetooth.
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSBluetoothAlwaysUsageDescription
+  ℹ ios      Info.plist  NSUserTrackingUsageDescription is not set
+                         fix:  Needed for Permission.appTrackingTransparency.
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSUserTrackingUsageDescription
+  ℹ ios      Info.plist  NSSiriUsageDescription is not set
+                         fix:  Needed for Permission.assistant.
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSSiriUsageDescription
+  ℹ ios                  Manual step plumb can't check (only if you use this feature)
+                         fix:  With CocoaPods, enable each permission you use with a PERMISSION_<GROUP>=1 macro in your Podfile's post_install block (GCC_PREPROCESSOR_DEFINITIONS); disabled permissions always report denied.
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/manual/podfile-permission-macros
+  ℹ android              Manual step plumb can't check (only if you use this feature)
+                         fix:  Add a <uses-permission> to android/app/src/main/AndroidManifest.xml for each permission you request (the README links an example manifest with all of them).
+                         docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/android/manual/android-manifest-permissions
+
+url_launcher 6.3.3
+  ✓ ios      Info.plist           LSApplicationQueriesSchemes is set
+  ℹ android  AndroidManifest.xml  <queries> has no intent:android.support.customtabs.action.CustomTabsService
+                                  fix:  Needed if you check supportsLaunchMode(LaunchMode.inAppBrowserView).
+                                  docs: https://pub.dev/packages/url_launcher#configuration
+                                  id:   url_launcher/android/queries/intent:android.support.customtabs.action.CustomTabsService
+  ℹ android                       Manual step plumb can't check (only if you use this feature)
+                                  fix:  Add a <queries><intent> entry (action VIEW + data scheme) for each URL scheme you pass to canLaunchUrl, or it returns false on Android 11+ in most cases.
+                                  docs: https://pub.dev/packages/url_launcher#configuration
+                                  id:   url_launcher/android/manual/queries-for-can-launch-url
+
+Summary: 5 ok · 0 missing · 0 warning · 18 info

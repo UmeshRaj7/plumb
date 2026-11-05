@@ -2,28 +2,39 @@
 
 Before announcing [plumb](https://pub.dev/packages/plumb), I ran `plumb doctor` on the 25
 most-starred open-source Flutter apps on GitHub and checked every ✗ and ⚠ by hand. The first
-version was wrong half the time; this is how I found out and what changed. This folder has the method, the raw output and the scripts,
-so every number can be checked or reproduced.
+version was wrong more often than right; this is how I found out and what changed. This folder
+has the method, the raw output and the scripts, so every number can be checked or reproduced.
 
-Date: 2026-11-02. Every number below comes from [STATS.md](STATS.md), which
-[stats.py](stats.py) generates from [results/](results/) and [verdicts.tsv](verdicts.tsv).
+Date: 2026-11-02, corrected 2026-11-05. Every number below comes from [STATS.md](STATS.md),
+which [stats.py](stats.py) generates from [results/](results/) and [verdicts.tsv](verdicts.tsv).
+
+> **Correction (2026-11-05).** The first version of this study said plumb 0.1.0 had 4 findings,
+> all correct, and that 3 apps had a real problem. One of those was wrong. ServerBox's Xcode
+> project builds with `Runner/Info-$(CONFIGURATION).plist`, which does set
+> `NSFaceIDUsageDescription`; the `Info.plist` plumb read is an unused leftover. Its maintainer
+> pointed this out in [ServerBox #1851](https://github.com/lollipopkit/flutter_server_box/issues/1851)
+> a day after the report (and removed the leftover file). My hand check missed it too. plumb
+> 0.1.1 reads `INFOPLIST_FILE` from the Xcode project and no longer checks an `Info.plist` the
+> build doesn't use. The numbers below are corrected and include 0.1.1.
 
 ## Headline numbers
 
-| | plumb 0.0.1 | plumb 0.1.0 |
-|---|---|---|
-| Apps scanned | 25 | 25 |
-| ✗/⚠ findings | 8, in 5 apps | **4, in 3 apps** |
-| Confirmed real (checked by hand) | 3 | **3** |
-| Required by the plugin docs, low practical impact | 1 | 1 |
-| False positives | 4 | **0** |
-| Precision (real or docs-backed ÷ all ✗/⚠) | 4/8 = 50% | **4/4 = 100%** |
-| Real issues hidden by the change | n/a | **0** (all 4 downgraded items checked) |
-| ✓ checks passed | 92 | 92 |
+| | plumb 0.0.1 | plumb 0.1.0 | plumb 0.1.1 |
+|---|---|---|---|
+| Apps scanned | 25 | 25 | 25 |
+| ✗/⚠ findings | 8, in 5 apps | 4, in 3 apps | **3, in 2 apps** |
+| Confirmed real (checked by hand) | 2 | 2 | **2** |
+| Required by the plugin docs, low practical impact | 1 | 1 | 1 |
+| False positives | 5 | 1 | **0** |
+| Precision (real or docs-backed ÷ all ✗/⚠) | 3/8 = 38% | 3/4 = 75% | **3/3 = 100%** |
+| Real issues hidden by the change | n/a | 0 (all 4 downgraded items checked) | 0 (the 1 changed item checked) |
+| ✓ checks passed | 92 | 92 | 90 |
 
-- 3 of 25 apps had a real native-config problem their plugins' docs warn about: an empty
-  purpose string, a missing Face ID purpose string, and a missing push background mode.
-- 22 of 25 apps were clean (18 of the 21 with an iOS app, and all 4 Android-only apps).
+- 2 of 25 apps had a real native-config problem their plugins' docs warn about: an empty
+  purpose string and a missing push background mode.
+- 23 of 25 apps were clean (19 of the 21 with an iOS app, and all 4 Android-only apps).
+- 0.1.1 passes 2 fewer ✓ checks because it no longer reads ServerBox's unused `Info.plist`;
+  those keys are now listed as "not checked".
 - The apps have 4.9k to 97k GitHub stars each (median 15.5k, 573k combined). 21 have an iOS
   app, 4 are Android-only, 5 live in a monorepo subfolder.
 
@@ -35,21 +46,22 @@ Date: 2026-11-02. Every number below comes from [STATS.md](STATS.md), which
    adult-content apps. Took the top 25 ([apps.tsv](apps.tsv)).
 2. **Pilot and held-out set:** the top 10 were a pilot. They exposed plumb's false positives,
    and two recipe fixes followed (0.1.0). The other 15 apps were fetched and scanned only after
-   the fixes, as a held-out check.
+   the fixes, as a held-out check. The 0.1.1 fix came from a maintainer's reply, after the study
+   was published.
 3. **Only the files plumb reads,** at each default branch's commit on 2026-11-02
    ([apps_pinned.tsv](apps_pinned.tsv)): pubspec and lockfile (workspace root when needed),
    `ios/Runner/Info*.plist`, `*.entitlements`, `project.pbxproj`, every
    `android/app/src/*/AndroidManifest.xml` and the launcher activity source. No clones;
    about 3 MB in total ([fetch.py](fetch.py)).
-4. **Both versions** (0.0.1 and 0.1.0) ran on every app ([run.sh](run.sh)).
+4. **Every version** (0.0.1, 0.1.0, 0.1.1) ran on every app ([run.sh](run.sh)).
 5. **Every ✗/⚠ from either version was checked by hand** against the file itself, the plugin's
    own docs, how the app's Dart code uses the plugin (code search, then the file at the pinned
    commit, including transitive packages and submodules), and the plugin's native source
    where behavior mattered. Verdicts and evidence: [verdicts.tsv](verdicts.tsv).
-6. **Recall check:** every item 0.1.0 downgraded from ✗ to ℹ was checked, to make sure no real
-   issue was hidden.
+6. **Recall check:** every item a new version downgraded from ✗ to ℹ was checked, to make sure
+   no real issue was hidden.
 
-## Results by app (plumb 0.1.0)
+## Results by app (plumb 0.1.1)
 
 | # | App | ⭐ | Platforms | Plugins plumb checked | ✗/⚠ | Verdict |
 |---|---|---|---|---|---|---|
@@ -70,7 +82,7 @@ Date: 2026-11-02. Every number below comes from [STATS.md](STATS.md), which
 | 15 | [pixez](https://github.com/Notsfsssf/pixez-flutter) | 13.3k | iOS, Android | image_picker, permission_handler, url_launcher | 0 | clean |
 | 16 | [clashmi](https://github.com/KaringX/clashmi) | 10.2k | iOS, Android | image_picker, permission_handler, url_launcher | 0 | clean |
 | 17 | [anx-reader](https://github.com/Anxcye/anx-reader) | 9.2k | iOS, Android | permission_handler, url_launcher | 0 | clean |
-| 18 | [ServerBox](https://github.com/lollipopkit/flutter_server_box) | 8.9k | iOS, Android | camera, flutter_local_notifications, image_picker, local_auth, url_launcher | 1 | 1 real ✗ (0.0.1: +1 false positive) |
+| 18 | [ServerBox](https://github.com/lollipopkit/flutter_server_box) | 8.9k | iOS, Android | camera, flutter_local_notifications, image_picker, local_auth, url_launcher | 0 | clean (0.0.1: 2 false positives, 0.1.0: 1) |
 | 19 | [FlutterUnit](https://github.com/toly1994328/FlutterUnit) | 8.9k | iOS, Android | permission_handler, sign_in_with_apple, url_launcher | 0 | clean |
 | 20 | [Mornye](https://github.com/mornyeapp/Mornye) | 7.6k | iOS, Android | flutter_local_notifications, permission_handler, url_launcher | 0 | clean |
 | 21 | [AniCh](https://github.com/Sle2p/AniCh) | 7.6k | iOS, Android | permission_handler, url_launcher | 0 | clean |
@@ -99,20 +111,13 @@ are small, common slips. Most of the 25 apps got everything right.
   Apple: "To receive background notifications, you must add the remote notifications background
   mode to your app."
   Reported: [Bagisto #79](https://github.com/bagisto/opensource-ecommerce-mobile-app/issues/79).
-- **ServerBox:** no `NSFaceIDUsageDescription`, although the app offers an opt-in biometric lock
-  ([app_auth.dart L9](https://github.com/lollipopkit/flutter_server_box/blob/3ddb7b5612a1c34ef95e99de5f772d7eca6c320a/lib/core/utils/app_auth.dart#L9)
-  → [fl_lib auth.dart L82](https://github.com/lollipopkit/fl_lib/blob/387f964973b4ac2ccd52670b1904259476fe0b1e/lib/src/core/utils/platform/auth.dart#L82)).
-  local_auth's iOS docs: "To support Face ID on iOS devices, you must add an
-  `NSFaceIDUsageDescription` entry to your `Info.plist` file." The plugin isn't in the app's
-  `pubspec.yaml`; it comes in through a submodule, which makes it easy to miss by hand.
-  Reported: [ServerBox #1851](https://github.com/lollipopkit/flutter_server_box/issues/1851).
 - **Docs-backed, low impact (Kazumi):** image_picker's README asks for
   `NSPhotoLibraryUsageDescription` ("App Store policy requires including the plist entry").
   Kazumi isn't on the App Store and picks with PHPicker on iOS 14+, so this matters little.
 
 No app was built or run on a device. Impacts are stated from the docs, not observed.
 
-## The false positives in plumb 0.0.1, and the fix
+## The false positives, and the fixes
 
 | App | 0.0.1 said | Reality | Evidence |
 |---|---|---|---|
@@ -120,19 +125,31 @@ No app was built or run on a device. Impacts are stated from the docs, not obser
 | Kazumi | image_picker camera key ✗ | gallery only | [image_search_page.dart L136](https://github.com/Predidit/Kazumi/blob/69ba855ef4554b79a18d8becc83165c0fd000443/lib/pages/search/image_search_page.dart#L136) |
 | ente Photos | camera mic key ✗ | `enableAudio: false` | [ritual_camera_page.dart L289-292](https://github.com/ente/ente/blob/31a12bfbb70137fccad399a5aecac7469e43a384/mobile/apps/photos/lib/ui/rituals/ritual_camera_page.dart#L289-L292) |
 | ServerBox | camera mic key ✗ | camera comes from the QR scanner `qr_code_dart_scan` 0.14.0, which sets `enableAudio: false` | `qr_code_dart_scan_controller.dart` L233-236 in the pub.dev archive |
+| ServerBox (also in 0.1.0) | local_auth Face ID key ✗ | the build uses `Runner/Info-$(CONFIGURATION).plist`, which sets it; `Info.plist` is unused | [project.pbxproj L828](https://github.com/lollipopkit/flutter_server_box/blob/3ddb7b5612a1c34ef95e99de5f772d7eca6c320a/ios/Runner.xcodeproj/project.pbxproj#L828), [Info-Release.plist](https://github.com/lollipopkit/flutter_server_box/blob/3ddb7b5612a1c34ef95e99de5f772d7eca6c320a/ios/Runner/Info-Release.plist), [#1851](https://github.com/lollipopkit/flutter_server_box/issues/1851) |
 
-**Why:** the plugin READMEs list these keys without a condition, but the plugins only ask for
-them for an optional feature. image_picker_ios requests camera access only for
+**Why (first four):** the plugin READMEs list these keys without a condition, but the plugins
+only ask for them for an optional feature. image_picker_ios requests camera access only for
 `ImageSource.camera`; camera_avfoundation requests the microphone only when `enableAudio` is
 true.
 
 **Fix in 0.1.0:** both keys became `when_used` (reported as ℹ, with a hint naming the feature).
 The fix was designed on the 10-app pilot. On the 15 held-out apps it removed the one new false
-positive (ServerBox's mic key) and kept both new real findings.
+positive of that kind (ServerBox's mic key) and kept the one new real finding (Bagisto).
 
-**Recall:** 0.1.0 downgraded exactly 4 items, and all 4 are verified false positives. Known
-trade-off: an app that records video with camera's default `enableAudio: true` and no
-microphone string now gets ℹ instead of ✗. None of the 25 apps did that.
+**Why (the fifth):** a different mistake. plumb read `ios/Runner/Info.plist`, but ServerBox's
+Xcode project builds with per-configuration plists (`INFOPLIST_FILE`). plumb listed those
+files as "not checked" but still trusted the leftover `Info.plist`. I missed it in the hand
+check too; the app's maintainer caught it.
+
+**Fix in 0.1.1:** plumb reads `INFOPLIST_FILE` from `project.pbxproj`. If the app builds only
+with other plists in `ios/Runner/`, plumb says so (ℹ) and lists each `Info.plist` requirement as
+"not checked" instead of ✗. It doesn't read those other plists yet.
+
+**Recall:** 0.1.0 downgraded exactly 4 items, and all 4 are verified false positives. 0.1.1
+changed exactly 1 item across the 25 apps (ServerBox's Face ID key), also a verified false
+positive. Known trade-off: an app that records video with camera's default
+`enableAudio: true` and no microphone string now gets ℹ instead of ✗. None of the 25 apps did
+that.
 
 ## Other observations
 
@@ -144,6 +161,7 @@ microphone string now gets ℹ instead of ✗. None of the 25 apps did that.
   pixez, ServerBox, FlutterUnit, Mornye).
 - Plugins often arrive indirectly: in ServerBox, camera and local_auth come through a
   submodule, so neither appears in `pubspec.yaml`.
+- 1 app (ServerBox) builds with per-configuration plists instead of `Info.plist`.
 
 ## Limitations
 
@@ -151,13 +169,14 @@ microphone string now gets ℹ instead of ✗. None of the 25 apps did that.
   random sample.
 - plumb checks only what its recipes cover (10 plugins) and only the main `Info.plist` and
   `AndroidManifest.xml`. No flavor files, Gradle, Podfile or AppDelegate.
+- A hand check can be wrong too: one of mine was, until a maintainer corrected it.
 - ℹ items were not checked by hand; they never fail a run.
 
 ## Reproduce
 
 ```sh
 python3 -I study/2026-11-launch/fetch.py /tmp/plumb-study     # only the files plumb reads
-dart pub global activate plumb 0.1.0
+dart pub global activate plumb 0.1.1
 sh study/2026-11-launch/run.sh /tmp/plumb-study "$(command -v plumb)"
 python3 -I study/2026-11-launch/stats.py                      # recompute the numbers
 ```
