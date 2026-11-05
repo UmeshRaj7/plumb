@@ -25,6 +25,7 @@ ProjectSnapshot snapshot({
   IosFiles? ios,
   AndroidFiles? android,
   bool includeDemo = true,
+  Map<String, String> ignore = const {},
 }) => ProjectSnapshot(
   name: 'app',
   root: '/tmp/app',
@@ -36,6 +37,7 @@ ProjectSnapshot snapshot({
   ],
   ios: ios,
   android: android,
+  ignore: ignore,
 );
 
 DoctorReport run(ProjectSnapshot s) => runChecks(s, RecipeIndex([_recipe]));
@@ -230,6 +232,58 @@ ios:
         Severity.ok: 2,
         Severity.info: 1,
       });
+    });
+  });
+
+  group('plumb.ignore', () {
+    const cameraId = 'demo/ios/info_plist/NSCameraUsageDescription';
+    const permissionId = 'demo/android/permissions/android.permission.CAMERA';
+
+    test('an ignored finding keeps its severity but not its count', () {
+      final report = run(
+        snapshot(
+          ios: iosFiles({}),
+          android: androidFiles(''),
+          ignore: {cameraId: 'Set in Info-Release.plist'},
+        ),
+      );
+      final camera = report.findings.firstWhere((f) => f.id == cameraId);
+      expect(camera.severity, Severity.missing);
+      expect(camera.ignoredReason, 'Set in Info-Release.plist');
+      expect(report.summary[Severity.missing], 1); // only the permission
+      expect(report.ignoredCount, 1);
+    });
+
+    test('ignoring every problem makes --strict pass', () {
+      final report = run(
+        snapshot(
+          ios: iosFiles({}),
+          android: androidFiles(''),
+          ignore: {cameraId: 'reason', permissionId: 'reason'},
+        ),
+      );
+      expect(report.exitCode(strict: true), ExitCodes.ok);
+    });
+
+    test('never ignores a ✓, and reports entries that matched nothing', () {
+      final report = run(
+        snapshot(
+          ios: iosFiles({'NSCameraUsageDescription': 'Scan receipts'}),
+          ignore: {cameraId: 'reason', 'nothing/here': 'reason'},
+        ),
+      );
+      expect(
+        report.findings.firstWhere((f) => f.id == cameraId).ignoredReason,
+        isNull,
+      );
+      expect(
+        [
+          for (final f in report.findings)
+            if (f.id.startsWith('app/ignore/')) f.id,
+        ],
+        ['app/ignore/$cameraId', 'app/ignore/nothing/here'],
+      );
+      expect(report.ignoredCount, 0);
     });
   });
 }

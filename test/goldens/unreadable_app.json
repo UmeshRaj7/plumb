@@ -24,7 +24,8 @@
       "message": "ios/Runner/Info.plist is a binary plist; plumb reads XML plists only",
       "fix": "Convert it to XML, e.g. `plutil -convert xml1 ios/Runner/Info.plist` on macOS.",
       "source": null,
-      "also_needed_by": []
+      "also_needed_by": [],
+      "ignored": null
     },
     {
       "id": "app/android/file/android/app/src/main/AndroidManifest.xml",
@@ -36,7 +37,8 @@
       "message": "android/app/src/main/AndroidManifest.xml could not be parsed: Invalid XML: \">\" expected",
       "fix": "Fix the XML so Xcode/Gradle and plumb can read it.",
       "source": null,
-      "also_needed_by": []
+      "also_needed_by": [],
+      "ignored": null
     }
   ],
   "summary": {
@@ -44,6 +46,7 @@
     "missing": 0,
     "warning": 0,
     "ok": 0,
-    "info": 0
+    "info": 0,
+    "ignored": 0
   }
 }

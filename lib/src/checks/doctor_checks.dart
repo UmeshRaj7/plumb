@@ -56,19 +56,63 @@ DoctorReport runChecks(ProjectSnapshot snapshot, RecipeIndex index) {
       for (final r in recipe.requirements)
         if (r.kind == RequirementKind.infoPlistKey) r.key,
   };
+  final appFindings = [
+    ...fileProblemFindings(snapshot),
+    ...missingPlatformFindings(snapshot, applied),
+    if (infoPlist != null)
+      ...purposeStringFindings(infoPlist, keysCheckedByRecipes),
+    ...flavorFindings(snapshot),
+  ];
+  final (findings, unmatched) = _applyIgnores([
+    ...appFindings,
+    ..._mergeDuplicates(packageFindings),
+  ], snapshot.ignore);
   return DoctorReport(
     projectName: snapshot.name,
     dependencySource: snapshot.dependencySource,
     packages: packages,
+    recipePackageCount: index.packages.length,
     findings: [
-      ...fileProblemFindings(snapshot),
-      ...missingPlatformFindings(snapshot, applied),
-      if (infoPlist != null)
-        ...purposeStringFindings(infoPlist, keysCheckedByRecipes),
-      ...flavorFindings(snapshot),
-      ..._mergeDuplicates(packageFindings),
+      // Unmatched ignore entries go with the other app-level findings.
+      ...findings.take(appFindings.length),
+      ...unmatched,
+      ...findings.skip(appFindings.length),
     ],
   );
+}
+
+/// Marks findings listed in [ignore] (id → reason) as ignored. ✓ findings
+/// are never ignored. Returns the findings, plus an info finding for each
+/// entry that matched nothing, so stale entries get noticed and removed.
+(List<Finding>, List<Finding>) _applyIgnores(
+  List<Finding> findings,
+  Map<String, String> ignore,
+) {
+  final matched = <String>{};
+  final result = <Finding>[];
+  for (final finding in findings) {
+    final reason = ignore[finding.id];
+    if (reason == null || finding.severity == Severity.ok) {
+      result.add(finding);
+    } else {
+      matched.add(finding.id);
+      result.add(finding.ignoredBecause(reason));
+    }
+  }
+  final unmatched = [
+    for (final id in ignore.keys.toList()..sort())
+      if (!matched.contains(id))
+        Finding(
+          id: 'app/ignore/$id',
+          severity: Severity.info,
+          file: 'pubspec.yaml',
+          message: 'plumb.ignore lists $id, but nothing matched it',
+          fix:
+              'Remove the entry if that issue is fixed. Ids are shown by '
+              '--verbose and --json.',
+        ),
+  ];
+  return (result, unmatched);
 }
 
 List<Finding> _checkRecipe(Recipe recipe, ProjectSnapshot snapshot) => [

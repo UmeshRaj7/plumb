@@ -33,6 +33,7 @@ class Finding {
     this.fix,
     this.source,
     this.alsoNeededBy = const [],
+    this.ignoredReason,
   });
 
   /// Builds the finding for [requirement] of [recipe]. The id is stable:
@@ -93,17 +94,29 @@ class Finding {
   /// key and result). Reported once so one problem is counted once.
   final List<String> alsoNeededBy;
 
+  /// Why the app ignores this finding (`plumb: ignore:` in pubspec.yaml), or
+  /// null. An ignored finding keeps its severity but doesn't count in the
+  /// summary or the exit code.
+  final String? ignoredReason;
+
   /// A copy with [package] added to [alsoNeededBy].
-  Finding withAlsoNeededBy(String package) => Finding(
+  Finding withAlsoNeededBy(String package) =>
+      _copy(alsoNeededBy: [...alsoNeededBy, package]);
+
+  /// A copy marked as ignored for [reason].
+  Finding ignoredBecause(String reason) => _copy(ignoredReason: reason);
+
+  Finding _copy({List<String>? alsoNeededBy, String? ignoredReason}) => Finding(
     id: id,
     severity: severity,
     message: message,
-    package: this.package,
+    package: package,
     platform: platform,
     file: file,
     key: key,
     fix: fix,
     source: source,
-    alsoNeededBy: [...alsoNeededBy, package],
+    alsoNeededBy: alsoNeededBy ?? this.alsoNeededBy,
+    ignoredReason: ignoredReason ?? this.ignoredReason,
   );
 }

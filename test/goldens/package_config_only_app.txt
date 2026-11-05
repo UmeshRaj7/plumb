@@ -1,5 +1,6 @@
 plumb doctor · package_config_only_app
 Found 1 plugin with a recipe (read from .dart_tool/package_config.json).
+plumb has recipes for 10 plugins so far; others aren't checked.
 
 Your app
   ℹ ios      ios/  ios/ not found; ios requirements of camera were not checked

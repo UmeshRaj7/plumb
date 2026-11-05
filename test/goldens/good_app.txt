@@ -1,5 +1,6 @@
 plumb doctor · good_app
 Found 4 plugins with recipes (read from pubspec.lock).
+plumb has recipes for 10 plugins so far; others aren't checked.
 
 camera 0.11.2
   ✓ ios      Info.plist  NSCameraUsageDescription is set

@@ -1,5 +1,6 @@
 plumb doctor · ios_only_app
 Found 1 plugin with a recipe (read from pubspec.lock).
+plumb has recipes for 10 plugins so far; others aren't checked.
 
 Your app
   ℹ android  android/  android/ not found; android requirements of local_auth were not checked

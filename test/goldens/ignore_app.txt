@@ -1,0 +1,27 @@
+plumb doctor · ignore_app
+Found 4 plugins with recipes (read from pubspec.lock).
+plumb has recipes for 10 plugins so far; others aren't checked.
+
+Your app
+  ℹ          pubspec.yaml  plumb.ignore lists camera/ios/info_plist/NSMicrophoneUsageDescription, but nothing matched it
+                           fix:  Remove the entry if that issue is fixed. Ids are shown by --verbose and --json.
+
+camera 0.11.2
+  ✓ ios      Info.plist  NSCameraUsageDescription is set
+  ✓ ios      Info.plist  NSMicrophoneUsageDescription is set
+
+firebase_messaging 15.2.10
+  ✓ ios      Runner.entitlements  aps-environment is set
+  ✓ ios      Info.plist           UIBackgroundModes includes remote-notification
+  ℹ 1 conditional item and 2 manual steps (run with --verbose to list)
+
+geolocator 14.1.2
+  ✓ ios      Info.plist           NSLocationWhenInUseUsageDescription is set
+  ✓ android  AndroidManifest.xml  android.permission.ACCESS_COARSE_LOCATION is declared
+  ℹ 5 conditional items (run with --verbose to list)
+
+local_auth 2.3.0
+  ✓ android  MainActivity.kt  MainActivity extends FlutterFragmentActivity
+  ℹ 1 ignored, 1 conditional item and 1 manual step (run with --verbose to list)
+
+Summary: 7 ok · 0 missing · 0 warning · 11 info · 1 ignored

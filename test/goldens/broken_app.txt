@@ -1,5 +1,6 @@
 plumb doctor · broken_app
 Found 8 plugins with recipes (read from pubspec.lock).
+plumb has recipes for 10 plugins so far; others aren't checked.
 
 Your app
   ⚠ ios      Info.plist  NSHealthShareUsageDescription looks like a placeholder: "your description here"

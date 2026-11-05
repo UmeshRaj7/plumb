@@ -47,6 +47,7 @@ class DoctorReport {
     required this.dependencySource,
     required this.packages,
     required this.findings,
+    this.recipePackageCount,
   });
 
   /// The app's package name.
@@ -61,14 +62,25 @@ class DoctorReport {
   /// All findings in display order (app-level first, then by package).
   final List<Finding> findings;
 
-  /// Number of findings per severity (every severity present, possibly 0).
+  /// How many plugins plumb has recipes for, when known. Dependencies
+  /// without a recipe aren't checked.
+  final int? recipePackageCount;
+
+  /// Number of findings per severity (every severity present, possibly 0),
+  /// not counting ignored ones.
   Map<Severity, int> get summary => {
     for (final severity in Severity.values)
-      severity: findings.where((f) => f.severity == severity).length,
+      severity: findings
+          .where((f) => f.severity == severity && f.ignoredReason == null)
+          .length,
   };
+
+  /// Number of findings the app ignores (`plumb: ignore:` in pubspec.yaml).
+  int get ignoredCount => findings.where((f) => f.ignoredReason != null).length;
 
   /// The process exit code: 2 if any finding is an error (incomplete check),
   /// 1 if [strict] and anything is missing or a warning, otherwise 0.
+  /// Ignored findings don't count.
   int exitCode({required bool strict}) {
     final counts = summary;
     if (counts[Severity.error]! > 0) return ExitCodes.incomplete;

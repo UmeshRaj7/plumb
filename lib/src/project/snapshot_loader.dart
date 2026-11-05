@@ -30,6 +30,7 @@ ProjectSnapshot loadSnapshot(FlutterProject project) {
     packages: dependencies.packages,
     ios: loader.exists('ios') ? loader.ios() : null,
     android: loader.exists('android') ? loader.android() : null,
+    ignore: project.ignore,
   );
 }
 

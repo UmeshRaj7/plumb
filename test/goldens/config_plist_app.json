@@ -24,7 +24,8 @@
       "message": "Not checked: your Xcode project builds with Runner/Info-$(CONFIGURATION).plist (INFOPLIST_FILE), not Info.plist",
       "fix": "plumb reads ios/Runner/Info.plist only. Check the keys your plugins need (--verbose lists them) in Runner/Info-$(CONFIGURATION).plist yourself. If Info.plist is a leftover, consider deleting it.",
       "source": null,
-      "also_needed_by": []
+      "also_needed_by": [],
+      "ignored": null
     },
     {
       "id": "app/android/directory",
@@ -36,7 +37,8 @@
       "message": "android/ not found; android requirements of local_auth were not checked",
       "fix": null,
       "source": null,
-      "also_needed_by": []
+      "also_needed_by": [],
+      "ignored": null
     },
     {
       "id": "app/ios/flavors",
@@ -48,7 +50,8 @@
       "message": "Not checked: ios/Runner/Info-Debug.plist, ios/Runner/Info-Release.plist (plumb checks ios/Runner/Info.plist only)",
       "fix": null,
       "source": null,
-      "also_needed_by": []
+      "also_needed_by": [],
+      "ignored": null
     },
     {
       "id": "local_auth/ios/info_plist/NSFaceIDUsageDescription",
@@ -60,7 +63,8 @@
       "message": "NSFaceIDUsageDescription not checked: your build uses Runner/Info-$(CONFIGURATION).plist, not Info.plist",
       "fix": "Add NSFaceIDUsageDescription to Info.plist explaining why your app uses Face ID.",
       "source": "https://pub.dev/packages/local_auth_darwin#setup",
-      "also_needed_by": []
+      "also_needed_by": [],
+      "ignored": null
     }
   ],
   "summary": {
@@ -68,6 +72,7 @@
     "missing": 0,
     "warning": 0,
     "ok": 0,
-    "info": 4
+    "info": 4,
+    "ignored": 0
   }
 }

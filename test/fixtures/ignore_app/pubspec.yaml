@@ -1,0 +1,21 @@
+name: ignore_app
+description: "plumb test fixture — a missing key ignored via plumb.ignore, plus a stale entry."
+publish_to: none
+environment:
+  sdk: ^3.8.0
+dependencies:
+  flutter:
+    sdk: flutter
+  camera: any
+  geolocator: any
+  local_auth: any
+  firebase_messaging: any
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+plumb:
+  ignore:
+    local_auth/ios/info_plist/NSFaceIDUsageDescription: Set in Info-Release.plist, which plumb doesn't read
+    camera/ios/info_plist/NSMicrophoneUsageDescription: Fixed since, so this entry is stale

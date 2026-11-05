@@ -1,5 +1,6 @@
 plumb doctor · edge_app
 Found 3 plugins with recipes (read from pubspec.lock).
+plumb has recipes for 10 plugins so far; others aren't checked.
 
 Your app
   ℹ ios        Not checked: ios/Runner/Info-Staging.plist (plumb checks ios/Runner/Info.plist only)

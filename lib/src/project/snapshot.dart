@@ -97,6 +97,7 @@ class ProjectSnapshot {
     required this.packages,
     this.ios,
     this.android,
+    this.ignore = const {},
   });
 
   /// The app's package name.
@@ -116,4 +117,7 @@ class ProjectSnapshot {
 
   /// Android files, or null when there is no `android/` directory.
   final AndroidFiles? android;
+
+  /// Finding ids to ignore, with the reason (`plumb: ignore:` in pubspec.yaml).
+  final Map<String, String> ignore;
 }

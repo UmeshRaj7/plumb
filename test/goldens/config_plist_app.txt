@@ -1,5 +1,6 @@
 plumb doctor · config_plist_app
 Found 1 plugin with a recipe (read from pubspec.lock).
+plumb has recipes for 10 plugins so far; others aren't checked.
 
 Your app
   ℹ ios      Info.plist  Not checked: your Xcode project builds with Runner/Info-$(CONFIGURATION).plist (INFOPLIST_FILE), not Info.plist

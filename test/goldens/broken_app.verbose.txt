@@ -1,140 +1,180 @@
 plumb doctor · broken_app
 Found 8 plugins with recipes (read from pubspec.lock).
+plumb has recipes for 10 plugins so far; others aren't checked.
 
 Your app
   ⚠ ios      Info.plist  NSHealthShareUsageDescription looks like a placeholder: "your description here"
                          fix:  Replace it with a sentence telling users why the app needs this access. App Review rejects vague or placeholder purpose strings.
                          docs: https://developer.apple.com/documentation/uikit/requesting-access-to-protected-resources
+                         id:   app/ios/info_plist/NSHealthShareUsageDescription
 
 camera 0.11.2
   ⚠ ios      Info.plist  NSCameraUsageDescription looks like a placeholder: "TODO"
                          also: image_picker, permission_handler
                          fix:  Replace it with a real value. Add NSCameraUsageDescription to Info.plist with a usage description.
                          docs: https://pub.dev/packages/camera#ios
+                         id:   camera/ios/info_plist/NSCameraUsageDescription
   ℹ ios      Info.plist  NSMicrophoneUsageDescription is not set
                          fix:  Needed unless every CameraController is created with enableAudio: false (the default is true). Add NSMicrophoneUsageDescription to Info.plist with a usage description.
                          docs: https://pub.dev/packages/camera#ios
+                         id:   camera/ios/info_plist/NSMicrophoneUsageDescription
 
 flutter_local_notifications 99.0.0
   ℹ No recipe for flutter_local_notifications 99.0.0 (recipes cover >=19.0.0 <23.0.0), so it was not checked
     docs: https://pub.dev/packages/flutter_local_notifications#-android-setup
+    id:   flutter_local_notifications/recipe
 
 geolocator 13.0.4
   ✗ ios      Info.plist           NSLocationWhenInUseUsageDescription is missing
                                   fix:  Add NSLocationWhenInUseUsageDescription to Info.plist with a description that is meaningful for your app.
                                   docs: https://pub.dev/packages/geolocator#usage
+                                  id:   geolocator/ios/info_plist/NSLocationWhenInUseUsageDescription
   ℹ ios      Info.plist           NSLocationAlwaysAndWhenInUseUsageDescription is not set
                                   fix:  Needed for background location updates, and whenever you don't set the BYPASS_PERMISSION_LOCATION_ALWAYS=1 macro in your Podfile.
                                   docs: https://pub.dev/packages/geolocator#usage
+                                  id:   geolocator/ios/info_plist/NSLocationAlwaysAndWhenInUseUsageDescription
   ℹ ios      Info.plist           NSLocationTemporaryUsageDescriptionDictionary is not set
                                   fix:  Needed if you call requestTemporaryFullAccuracy(purposeKey: ...): add one entry per purpose key.
                                   docs: https://pub.dev/packages/geolocator#usage
+                                  id:   geolocator/ios/info_plist/NSLocationTemporaryUsageDescriptionDictionary
   ℹ android  AndroidManifest.xml  android.permission.ACCESS_COARSE_LOCATION is not declared
                                   fix:  Add ACCESS_COARSE_LOCATION or ACCESS_FINE_LOCATION (at least one) as a child of <manifest>.
                                   docs: https://pub.dev/packages/geolocator#usage
+                                  id:   geolocator/android/permissions/android.permission.ACCESS_COARSE_LOCATION
   ℹ android  AndroidManifest.xml  android.permission.ACCESS_FINE_LOCATION is removed with tools:node="remove"
                                   fix:  Add ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION (at least one); FINE is used when both are present.
                                   docs: https://pub.dev/packages/geolocator#usage
+                                  id:   geolocator/android/permissions/android.permission.ACCESS_FINE_LOCATION
   ℹ android  AndroidManifest.xml  android.permission.ACCESS_BACKGROUND_LOCATION is not declared
                                   fix:  Android 10+ needs it to keep receiving updates while the app is in the background.
                                   docs: https://pub.dev/packages/geolocator#usage
+                                  id:   geolocator/android/permissions/android.permission.ACCESS_BACKGROUND_LOCATION
 
 google_maps_flutter 2.19.0
   ℹ ios                           Manual step plumb can't check (required)
                                   fix:  Call GMSServices.provideAPIKey("<your key>") in ios/Runner/AppDelegate.swift before registering plugins.
                                   docs: https://pub.dev/packages/google_maps_flutter_ios_sdk10#setup
+                                  id:   google_maps_flutter/ios/manual/ios-api-key
   ℹ ios                           Manual step plumb can't check (only if you use this feature)
                                   fix:  Google Maps SDK 10.x requires iOS 16 (SDK 9.x: iOS 15); raise your minimum iOS deployment target if needed.
                                   docs: https://pub.dev/packages/google_maps_flutter_ios_sdk10#setup
+                                  id:   google_maps_flutter/ios/manual/ios-deployment-target
   ⚠ android  AndroidManifest.xml  <meta-data> com.google.android.geo.API_KEY looks like a placeholder: "YOUR KEY HERE"
                                   fix:  Replace it with a real value. Add <meta-data android:name="com.google.android.geo.API_KEY" android:value="<your key>"/> inside <application>.
                                   docs: https://pub.dev/packages/google_maps_flutter_android#setup
+                                  id:   google_maps_flutter/android/manifest_meta_data/com.google.android.geo.API_KEY
 
 image_picker 1.2.4
   ⚠ ios      Info.plist  NSPhotoLibraryUsageDescription is empty
                          also: permission_handler
                          fix:  Replace it with a real value. Add NSPhotoLibraryUsageDescription to Info.plist describing why your app needs the photo library. App Store policy requires it even if you always pass requestFullMetadata: false.
                          docs: https://pub.dev/packages/image_picker#ios
+                         id:   image_picker/ios/info_plist/NSPhotoLibraryUsageDescription
   ℹ ios      Info.plist  NSMicrophoneUsageDescription is not set
                          fix:  Needed if you record videos. Add NSMicrophoneUsageDescription to Info.plist describing why your app needs the microphone.
                          docs: https://pub.dev/packages/image_picker#ios
+                         id:   image_picker/ios/info_plist/NSMicrophoneUsageDescription
 
 local_auth 3.0.2
   ✗ ios      Info.plist           NSFaceIDUsageDescription is missing
                                   fix:  Add NSFaceIDUsageDescription to Info.plist explaining why your app uses Face ID.
                                   docs: https://pub.dev/packages/local_auth_darwin#setup
+                                  id:   local_auth/ios/info_plist/NSFaceIDUsageDescription
   ✗ android  MainActivity.kt      MainActivity extends FlutterActivity, not FlutterFragmentActivity
                                   fix:  local_auth needs a FragmentActivity: make MainActivity extend FlutterFragmentActivity (or use FlutterFragmentActivity directly in AndroidManifest.xml).
                                   docs: https://pub.dev/packages/local_auth_android#setup
+                                  id:   local_auth/android/activity_class/io.flutter.embedding.android.FlutterFragmentActivity
   ℹ android  AndroidManifest.xml  android.permission.USE_BIOMETRIC is not declared
                                   fix:  The README asks you to add USE_BIOMETRIC; local_auth_android's own manifest already declares it, so the manifest merger adds it for you.
                                   docs: https://pub.dev/packages/local_auth_android#setup
+                                  id:   local_auth/android/permissions/android.permission.USE_BIOMETRIC
   ℹ android                       Manual step plumb can't check (only if you use this feature)
                                   fix:  On Android 8 and below, LaunchTheme's parent must be a Theme.AppCompat theme (android/app/src/main/res/values/styles.xml) to prevent crashes.
                                   docs: https://pub.dev/packages/local_auth_android#setup
+                                  id:   local_auth/android/manual/launch-theme-appcompat
 
 permission_handler 12.0.3
   ℹ ios      Info.plist  NSCalendarsUsageDescription is not set
                          fix:  Needed for Permission.calendar (before iOS 17).
                          docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSCalendarsUsageDescription
   ℹ ios      Info.plist  NSCalendarsFullAccessUsageDescription is not set
                          fix:  Needed for Permission.calendarFullAccess (iOS 17+).
                          docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSCalendarsFullAccessUsageDescription
   ℹ ios      Info.plist  NSCalendarsWriteOnlyAccessUsageDescription is not set
                          fix:  Needed for Permission.calendarWriteOnly (iOS 17+).
                          docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSCalendarsWriteOnlyAccessUsageDescription
   ℹ ios      Info.plist  NSRemindersUsageDescription is not set
                          fix:  Needed for Permission.reminders.
                          docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSRemindersUsageDescription
   ⚠ ios      Info.plist  NSContactsUsageDescription looks like a placeholder: "Lorem ipsum dolor sit amet"
                          fix:  Replace it with a real value. Needed for Permission.contacts.
                          docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSContactsUsageDescription
   ℹ ios      Info.plist  NSMicrophoneUsageDescription is not set
                          fix:  Needed for Permission.microphone.
                          docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSMicrophoneUsageDescription
   ℹ ios      Info.plist  NSSpeechRecognitionUsageDescription is not set
                          fix:  Needed for Permission.speech.
                          docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSSpeechRecognitionUsageDescription
   ℹ ios      Info.plist  NSPhotoLibraryAddUsageDescription is not set
                          fix:  Needed for Permission.photosAddOnly.
                          docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSPhotoLibraryAddUsageDescription
   ℹ ios      Info.plist  NSLocationWhenInUseUsageDescription is not set
                          fix:  Needed for Permission.location / locationWhenInUse.
                          docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSLocationWhenInUseUsageDescription
   ℹ ios      Info.plist  NSLocationAlwaysAndWhenInUseUsageDescription is not set
                          fix:  Needed for Permission.locationAlways.
                          docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSLocationAlwaysAndWhenInUseUsageDescription
   ℹ ios      Info.plist  NSAppleMusicUsageDescription is not set
                          fix:  Needed for Permission.mediaLibrary.
                          docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSAppleMusicUsageDescription
   ℹ ios      Info.plist  NSMotionUsageDescription is not set
                          fix:  Needed for Permission.sensors.
                          docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSMotionUsageDescription
   ℹ ios      Info.plist  NSBluetoothAlwaysUsageDescription is not set
                          fix:  Needed for Permission.bluetooth.
                          docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSBluetoothAlwaysUsageDescription
   ℹ ios      Info.plist  NSUserTrackingUsageDescription is not set
                          fix:  Needed for Permission.appTrackingTransparency.
                          docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSUserTrackingUsageDescription
   ℹ ios      Info.plist  NSSiriUsageDescription is not set
                          fix:  Needed for Permission.assistant.
                          docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/info_plist/NSSiriUsageDescription
   ℹ ios                  Manual step plumb can't check (only if you use this feature)
                          fix:  With CocoaPods, enable each permission you use with a PERMISSION_<GROUP>=1 macro in your Podfile's post_install block (GCC_PREPROCESSOR_DEFINITIONS); disabled permissions always report denied.
                          docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/ios/manual/podfile-permission-macros
   ℹ android              Manual step plumb can't check (only if you use this feature)
                          fix:  Add a <uses-permission> to android/app/src/main/AndroidManifest.xml for each permission you request (the README links an example manifest with all of them).
                          docs: https://pub.dev/packages/permission_handler#setup
+                         id:   permission_handler/android/manual/android-manifest-permissions
 
 sign_in_with_apple 8.2.0
   ✗ ios      ios/Runner/          No .entitlements file in ios/Runner, so com.apple.developer.applesignin is not set
                                   fix:  Add the Sign in with Apple capability in Xcode (Signing & Capabilities); without it sign-in fails without any visible indication.
                                   docs: https://pub.dev/packages/sign_in_with_apple#ios
+                                  id:   sign_in_with_apple/ios/entitlements/com.apple.developer.applesignin
   ℹ android  AndroidManifest.xml  <activity> com.aboutyou.dart_packages.sign_in_with_apple.SignInWithAppleCallback is not declared
                                   fix:  Needed for Sign in with Apple on Android: declare this activity inside <application> with android:exported="true" and an intent-filter for scheme "signinwithapple", path "callback".
                                   docs: https://pub.dev/packages/sign_in_with_apple#android
+                                  id:   sign_in_with_apple/android/components/com.aboutyou.dart_packages.sign_in_with_apple.SignInWithAppleCallback
   ℹ android                       Manual step plumb can't check (only if you use this feature)
                                   fix:  For Sign in with Apple on Android, your activity's launchMode must be singleTask or singleTop so the login page can return to the app.
                                   docs: https://pub.dev/packages/sign_in_with_apple#android
+                                  id:   sign_in_with_apple/android/manual/launch-mode
 
 Summary: 0 ok · 4 missing · 5 warning · 30 info

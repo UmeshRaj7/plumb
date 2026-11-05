@@ -45,11 +45,13 @@ String renderJson(DoctorReport report) {
           'fix': finding.fix,
           'source': finding.source,
           'also_needed_by': finding.alsoNeededBy,
+          'ignored': finding.ignoredReason,
         },
     ],
     'summary': {
       for (final MapEntry(:key, :value) in report.summary.entries)
         key.name: value,
+      'ignored': report.ignoredCount,
     },
   };
   return '${const JsonEncoder.withIndent('  ').convert(document)}\n';

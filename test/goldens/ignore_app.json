@@ -1,0 +1,291 @@
+{
+  "format": 1,
+  "plumb_version": "0.1.0",
+  "project": {
+    "name": "ignore_app",
+    "dependency_source": "pubspec.lock"
+  },
+  "packages": [
+    {
+      "name": "camera",
+      "version": "0.11.2",
+      "status": "checked",
+      "recipe": "recipes/camera.yaml"
+    },
+    {
+      "name": "firebase_messaging",
+      "version": "15.2.10",
+      "status": "checked",
+      "recipe": "recipes/firebase_messaging@14.yaml"
+    },
+    {
+      "name": "geolocator",
+      "version": "14.1.2",
+      "status": "checked",
+      "recipe": "recipes/geolocator.yaml"
+    },
+    {
+      "name": "local_auth",
+      "version": "2.3.0",
+      "status": "checked",
+      "recipe": "recipes/local_auth.yaml"
+    }
+  ],
+  "findings": [
+    {
+      "id": "app/ignore/camera/ios/info_plist/NSMicrophoneUsageDescription",
+      "severity": "info",
+      "package": null,
+      "platform": null,
+      "file": "pubspec.yaml",
+      "key": null,
+      "message": "plumb.ignore lists camera/ios/info_plist/NSMicrophoneUsageDescription, but nothing matched it",
+      "fix": "Remove the entry if that issue is fixed. Ids are shown by --verbose and --json.",
+      "source": null,
+      "also_needed_by": [],
+      "ignored": null
+    },
+    {
+      "id": "camera/ios/info_plist/NSCameraUsageDescription",
+      "severity": "ok",
+      "package": "camera",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSCameraUsageDescription",
+      "message": "NSCameraUsageDescription is set",
+      "fix": null,
+      "source": "https://pub.dev/packages/camera#ios",
+      "also_needed_by": [],
+      "ignored": null
+    },
+    {
+      "id": "camera/ios/info_plist/NSMicrophoneUsageDescription",
+      "severity": "ok",
+      "package": "camera",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSMicrophoneUsageDescription",
+      "message": "NSMicrophoneUsageDescription is set",
+      "fix": null,
+      "source": "https://pub.dev/packages/camera#ios",
+      "also_needed_by": [],
+      "ignored": null
+    },
+    {
+      "id": "firebase_messaging/ios/entitlements/aps-environment",
+      "severity": "ok",
+      "package": "firebase_messaging",
+      "platform": "ios",
+      "file": "ios/Runner/Runner.entitlements",
+      "key": "aps-environment",
+      "message": "aps-environment is set",
+      "fix": null,
+      "source": "https://developer.apple.com/documentation/bundleresources/entitlements/aps-environment",
+      "also_needed_by": [],
+      "ignored": null
+    },
+    {
+      "id": "firebase_messaging/ios/background_modes/remote-notification",
+      "severity": "ok",
+      "package": "firebase_messaging",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "remote-notification",
+      "message": "UIBackgroundModes includes remote-notification",
+      "fix": null,
+      "source": "https://firebase.google.com/docs/cloud-messaging/flutter/client",
+      "also_needed_by": [],
+      "ignored": null
+    },
+    {
+      "id": "firebase_messaging/ios/background_modes/fetch",
+      "severity": "info",
+      "package": "firebase_messaging",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "fetch",
+      "message": "UIBackgroundModes does not include fetch",
+      "fix": "Firebase's guide asks you to enable Background fetch too; the official firebase_messaging example app doesn't, so plumb doesn't require it.",
+      "source": "https://firebase.google.com/docs/cloud-messaging/flutter/client",
+      "also_needed_by": [],
+      "ignored": null
+    },
+    {
+      "id": "firebase_messaging/ios/manual/apns-auth-key",
+      "severity": "info",
+      "package": "firebase_messaging",
+      "platform": "ios",
+      "file": null,
+      "key": "apns-auth-key",
+      "message": "Manual step plumb can't check (required)",
+      "fix": "Upload your APNs authentication key in the Firebase console (Project settings → Cloud Messaging → Apple app configuration).",
+      "source": "https://firebase.google.com/docs/cloud-messaging/flutter/client",
+      "also_needed_by": [],
+      "ignored": null
+    },
+    {
+      "id": "firebase_messaging/ios/manual/keep-method-swizzling",
+      "severity": "info",
+      "package": "firebase_messaging",
+      "platform": "ios",
+      "file": null,
+      "key": "keep-method-swizzling",
+      "message": "Manual step plumb can't check (required)",
+      "fix": "FCM on Apple platforms needs method swizzling: don't set FirebaseAppDelegateProxyEnabled to NO in Info.plist.",
+      "source": "https://firebase.google.com/docs/cloud-messaging/flutter/client",
+      "also_needed_by": [],
+      "ignored": null
+    },
+    {
+      "id": "geolocator/ios/info_plist/NSLocationWhenInUseUsageDescription",
+      "severity": "ok",
+      "package": "geolocator",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSLocationWhenInUseUsageDescription",
+      "message": "NSLocationWhenInUseUsageDescription is set",
+      "fix": null,
+      "source": "https://pub.dev/packages/geolocator#usage",
+      "also_needed_by": [],
+      "ignored": null
+    },
+    {
+      "id": "geolocator/ios/info_plist/NSLocationAlwaysAndWhenInUseUsageDescription",
+      "severity": "info",
+      "package": "geolocator",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSLocationAlwaysAndWhenInUseUsageDescription",
+      "message": "NSLocationAlwaysAndWhenInUseUsageDescription is not set",
+      "fix": "Needed for background location updates, and whenever you don't set the BYPASS_PERMISSION_LOCATION_ALWAYS=1 macro (Podfile) or environment variable (Swift Package Manager). Apple asks you to justify it at review.",
+      "source": "https://pub.dev/packages/geolocator#usage",
+      "also_needed_by": [],
+      "ignored": null
+    },
+    {
+      "id": "geolocator/ios/info_plist/NSLocationTemporaryUsageDescriptionDictionary",
+      "severity": "info",
+      "package": "geolocator",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSLocationTemporaryUsageDescriptionDictionary",
+      "message": "NSLocationTemporaryUsageDescriptionDictionary is not set",
+      "fix": "Needed if you call requestTemporaryFullAccuracy(purposeKey: ...): add one entry per purpose key.",
+      "source": "https://pub.dev/packages/geolocator#usage",
+      "also_needed_by": [],
+      "ignored": null
+    },
+    {
+      "id": "geolocator/ios/background_modes/location",
+      "severity": "info",
+      "package": "geolocator",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "location",
+      "message": "UIBackgroundModes does not include location",
+      "fix": "Needed to receive location updates in the background on iOS 16+ (Background Modes capability → Location updates). Apple asks you to justify it at review.",
+      "source": "https://pub.dev/packages/geolocator#usage",
+      "also_needed_by": [],
+      "ignored": null
+    },
+    {
+      "id": "geolocator/android/permissions/android.permission.ACCESS_COARSE_LOCATION",
+      "severity": "ok",
+      "package": "geolocator",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "android.permission.ACCESS_COARSE_LOCATION",
+      "message": "android.permission.ACCESS_COARSE_LOCATION is declared",
+      "fix": null,
+      "source": "https://pub.dev/packages/geolocator#usage",
+      "also_needed_by": [],
+      "ignored": null
+    },
+    {
+      "id": "geolocator/android/permissions/android.permission.ACCESS_FINE_LOCATION",
+      "severity": "info",
+      "package": "geolocator",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "android.permission.ACCESS_FINE_LOCATION",
+      "message": "android.permission.ACCESS_FINE_LOCATION is not declared",
+      "fix": "Add if your app benefits from precise location; request it together with ACCESS_COARSE_LOCATION.",
+      "source": "https://pub.dev/packages/geolocator#usage",
+      "also_needed_by": [],
+      "ignored": null
+    },
+    {
+      "id": "geolocator/android/permissions/android.permission.ACCESS_BACKGROUND_LOCATION",
+      "severity": "info",
+      "package": "geolocator",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "android.permission.ACCESS_BACKGROUND_LOCATION",
+      "message": "android.permission.ACCESS_BACKGROUND_LOCATION is not declared",
+      "fix": "Android 10+ needs it to keep receiving updates while the app is in the background.",
+      "source": "https://pub.dev/packages/geolocator#usage",
+      "also_needed_by": [],
+      "ignored": null
+    },
+    {
+      "id": "local_auth/ios/info_plist/NSFaceIDUsageDescription",
+      "severity": "missing",
+      "package": "local_auth",
+      "platform": "ios",
+      "file": "ios/Runner/Info.plist",
+      "key": "NSFaceIDUsageDescription",
+      "message": "NSFaceIDUsageDescription is missing",
+      "fix": "Add NSFaceIDUsageDescription to Info.plist explaining why your app uses Face ID.",
+      "source": "https://pub.dev/packages/local_auth_darwin#setup",
+      "also_needed_by": [],
+      "ignored": "Set in Info-Release.plist, which plumb doesn't read"
+    },
+    {
+      "id": "local_auth/android/activity_class/io.flutter.embedding.android.FlutterFragmentActivity",
+      "severity": "ok",
+      "package": "local_auth",
+      "platform": "android",
+      "file": "android/app/src/main/kotlin/dev/example/good_app/MainActivity.kt",
+      "key": "io.flutter.embedding.android.FlutterFragmentActivity",
+      "message": "MainActivity extends FlutterFragmentActivity",
+      "fix": null,
+      "source": "https://pub.dev/packages/local_auth_android#setup",
+      "also_needed_by": [],
+      "ignored": null
+    },
+    {
+      "id": "local_auth/android/permissions/android.permission.USE_BIOMETRIC",
+      "severity": "info",
+      "package": "local_auth",
+      "platform": "android",
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "key": "android.permission.USE_BIOMETRIC",
+      "message": "android.permission.USE_BIOMETRIC is not declared",
+      "fix": "The README asks you to add USE_BIOMETRIC; local_auth_android's own manifest already declares it, so the manifest merger adds it for you.",
+      "source": "https://pub.dev/packages/local_auth_android#setup",
+      "also_needed_by": [],
+      "ignored": null
+    },
+    {
+      "id": "local_auth/android/manual/launch-theme-appcompat",
+      "severity": "info",
+      "package": "local_auth",
+      "platform": "android",
+      "file": null,
+      "key": "launch-theme-appcompat",
+      "message": "Manual step plumb can't check (only if you use this feature)",
+      "fix": "On Android 8 and below, LaunchTheme's parent must be a Theme.AppCompat theme (android/app/src/main/res/values/styles.xml) to prevent crashes.",
+      "source": "https://pub.dev/packages/local_auth_android#setup",
+      "also_needed_by": [],
+      "ignored": null
+    }
+  ],
+  "summary": {
+    "error": 0,
+    "missing": 0,
+    "warning": 0,
+    "ok": 7,
+    "info": 11,
+    "ignored": 1
+  }
+}

@@ -189,19 +189,21 @@ Summary: 1 ok · 1 missing · 1 warning · 2 info
             'fix',
             'source',
             'also_needed_by',
+            'ignored',
           ]);
         }
         expect((findings[2] as Map)['severity'], 'missing');
       },
     );
 
-    test('summary counts every severity', () {
+    test('summary counts every severity, and ignored findings', () {
       expect(json['summary'], {
         'error': 0,
         'missing': 1,
         'warning': 1,
         'ok': 1,
         'info': 2,
+        'ignored': 0,
       });
     });
 

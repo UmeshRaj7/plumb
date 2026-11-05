@@ -84,4 +84,60 @@ void main() {
       expect(info.dependsOnFlutter, isFalse);
     });
   });
+
+  group('plumb.ignore in pubspec.yaml', () {
+    test('reads finding ids and trimmed reasons', () {
+      final info = parsePubspec('''
+name: x
+plumb:
+  ignore:
+    local_auth/ios/info_plist/NSFaceIDUsageDescription: " Set in Info-Release.plist "
+''');
+      expect(info.ignore, {
+        'local_auth/ios/info_plist/NSFaceIDUsageDescription':
+            'Set in Info-Release.plist',
+      });
+    });
+
+    test('is empty without a plumb section', () {
+      expect(parsePubspec('name: x').ignore, isEmpty);
+    });
+
+    for (final (name, yaml, message) in [
+      (
+        'a reason is missing',
+        'plumb:\n  ignore:\n    some/id:',
+        'needs a reason',
+      ),
+      (
+        'a reason is blank',
+        'plumb:\n  ignore:\n    some/id: "  "',
+        'needs a reason',
+      ),
+      (
+        'ignore is a list',
+        'plumb:\n  ignore:\n    - some/id',
+        'must map finding ids',
+      ),
+      (
+        'plumb has an unknown key',
+        'plumb:\n  ignored: {}',
+        'Unknown key `plumb.ignored`',
+      ),
+      ('plumb is not a map', 'plumb: yes', 'must be a map'),
+    ]) {
+      test('rejects it when $name', () {
+        expect(
+          () => parsePubspec('name: x\n$yaml'),
+          throwsA(
+            isA<FormatException>().having(
+              (e) => e.message,
+              'message',
+              contains(message),
+            ),
+          ),
+        );
+      });
+    }
+  });
 }

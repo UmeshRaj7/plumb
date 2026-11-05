@@ -3,9 +3,10 @@ import '../checks/finding.dart';
 
 /// Renders [report] for humans, grouped by package.
 ///
-/// Conditional, manual and "can't verify" items of a package are counted on
-/// one line unless [verbose]; everything else is always listed. [color]
-/// adds ANSI colors.
+/// Conditional, manual and "can't verify" items of a package, and findings
+/// the app ignores, are counted on one line unless [verbose]; everything
+/// else is always listed. [verbose] also shows finding ids (for
+/// `plumb: ignore:`). [color] adds ANSI colors.
 String renderText(
   DoctorReport report, {
   bool color = false,
@@ -18,7 +19,14 @@ String renderText(
 
   final appFindings = report.findings.where((f) => f.package == null).toList();
   if (appFindings.isNotEmpty) {
-    _writeSection(out, style, 'Your app', appFindings, verbose: true);
+    _writeSection(
+      out,
+      style,
+      'Your app',
+      appFindings,
+      verbose: verbose,
+      collapse: false,
+    );
   }
   for (final package in report.packages) {
     final version = package.version?.toString() ?? '(version unknown)';
@@ -28,22 +36,26 @@ String renderText(
       '${package.name} $version',
       report.findings.where((f) => f.package == package.name).toList(),
       verbose: verbose,
+      collapse: !verbose,
     );
   }
 
   out
     ..writeln()
-    ..writeln(_summary(report.summary));
+    ..writeln(_summary(report.summary, report.ignoredCount));
   return out.toString();
 }
 
 String _intro(DoctorReport report) {
   final source = report.dependencySource.label;
-  return switch (report.packages.length) {
+  final found = switch (report.packages.length) {
     0 => 'None of your dependencies has a bundled recipe (read from $source).',
     1 => 'Found 1 plugin with a recipe (read from $source).',
     final n => 'Found $n plugins with recipes (read from $source).',
   };
+  final known = report.recipePackageCount;
+  if (known == null) return found;
+  return '$found\nplumb has recipes for $known plugins so far; others aren\'t checked.';
 }
 
 /// Conditional/manual items of a package are collapsed by default; notes
@@ -51,16 +63,22 @@ String _intro(DoctorReport report) {
 bool _collapsible(Finding f) =>
     f.severity == Severity.info && f.package != null && f.key != null;
 
+/// Writes one section. Unless [verbose], ignored findings are only counted,
+/// and so are collapsible ones when [collapse].
 void _writeSection(
   StringBuffer out,
   _Style style,
   String title,
   List<Finding> findings, {
   required bool verbose,
+  required bool collapse,
 }) {
-  final shown = verbose
-      ? findings
-      : findings.where((f) => !_collapsible(f)).toList();
+  final shown = [
+    for (final f in findings)
+      if (verbose ||
+          (f.ignoredReason == null && !(collapse && _collapsible(f))))
+        f,
+  ];
   final hidden = findings.where((f) => !shown.contains(f)).toList();
 
   out
@@ -91,6 +109,10 @@ void _writeSection(
       if (finding.source != null) {
         out.writeln('${indent}docs: ${finding.source}');
       }
+      if (verbose) out.writeln('${indent}id:   ${finding.id}');
+    }
+    if (finding.ignoredReason != null) {
+      out.writeln('${indent}ignored: ${finding.ignoredReason}');
     }
   }
   if (findings.isEmpty) {
@@ -106,15 +128,21 @@ void _writeSection(
   }
 }
 
-/// "2 conditional items and 1 manual step" for the collapsed findings.
+/// "1 ignored, 2 conditional items and 1 manual step" for the hidden findings.
 String _hiddenSummary(List<Finding> hidden) {
-  final manual = hidden.where((f) => f.file == null).length;
-  final conditional = hidden.length - manual;
+  final ignored = hidden.where((f) => f.ignoredReason != null).length;
+  final manual = hidden
+      .where((f) => f.ignoredReason == null && f.file == null)
+      .length;
+  final conditional = hidden.length - ignored - manual;
   String count(int n, String noun) => '$n $noun${n == 1 ? '' : 's'}';
-  return [
+  final parts = [
+    if (ignored > 0) '$ignored ignored',
     if (conditional > 0) count(conditional, 'conditional item'),
     if (manual > 0) count(manual, 'manual step'),
-  ].join(' and ');
+  ];
+  if (parts.length < 2) return parts.join();
+  return '${parts.take(parts.length - 1).join(', ')} and ${parts.last}';
 }
 
 /// The file name shown in the file column (full path when it's a directory
@@ -128,13 +156,14 @@ String _fileLabel(Finding finding) {
   return file.split('/').last;
 }
 
-String _summary(Map<Severity, int> counts) {
+String _summary(Map<Severity, int> counts, int ignored) {
   final parts = [
     if (counts[Severity.error]! > 0) '${counts[Severity.error]} error',
     '${counts[Severity.ok]} ok',
     '${counts[Severity.missing]} missing',
     '${counts[Severity.warning]} warning',
     '${counts[Severity.info]} info',
+    if (ignored > 0) '$ignored ignored',
   ];
   return 'Summary: ${parts.join(' · ')}';
 }

@@ -16,6 +16,7 @@ const cases = [
   ('unreadable_app', <String>[], 2),
   ('ios_only_app', ['--strict'], 0),
   ('config_plist_app', ['--strict'], 0),
+  ('ignore_app', ['--strict'], 0),
   ('package_config_only_app', <String>[], 0),
 ];
 
@@ -68,5 +69,10 @@ void main() {
   test('broken_app --verbose lists every item', () async {
     final (_, output) = await doctor(['test/fixtures/broken_app', '--verbose']);
     expectGolden(output, 'broken_app.verbose.txt');
+  });
+
+  test('ignore_app --verbose shows ids and why findings are ignored', () async {
+    final (_, output) = await doctor(['test/fixtures/ignore_app', '--verbose']);
+    expectGolden(output, 'ignore_app.verbose.txt');
   });
 }

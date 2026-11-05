@@ -1,5 +1,6 @@
 plumb doctor · unreadable_app
 Found 1 plugin with a recipe (read from pubspec.lock).
+plumb has recipes for 10 plugins so far; others aren't checked.
 
 Your app
   ✗ ios      Info.plist           ios/Runner/Info.plist is a binary plist; plumb reads XML plists only

@@ -12,6 +12,7 @@ class FlutterProject {
     required this.root,
     required this.name,
     required this.resolutionRoot,
+    this.ignore = const {},
   });
 
   /// Absolute path of the directory containing the app's pubspec.yaml.
@@ -23,6 +24,9 @@ class FlutterProject {
   /// Where pubspec.lock / .dart_tool live: [root], or the pub workspace root
   /// when the app has `resolution: workspace`.
   final String resolutionRoot;
+
+  /// Finding ids to ignore, with the reason (`plumb: ignore:` in pubspec.yaml).
+  final Map<String, String> ignore;
 }
 
 /// What a pubspec.yaml says about its package.
@@ -34,6 +38,7 @@ class PubspecInfo {
     required this.isPlugin,
     required this.isWorkspaceMember,
     required this.isWorkspaceRoot,
+    this.ignore = const {},
   });
 
   /// `name:`
@@ -50,10 +55,14 @@ class PubspecInfo {
 
   /// `workspace:` is present.
   final bool isWorkspaceRoot;
+
+  /// `plumb: ignore:`: finding id → why it is safe to ignore.
+  final Map<String, String> ignore;
 }
 
 /// Reads the facts plumb needs from pubspec.yaml contents.
-/// Throws [FormatException] if it isn't a YAML map with a `name`.
+/// Throws [FormatException] if it isn't a YAML map with a `name`, or if its
+/// `plumb:` section is invalid.
 PubspecInfo parsePubspec(String yaml) {
   final Object? document;
   try {
@@ -76,7 +85,49 @@ PubspecInfo parsePubspec(String yaml) {
     isPlugin: flutterSection is Map && flutterSection['plugin'] != null,
     isWorkspaceMember: document['resolution'] == 'workspace',
     isWorkspaceRoot: document.containsKey('workspace'),
+    ignore: _parsePlumbSection(document['plumb']),
   );
+}
+
+/// The `plumb:` section of pubspec.yaml. Strict, like recipes: a typo
+/// should fail loudly instead of silently ignoring nothing.
+///
+/// ```yaml
+/// plumb:
+///   ignore:
+///     <finding id>: <why it is safe to ignore>
+/// ```
+Map<String, String> _parsePlumbSection(Object? section) {
+  if (section == null) return const {};
+  if (section is! Map) {
+    throw const FormatException(
+      '`plumb:` must be a map, e.g. `plumb: {ignore: {<finding id>: <reason>}}`.',
+    );
+  }
+  for (final key in section.keys) {
+    if (key != 'ignore') {
+      throw FormatException('Unknown key `plumb.$key` (supported: ignore).');
+    }
+  }
+  final ignore = section['ignore'];
+  if (ignore == null) return const {};
+  if (ignore is! Map) {
+    throw const FormatException(
+      '`plumb.ignore` must map finding ids to reasons, e.g. '
+      '`local_auth/ios/info_plist/NSFaceIDUsageDescription: Set in Info-Release.plist`.',
+    );
+  }
+  final reasons = <String, String>{};
+  for (final MapEntry(:key, :value) in ignore.entries) {
+    if (value is! String || value.trim().isEmpty) {
+      throw FormatException(
+        '`plumb.ignore` entry "$key" needs a reason: say why it is safe to '
+        'ignore, so the next person knows.',
+      );
+    }
+    reasons['$key'] = value.trim();
+  }
+  return reasons;
 }
 
 /// Finds the Flutter app containing [start] by walking up to the nearest
@@ -129,6 +180,7 @@ FlutterProject findFlutterProject(String start) {
     root: root,
     name: info.name,
     resolutionRoot: resolutionRoot,
+    ignore: info.ignore,
   );
 }
 

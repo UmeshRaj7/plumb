@@ -24,7 +24,8 @@
       "message": "android/ not found; android requirements of local_auth were not checked",
       "fix": null,
       "source": null,
-      "also_needed_by": []
+      "also_needed_by": [],
+      "ignored": null
     },
     {
       "id": "local_auth/ios/info_plist/NSFaceIDUsageDescription",
@@ -36,7 +37,8 @@
       "message": "NSFaceIDUsageDescription is set",
       "fix": null,
       "source": "https://pub.dev/packages/local_auth_darwin#setup",
-      "also_needed_by": []
+      "also_needed_by": [],
+      "ignored": null
     }
   ],
   "summary": {
@@ -44,6 +46,7 @@
     "missing": 0,
     "warning": 0,
     "ok": 1,
-    "info": 1
+    "info": 1,
+    "ignored": 0
   }
 }
